@@ -61,23 +61,27 @@ const WoodcuttingPage: NextPage = () => {
 	const [woodcuttingExperience, setWoodcuttingExperience] = useState(0);
 
 	return (
-		<div>
-			<h1>Woodcutting</h1>
+		<div className="p-4 space-y-4">
+			<h1 className="text-4xl font-bold">Woodcutting</h1>
 			<p>
-				<span>Current experience:</span> {woodcuttingExperience}
+				<span className="font-bold">Current experience:</span> {woodcuttingExperience}
 			</p>
-			<div>
+			<div className="grid grid-cols-4 gap-4">
 				{trees.map((tree) => {
 					const isCurrentTree = currentTree?.name === tree.name;
 					const time = (isBusy && isCurrentTree ? timeLeft : tree.time) / 1000;
 
 					return (
-						<div key={tree.id}>
-							<span>
+						<div
+							key={tree.id}
+							className="flex flex-col items-center justify-center p-4 space-y-4 border border-gray-900 rounded"
+						>
+							<span className="font-bold">
 								{tree.name} - {time.toFixed(1)}s
 							</span>
 							<span>Required experience: {tree.requiredExperience}</span>
 							<button
+								className="px-4 py-2 font-medium text-white bg-blue-700 rounded disabled:opacity-50"
 								disabled={isBusy || tree.requiredExperience > woodcuttingExperience}
 								onClick={() => {
 									setBusy(true);
