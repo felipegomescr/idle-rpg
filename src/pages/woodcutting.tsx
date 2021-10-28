@@ -2,6 +2,10 @@ import { useState } from "react";
 import { uid } from "uid";
 import type { NextPage } from "next";
 
+const isDevelopment = process.env.NODE_ENV === "development";
+const experienceModifier = isDevelopment ? 10 : 1;
+const timeModifier = isDevelopment ? 4 : 1;
+
 type Tree = {
 	id: string;
 	experience: number;
@@ -14,40 +18,40 @@ type Tree = {
 const trees: Tree[] = [
 	{
 		id: uid(),
-		experience: 10,
+		experience: 10 * experienceModifier,
 		name: "Oak",
 		requiredExperience: 0,
-		time: 5000,
+		time: 5000 / timeModifier,
 		onFinish: () => {
 			alert("Finished.");
 		},
 	},
 	{
 		id: uid(),
-		experience: 20,
+		experience: 20 * experienceModifier,
 		name: "Willow",
 		requiredExperience: 200,
-		time: 10000,
+		time: 10000 / timeModifier,
 		onFinish: () => {
 			alert("Finished.");
 		},
 	},
 	{
 		id: uid(),
-		experience: 30,
+		experience: 30 * experienceModifier,
 		name: "Mahogany",
 		requiredExperience: 400,
-		time: 15000,
+		time: 15000 / timeModifier,
 		onFinish: () => {
 			alert("Finished.");
 		},
 	},
 	{
 		id: uid(),
-		experience: 40,
+		experience: 40 * experienceModifier,
 		name: "Teak",
 		requiredExperience: 600,
-		time: 20000,
+		time: 20000 / timeModifier,
 		onFinish: () => {
 			alert("Finished.");
 		},
