@@ -10,6 +10,7 @@ type McProviderProps = {
 
 const McContainer = createContainer(() => {
 	const [inventory, setInventory] = useState<Item[]>([]);
+	const [isBusy, setBusy] = useState(false);
 	const [woodcuttingExp, setWoodcuttingExp] = useState(0);
 
 	return {
@@ -25,7 +26,7 @@ const McContainer = createContainer(() => {
 					return [...prevInventory, item];
 				});
 			},
-			delAt: (itemIndex: number) => {
+			deleteAt: (itemIndex: number) => {
 				const updatedInventory = inventory.filter((_, index) => {
 					return index !== itemIndex;
 				});
@@ -33,6 +34,7 @@ const McContainer = createContainer(() => {
 				setInventory(updatedInventory);
 			},
 		},
+		isBusy,
 		woodcutting: {
 			exp: woodcuttingExp,
 			incBy: (amount: number) => {
@@ -41,6 +43,7 @@ const McContainer = createContainer(() => {
 				});
 			},
 		},
+		setBusy,
 	};
 });
 
