@@ -21,18 +21,18 @@ const oak: Tree = {
 	timeUntilReward: 10000 / progressModifier,
 };
 
-const willow: Tree = {
+const teak: Tree = {
 	id: uid(),
-	name: "Willow",
+	name: "Teak",
 	requiredExp: 400,
 	rewardedExp: 30 * progressModifier,
 	rewardTable: [birdNest, mahoganyLog],
 	timeUntilReward: 15000 / progressModifier,
 };
 
-const teak: Tree = {
+const willow: Tree = {
 	id: uid(),
-	name: "Teak",
+	name: "Willow",
 	requiredExp: 600,
 	rewardedExp: 40 * progressModifier,
 	rewardTable: [birdNest, teakLog],
