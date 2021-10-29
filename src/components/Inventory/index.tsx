@@ -2,10 +2,10 @@ import { Item } from "@/models";
 
 type InventoryProps = {
 	items: Item[];
-	onItemDel: (itemToDelete: Item, itemIndex: number) => void;
+	onItemDelete: (itemToDelete: Item, itemIndex: number) => void;
 };
 
-export const Inventory = ({ items, onItemDel: handleItemDel }: InventoryProps) => {
+export const Inventory = ({ items, onItemDelete: handleItemDelete }: InventoryProps) => {
 	return (
 		<>
 			<div className="font-bold">Inventory</div>
@@ -16,7 +16,7 @@ export const Inventory = ({ items, onItemDel: handleItemDel }: InventoryProps) =
 							<button
 								className="w-8 h-8 font-bold text-white bg-red-600 rounded-full"
 								onClick={() => {
-									handleItemDel(item, itemIndex);
+									handleItemDelete(item, itemIndex);
 								}}
 							>
 								&#10005;
