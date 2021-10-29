@@ -49,7 +49,5 @@ export const McProvider = ({ children }: McProviderProps) => {
 };
 
 export const useMc = () => {
-	const mc = McContainer.useContainer();
-
-	return mc;
+	return McContainer.useContainer();
 };
