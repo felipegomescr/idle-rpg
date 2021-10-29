@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import { Card } from "@/components/Card";
 import { ProgressBar } from "@/components/ProgressBar";
 import { parseTimeInMsToTextInSec } from "@/helpers";
 import { Item, Tree } from "@/models";
@@ -21,10 +22,7 @@ export const TreeCard = ({
 	const timeUntilNextReward = useRef<NodeJS.Timer>();
 
 	return (
-		<div className="flex flex-col items-center justify-center p-4 space-y-4 border border-black">
-			<span className="font-bold">
-				{tree.name} - {parseTimeInMsToTextInSec(tree.timeUntilReward)}
-			</span>
+		<Card title={`${tree.name} - ${parseTimeInMsToTextInSec(tree.timeUntilReward)}`}>
 			<div className="text-center">
 				{isBeingChoppedDown && <ProgressBar duration={tree.timeUntilReward} loop />}
 				<p>
@@ -51,6 +49,6 @@ export const TreeCard = ({
 			>
 				{isBeingChoppedDown ? "Cancel" : "Chop down"}
 			</button>
-		</div>
+		</Card>
 	);
 };
