@@ -1,22 +1,22 @@
-import { Item } from "@/types";
+import { Item } from "@/models";
 
 type InventoryProps = {
-	itemList: Item[];
-	onItemDestroy: (itemToDelete: Item, index: number) => void;
+	items: Item[];
+	onItemDel: (itemToDelete: Item, itemIndex: number) => void;
 };
 
-export const Inventory = ({ itemList, onItemDestroy: handleItemDestroy }: InventoryProps) => {
+export const Inventory = ({ items, onItemDel: handleItemDel }: InventoryProps) => {
 	return (
 		<>
 			<div className="font-bold">Inventory</div>
 			<ul className="grid grid-cols-8 gap-2">
-				{itemList.map((item, index) => {
+				{items.map((item, itemIndex) => {
 					return (
-						<li key={index} className="space-x-2">
+						<li key={itemIndex} className="space-x-2">
 							<button
 								className="w-8 h-8 font-bold text-white bg-red-600 rounded-full"
 								onClick={() => {
-									handleItemDestroy(item, index);
+									handleItemDel(item, itemIndex);
 								}}
 							>
 								&#10005;
