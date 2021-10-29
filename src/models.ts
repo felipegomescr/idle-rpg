@@ -1,6 +1,6 @@
 export enum ItemType {
 	LOG,
-	MISCELLANEOUS,
+	MISC,
 }
 
 export type Item = {

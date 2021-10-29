@@ -1,6 +1,7 @@
 import { uid } from "uid";
 import { progressModifier } from "@/helpers";
-import { birdNest, mahoganyLog, oakLog, teakLog, willowLog } from "@/items";
+import { mahoganyLog, oakLog, teakLog, willowLog } from "@/items/logs";
+import { birdNest } from "@/items/misc";
 import type { Tree } from "@/models";
 
 const mahogany: Tree = {

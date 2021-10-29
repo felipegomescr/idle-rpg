@@ -2,13 +2,6 @@ import { uid } from "uid";
 import { progressModifier } from "@/helpers";
 import { ItemType } from "@/models";
 
-export const birdNest = {
-	id: uid(),
-	dropRate: 0.5 * progressModifier,
-	name: "Bird Nest",
-	type: ItemType.LOG,
-};
-
 export const mahoganyLog = {
 	id: uid(),
 	dropRate: 1 * progressModifier,
