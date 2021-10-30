@@ -9,8 +9,8 @@ export const parseTimeInMsToTextInSec = (time: number) => {
 export const progressModifier =
 	process.env.NODE_ENV === "development" ? Number(process.env.NEXT_PUBLIC_PROGRESS_MODIFIER) : 1;
 
-export const rollForRewards = (rewardTable: Item[]) => {
+export const rollForLoot = (rewardTable: Item[]) => {
 	return rewardTable.filter((item) => {
-		return Math.random() <= item.dropRate;
+		return item.dropRate > Math.random();
 	});
 };

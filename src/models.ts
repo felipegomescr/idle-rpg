@@ -1,7 +1,12 @@
-export enum ItemType {
-	LOG,
-	MISC,
-}
+export type Action = {
+	id: string;
+	actionText: string;
+	name: string;
+	requiredExp: number;
+	rewardedExp: number;
+	rewardTable: Item[];
+	timeUntilReward: number;
+};
 
 export type Item = {
 	id: string;
@@ -10,11 +15,12 @@ export type Item = {
 	type: ItemType;
 };
 
-export type Tree = {
-	id: string;
-	name: string;
-	requiredExp: number;
-	rewardedExp: number;
-	rewardTable: Item[];
-	timeUntilReward: number;
-};
+export enum ItemType {
+	LOG,
+	MISC,
+}
+
+export enum Skill {
+	MINING,
+	WOODCUTTING,
+}
