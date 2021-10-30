@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ActionCard } from "@/components/ActionCard";
 import { SkillPageLayout } from "@/components/SkillPageLayout";
 import { useMc } from "@/containers/mc";
@@ -17,6 +17,12 @@ export const GatheringSkillTypePageLayout = ({ actions, skill, title }: Gatherin
 	const mc = useMc();
 
 	const currentExp = mc.getSkillExp(skill);
+
+	useEffect(() => {
+		return () => {
+			mc.setBusy(false);
+		};
+	}, []);
 
 	return (
 		<SkillPageLayout currentExp={currentExp} title={title}>

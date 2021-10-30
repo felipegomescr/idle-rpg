@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Card } from "@/components/Card";
 import { ProgressBar } from "@/components/ProgressBar";
 import { parseTimeInMsToTextInSec } from "@/helpers";
@@ -21,7 +21,13 @@ export const ActionCard = ({
 	onActionComplete: handleActionComplete,
 	onClick: handleClick,
 }: ActionCardProps) => {
-	const timeUntilNextReward = useRef<NodeJS.Timer>();
+	const intervalUntilNextReward = useRef<NodeJS.Timer>();
+
+	useEffect(() => {
+		return () => {
+			clearInterval(intervalUntilNextReward.current!);
+		};
+	}, []);
 
 	return (
 		<Card title={`${action.name} - ${parseTimeInMsToTextInSec(action.timeUntilReward)}`}>
@@ -39,9 +45,9 @@ export const ActionCard = ({
 				disabled={isDisabled}
 				onClick={() => {
 					if (isPerformingAction) {
-						clearInterval(timeUntilNextReward.current!);
+						clearInterval(intervalUntilNextReward.current!);
 					} else {
-						timeUntilNextReward.current = setInterval(() => {
+						intervalUntilNextReward.current = setInterval(() => {
 							handleActionComplete(action.rewardTable, action.rewardedExp);
 						}, action.timeUntilReward);
 					}
