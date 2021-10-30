@@ -1,11 +1,14 @@
-export type Action = {
+type BaseAction = {
 	id: string;
 	actionText: string;
+	expReward: number;
+	lootTable: Item[];
 	name: string;
 	requiredExp: number;
-	rewardedExp: number;
-	rewardTable: Item[];
-	timeUntilReward: number;
+};
+
+export type GatheringAction = BaseAction & {
+	timeToCompletion: number;
 };
 
 export type Item = {
@@ -21,6 +24,6 @@ export enum ItemType {
 }
 
 export enum Skill {
+	LOGGING,
 	MINING,
-	WOODCUTTING,
 }

@@ -1,36 +1,36 @@
 import { uid } from "uid";
 import { progressModifier } from "@/helpers";
-import { bronzeOre, ironOre, steelOre } from "@/items";
+import { birdNest, oakLog, teakLog, willowLog } from "@/items";
 import type { GatheringAction } from "@/models";
 
-const mineBronzeOre: GatheringAction = {
+const chopMahogany: GatheringAction = {
 	id: uid(),
-	actionText: "Mine",
+	actionText: "Chop",
 	expReward: 10 * progressModifier,
-	lootTable: [bronzeOre],
-	name: "Bronze Ore",
+	lootTable: [birdNest, oakLog],
+	name: "Mahogany",
 	requiredExp: 0,
 	timeToCompletion: 5000 / progressModifier,
 };
 
-const mineIronOre: GatheringAction = {
+const chopOak: GatheringAction = {
 	id: uid(),
-	actionText: "Mine",
+	actionText: "Chop",
 	expReward: 20 * progressModifier,
-	lootTable: [ironOre],
-	name: "Iron Ore",
+	lootTable: [birdNest, willowLog],
+	name: "Oak",
 	requiredExp: 200,
 	timeToCompletion: 10000 / progressModifier,
 };
 
-const mineSteelOre: GatheringAction = {
+const chopWillow: GatheringAction = {
 	id: uid(),
-	actionText: "Mine",
+	actionText: "Chop",
 	expReward: 30 * progressModifier,
-	lootTable: [steelOre],
-	name: "Steel Ore",
+	lootTable: [birdNest, teakLog],
+	name: "Willow",
 	requiredExp: 400,
 	timeToCompletion: 15000 / progressModifier,
 };
 
-export const miningActions = [mineBronzeOre, mineIronOre, mineSteelOre];
+export const loggingActions = [chopMahogany, chopOak, chopWillow];

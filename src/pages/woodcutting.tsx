@@ -1,10 +1,10 @@
-import { woodcuttingActions as actions } from "@/actions/woodcutting";
-import { GatheringSkillTypePageLayout } from "@/components/GatheringSkillTypePageLayout";
+import { loggingActions } from "@/actions/logging";
+import { GatheringSkillPageLayout } from "@/components/GatheringSkillPageLayout";
 import { Skill } from "@/models";
 import type { NextPage } from "next";
 
-const MiningPage: NextPage = () => {
-	return <GatheringSkillTypePageLayout actions={actions} skill={Skill.WOODCUTTING} title="Woodcutting" />;
+const LoggingPage: NextPage = () => {
+	return <GatheringSkillPageLayout actions={loggingActions} skill={Skill.LOGGING} title="Logging" />;
 };
 
-export default MiningPage;
+export default LoggingPage;

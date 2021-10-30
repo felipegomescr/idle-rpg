@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
-import { ActionCard } from "@/components/ActionCard";
-import { SkillPageLayout } from "@/components/SkillPageLayout";
+import { BaseSkillPageLayout } from "@/components/BaseSkillPageLayout";
+import { GatheringActionCard } from "@/components/GatheringActionCard";
 import { useMc } from "@/containers/mc";
 import { rollForLoot } from "@/helpers";
 import { Skill } from "@/models";
-import type { SkillPageLayoutProps } from "@/components/SkillPageLayout";
-import type { Action } from "@/models";
+import type { BaseSkillPageLayoutProps } from "@/components/BaseSkillPageLayout";
+import type { GatheringAction } from "@/models";
 
-type GatheringSkillTypePageLayoutProps = Pick<SkillPageLayoutProps, "title"> & {
-	actions: Action[];
+type GatheringSkillPageLayoutProps = Pick<BaseSkillPageLayoutProps, "title"> & {
+	actions: GatheringAction[];
 	skill: Skill;
 };
 
-export const GatheringSkillTypePageLayout = ({ actions, skill, title }: GatheringSkillTypePageLayoutProps) => {
-	const [currentAction, setCurrentAction] = useState<Action>();
+export const GatheringSkillPageLayout = ({ actions, skill, title }: GatheringSkillPageLayoutProps) => {
+	const [currentAction, setCurrentAction] = useState<GatheringAction>();
 	const mc = useMc();
 
 	const currentExp = mc.getSkillExp(skill);
@@ -25,23 +25,23 @@ export const GatheringSkillTypePageLayout = ({ actions, skill, title }: Gatherin
 	}, []);
 
 	return (
-		<SkillPageLayout currentExp={currentExp} title={title}>
+		<BaseSkillPageLayout currentExp={currentExp} title={title}>
 			{actions.map((action) => {
 				const isPerformingAction = currentAction?.name === action.name;
 
 				return (
-					<ActionCard
+					<GatheringActionCard
 						key={action.id}
 						action={action}
 						actionText={action.actionText}
 						isDisabled={(mc.isBusy && !isPerformingAction) || action.requiredExp > currentExp}
 						isPerformingAction={isPerformingAction}
-						onActionComplete={(rewardTable, rewardedExp) => {
-							rollForLoot(rewardTable).forEach((reward) => {
-								mc.inventory.add(reward);
+						onActionComplete={(expReward, lootTable) => {
+							rollForLoot(lootTable).forEach((item) => {
+								mc.inventory.keep(item);
 							});
 
-							mc.increaseSkillExpBy(rewardedExp, skill);
+							mc.increaseSkillExpBy(expReward, skill);
 						}}
 						onClick={(isPerformingAction) => {
 							mc.setBusy(!isPerformingAction);
@@ -50,6 +50,6 @@ export const GatheringSkillTypePageLayout = ({ actions, skill, title }: Gatherin
 					/>
 				);
 			})}
-		</SkillPageLayout>
+		</BaseSkillPageLayout>
 	);
 };

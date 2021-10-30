@@ -1,43 +1,43 @@
 import { useEffect, useRef } from "react";
-import { Card } from "@/components/Card";
+import { BaseActionCard } from "@/components/BaseActionCard";
 import { ProgressBar } from "@/components/ProgressBar";
 import { parseTimeInMsToTextInSec } from "@/helpers";
-import { Action, Item } from "@/models";
+import { GatheringAction, Item } from "@/models";
 
-type ActionCardProps = {
-	action: Action;
+type GatheringActionCardProps = {
+	action: GatheringAction;
 	actionText: string;
 	isDisabled: boolean;
 	isPerformingAction: boolean;
-	onActionComplete: (rewardTable: Item[], rewardedExp: number) => void;
+	onActionComplete: (expReward: number, lootTable: Item[]) => void;
 	onClick: (isPerformingAction: boolean) => void;
 };
 
-export const ActionCard = ({
+export const GatheringActionCard = ({
 	action,
 	actionText,
 	isDisabled,
 	isPerformingAction,
 	onActionComplete: handleActionComplete,
 	onClick: handleClick,
-}: ActionCardProps) => {
-	const intervalUntilNextReward = useRef<NodeJS.Timer>();
+}: GatheringActionCardProps) => {
+	const timeToCompletionCounter = useRef<NodeJS.Timer>();
 
 	useEffect(() => {
 		return () => {
-			clearInterval(intervalUntilNextReward.current!);
+			clearInterval(timeToCompletionCounter.current!);
 		};
 	}, []);
 
 	return (
-		<Card title={`${action.name} - ${parseTimeInMsToTextInSec(action.timeUntilReward)}`}>
+		<BaseActionCard title={`${action.name} - ${parseTimeInMsToTextInSec(action.timeToCompletion)}`}>
 			<div className="text-center">
-				{isPerformingAction && <ProgressBar duration={action.timeUntilReward} loop />}
+				{isPerformingAction && <ProgressBar duration={action.timeToCompletion} loop />}
 				<p>
 					<span className="font-bold">Required experience:</span> {action.requiredExp}
 				</p>
 				<p>
-					<span className="font-bold">Rewarded experience:</span> {action.rewardedExp}
+					<span className="font-bold">Experience reward:</span> {action.expReward}
 				</p>
 			</div>
 			<button
@@ -45,11 +45,11 @@ export const ActionCard = ({
 				disabled={isDisabled}
 				onClick={() => {
 					if (isPerformingAction) {
-						clearInterval(intervalUntilNextReward.current!);
+						clearInterval(timeToCompletionCounter.current!);
 					} else {
-						intervalUntilNextReward.current = setInterval(() => {
-							handleActionComplete(action.rewardTable, action.rewardedExp);
-						}, action.timeUntilReward);
+						timeToCompletionCounter.current = setInterval(() => {
+							handleActionComplete(action.expReward, action.lootTable);
+						}, action.timeToCompletion);
 					}
 
 					handleClick(isPerformingAction);
@@ -57,6 +57,6 @@ export const ActionCard = ({
 			>
 				{isPerformingAction ? "Cancel" : actionText}
 			</button>
-		</Card>
+		</BaseActionCard>
 	);
 };

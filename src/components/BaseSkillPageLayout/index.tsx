@@ -2,13 +2,13 @@ import { ReactNode } from "react";
 import { Inventory } from "@/components/Inventory";
 import { useMc } from "@/containers/mc";
 
-export type SkillPageLayoutProps = {
+export type BaseSkillPageLayoutProps = {
 	children: ReactNode;
 	currentExp: number;
 	title: string;
 };
 
-export const SkillPageLayout = ({ children, currentExp, title }: SkillPageLayoutProps) => {
+export const BaseSkillPageLayout = ({ children, currentExp, title }: BaseSkillPageLayoutProps) => {
 	const mc = useMc();
 
 	return (
@@ -20,8 +20,8 @@ export const SkillPageLayout = ({ children, currentExp, title }: SkillPageLayout
 			<div className="grid grid-cols-4 gap-4">{children}</div>
 			<Inventory
 				items={mc.inventory.items}
-				onItemDelete={(_, itemIndex) => {
-					mc.inventory.deleteAt(itemIndex);
+				onItemDestroy={(_, itemIndex) => {
+					mc.inventory.destroyAt(itemIndex);
 				}}
 			/>
 		</div>

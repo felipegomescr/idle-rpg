@@ -12,13 +12,20 @@ type McProviderProps = {
 const McContainer = createContainer(() => {
 	const [inventory, setInventory] = useState<Item[]>([]);
 	const [isBusy, setBusy] = useState(false);
+	const [loggingExp, setLoggingExp] = useState(0);
 	const [miningExp, setMiningExp] = useState(0);
-	const [woodcuttingExp, setWoodcuttingExp] = useState(0);
 
 	return {
 		inventory: {
 			items: inventory,
-			add: (item: Item) => {
+			destroyAt: (itemIndex: number) => {
+				setInventory(
+					inventory.filter((_, index) => {
+						return index !== itemIndex;
+					})
+				);
+			},
+			keep: (item: Item) => {
 				setInventory((prevInventory) => {
 					// Is inventory full?
 					if (prevInventory.length === maxInventoryCapacity) {
@@ -28,21 +35,14 @@ const McContainer = createContainer(() => {
 					return [...prevInventory, item];
 				});
 			},
-			deleteAt: (itemIndex: number) => {
-				const updatedInventory = inventory.filter((_, index) => {
-					return index !== itemIndex;
-				});
-
-				setInventory(updatedInventory);
-			},
 		},
 		isBusy,
 		getSkillExp: (skill: Skill) => {
 			switch (skill) {
+				case Skill.LOGGING:
+					return loggingExp;
 				case Skill.MINING:
 					return miningExp;
-				case Skill.WOODCUTTING:
-					return woodcuttingExp;
 			}
 		},
 		increaseSkillExpBy: (amount: number, skill: Skill) => {
@@ -51,10 +51,10 @@ const McContainer = createContainer(() => {
 			};
 
 			switch (skill) {
+				case Skill.LOGGING:
+					setLoggingExp(updateSkillExp);
 				case Skill.MINING:
 					setMiningExp(updateSkillExp);
-				case Skill.WOODCUTTING:
-					setWoodcuttingExp(updateSkillExp);
 			}
 		},
 		setBusy,
