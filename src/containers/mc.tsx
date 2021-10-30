@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { createContainer } from "unstated-next";
-import { maxInventoryCapacity } from "@/helpers";
 import { Skill } from "@/models";
+import { maxInventoryCapacity } from "@/values";
 import type { ReactNode } from "react";
 import type { Item } from "@/models";
 
@@ -11,7 +11,6 @@ type McProviderProps = {
 
 const McContainer = createContainer(() => {
 	const [inventory, setInventory] = useState<Item[]>([]);
-	const [isBusy, setBusy] = useState(false);
 	const [loggingExp, setLoggingExp] = useState(0);
 	const [miningExp, setMiningExp] = useState(0);
 
@@ -36,7 +35,6 @@ const McContainer = createContainer(() => {
 				});
 			},
 		},
-		isBusy,
 		getSkillExp: (skill: Skill) => {
 			switch (skill) {
 				case Skill.LOGGING:
@@ -46,18 +44,17 @@ const McContainer = createContainer(() => {
 			}
 		},
 		increaseSkillExpBy: (amount: number, skill: Skill) => {
-			const updateSkillExp = (prevSkillExp: number) => {
+			const increaseSkillExp = (prevSkillExp: number) => {
 				return prevSkillExp + amount;
 			};
 
 			switch (skill) {
 				case Skill.LOGGING:
-					setLoggingExp(updateSkillExp);
+					setLoggingExp(increaseSkillExp);
 				case Skill.MINING:
-					setMiningExp(updateSkillExp);
+					setMiningExp(increaseSkillExp);
 			}
 		},
-		setBusy,
 	};
 });
 

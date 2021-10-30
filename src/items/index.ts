@@ -1,3 +1,3 @@
-export * from "@/items/logs";
-export * from "@/items/misc";
-export * from "@/items/ores";
+export * from "./logs";
+export * from "./misc";
+export * from "./ores";

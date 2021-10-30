@@ -25,9 +25,11 @@ export const GatheringActionCard = ({
 
 	useEffect(() => {
 		return () => {
-			clearInterval(timeToCompletionCounter.current!);
+			if (isPerformingAction) {
+				clearInterval(timeToCompletionCounter.current!);
+			}
 		};
-	}, []);
+	}, [isPerformingAction]);
 
 	return (
 		<BaseActionCard title={`${action.name} - ${parseTimeInMsToTextInSec(action.timeToCompletion)}`}>

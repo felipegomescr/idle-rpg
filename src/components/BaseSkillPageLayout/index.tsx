@@ -1,29 +1,19 @@
 import { ReactNode } from "react";
-import { Inventory } from "@/components/Inventory";
-import { useMc } from "@/containers/mc";
 
 export type BaseSkillPageLayoutProps = {
 	children: ReactNode;
-	currentExp: number;
-	title: string;
+	skillExp: number;
+	skillName: string;
 };
 
-export const BaseSkillPageLayout = ({ children, currentExp, title }: BaseSkillPageLayoutProps) => {
-	const mc = useMc();
-
+export const BaseSkillPageLayout = ({ children, skillExp, skillName }: BaseSkillPageLayoutProps) => {
 	return (
 		<div className="p-4 space-y-4">
-			<h1 className="text-4xl font-bold">{title}</h1>
+			<h1 className="text-4xl font-bold">{skillName}</h1>
 			<div>
-				<span className="font-bold">Current experience:</span> {currentExp}
+				<span className="font-bold">{skillName} experience:</span> {skillExp}
 			</div>
-			<div className="grid grid-cols-4 gap-4">{children}</div>
-			<Inventory
-				items={mc.inventory.items}
-				onItemDestroy={(_, itemIndex) => {
-					mc.inventory.destroyAt(itemIndex);
-				}}
-			/>
+			{children}
 		</div>
 	);
 };
