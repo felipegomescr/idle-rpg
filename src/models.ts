@@ -1,3 +1,6 @@
+import { ItemType } from "@/enums";
+import * as items from "@/items";
+
 type BaseAction = {
 	id: string;
 	actionText: string;
@@ -8,6 +11,7 @@ type BaseAction = {
 };
 
 export type GatheringAction = BaseAction & {
+	requiredItems?: RequiredItems;
 	timeToCompletion: number;
 };
 
@@ -18,12 +22,8 @@ export type Item = {
 	type: ItemType;
 };
 
-export enum ItemType {
-	LOG,
-	MISC,
-}
+export type ItemsKeys = keyof typeof items;
 
-export enum Skill {
-	LOGGING,
-	MINING,
-}
+export type RequiredItems = {
+	[key in ItemsKeys]?: number;
+};

@@ -1,5 +1,5 @@
 import { uid } from "uid";
-import { ItemType } from "@/models";
+import { ItemType } from "@/enums";
 import { progressMultiplier } from "@/values";
 
 export const birdNest = {

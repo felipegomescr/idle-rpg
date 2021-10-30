@@ -9,6 +9,9 @@ export const SkillNavigation = () => {
 			<Link href="/mining">
 				<a>Mining</a>
 			</Link>
+			<Link href="/smithing">
+				<a>Smithing</a>
+			</Link>
 		</nav>
 	);
 };

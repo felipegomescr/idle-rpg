@@ -3,8 +3,8 @@ import { BaseSkillPageLayout } from "@/components/BaseSkillPageLayout";
 import { GatheringActionCard } from "@/components/GatheringActionCard";
 import { Inventory } from "@/components/Inventory";
 import { useMc } from "@/containers/mc";
-import { getSkillActions, getSkillName, rollForLoot } from "@/helpers";
-import { Skill } from "@/models";
+import { Skill } from "@/enums";
+import { getSkillActions, getSkillName, hasRequiredItems, rollForLoot } from "@/helpers";
 import type { GatheringAction } from "@/models";
 
 type GatheringSkillPageLayoutProps = {
@@ -30,13 +30,14 @@ export const GatheringSkillPageLayout = ({ skill }: GatheringSkillPageLayoutProp
 							key={action.id}
 							action={action}
 							actionText={action.actionText}
-							isDisabled={action.requiredExp > skillExp}
+							isDisabled={action.requiredExp > skillExp || !hasRequiredItems(mc.inv.items, action.requiredItems)}
 							isPerformingAction={isPerformingAction}
 							onActionComplete={(expReward, lootTable) => {
 								mc.increaseSkillExpBy(expReward, skill);
 								rollForLoot(lootTable).forEach((item) => {
-									mc.inventory.keep(item);
+									mc.inv.keep(item);
 								});
+								// #TODO: Destruir requiredItems do inv.
 							}}
 							onClick={(isPerformingAction) => {
 								setCurrentAction(isPerformingAction ? undefined : action);
@@ -46,9 +47,9 @@ export const GatheringSkillPageLayout = ({ skill }: GatheringSkillPageLayoutProp
 				})}
 			</div>
 			<Inventory
-				items={mc.inventory.items}
+				items={mc.inv.items}
 				onItemDestroy={(_, itemIndex) => {
-					mc.inventory.destroyAt(itemIndex);
+					mc.inv.destroyAt(itemIndex);
 				}}
 			/>
 		</BaseSkillPageLayout>

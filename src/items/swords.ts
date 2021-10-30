@@ -2,23 +2,23 @@ import { uid } from "uid";
 import { ItemType } from "@/enums";
 import { progressMultiplier } from "@/values";
 
-export const oakLog = {
+export const bronzeSword = {
 	id: uid(),
 	dropRate: 1 * progressMultiplier,
-	name: "Oak Log",
-	type: ItemType.LOG,
+	name: "Bronze Sword",
+	type: ItemType.SWORD,
 };
 
-export const teakLog = {
+export const ironSword = {
 	id: uid(),
 	dropRate: 1 * progressMultiplier,
-	name: "Teak Log",
-	type: ItemType.LOG,
+	name: "Iron Sword",
+	type: ItemType.SWORD,
 };
 
-export const willowLog = {
+export const steelSword = {
 	id: uid(),
 	dropRate: 1 * progressMultiplier,
-	name: "Willow Log",
-	type: ItemType.LOG,
+	name: "Steel Sword",
+	type: ItemType.SWORD,
 };

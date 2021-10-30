@@ -1,37 +1,44 @@
 import { useState } from "react";
 import { createContainer } from "unstated-next";
-import { Skill } from "@/models";
-import { maxInventoryCapacity } from "@/values";
+import { Skill } from "@/enums";
+import { maxInvCapacity } from "@/values";
 import type { ReactNode } from "react";
-import type { Item } from "@/models";
+import type { Item, ItemsKeys } from "@/models";
 
 type McProviderProps = {
 	children: ReactNode;
 };
 
 const McContainer = createContainer(() => {
-	const [inventory, setInventory] = useState<Item[]>([]);
+	const [inv, setInv] = useState<Item[]>([]);
 	const [loggingExp, setLoggingExp] = useState(0);
 	const [miningExp, setMiningExp] = useState(0);
+	const [smithingExp, setSmithingExp] = useState(0);
 
 	return {
-		inventory: {
-			items: inventory,
+		inv: {
+			items: inv,
 			destroyAt: (itemIndex: number) => {
-				setInventory(
-					inventory.filter((_, index) => {
+				setInv(
+					inv.filter((_, index) => {
 						return index !== itemIndex;
 					})
 				);
 			},
+			destroyByName: (itemName: ItemsKeys) => {
+				setInv(
+					inv.filter((item) => {
+						return item.name !== itemName;
+					})
+				);
+			},
 			keep: (item: Item) => {
-				setInventory((prevInventory) => {
-					// Is inventory full?
-					if (prevInventory.length === maxInventoryCapacity) {
-						return prevInventory;
+				setInv((prevInv) => {
+					if (prevInv.length === maxInvCapacity) {
+						return prevInv;
 					}
 
-					return [...prevInventory, item];
+					return [...prevInv, item];
 				});
 			},
 		},
@@ -41,6 +48,8 @@ const McContainer = createContainer(() => {
 					return loggingExp;
 				case Skill.MINING:
 					return miningExp;
+				case Skill.SMITHING:
+					return smithingExp;
 			}
 		},
 		increaseSkillExpBy: (amount: number, skill: Skill) => {
@@ -53,6 +62,8 @@ const McContainer = createContainer(() => {
 					setLoggingExp(increaseSkillExp);
 				case Skill.MINING:
 					setMiningExp(increaseSkillExp);
+				case Skill.SMITHING:
+					setSmithingExp(increaseSkillExp);
 			}
 		},
 	};
