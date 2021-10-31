@@ -4,19 +4,21 @@ import { createContainer } from "unstated-next";
 import { Skill } from "@/enums";
 import { maxInvCapacity } from "@/values";
 import type { ReactNode } from "react";
-import type { Collection, Item } from "@/types";
+import type { Activity, Collection, Item } from "@/types";
 
 type McProviderProps = {
 	children: ReactNode;
 };
 
 const McContainer = createContainer(() => {
+	const [activity, setActivity] = useState<Activity>();
 	const [inv, setInv] = useState<Item[]>([]);
 	const [loggingExp, setLoggingExp] = useState(0);
 	const [miningExp, setMiningExp] = useState(0);
 	const [smithingExp, setSmithingExp] = useState(0);
 
 	return {
+		activity,
 		inv: {
 			itemList: inv,
 			bulkAdd: (itemList: Item[]) => {
@@ -80,6 +82,7 @@ const McContainer = createContainer(() => {
 					break;
 			}
 		},
+		setActivity,
 	};
 });
 

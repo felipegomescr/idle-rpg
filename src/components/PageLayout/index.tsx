@@ -1,16 +1,13 @@
-import { useState } from "react";
 import { ActivityCard, Inventory } from "@/components";
 import { useMc } from "@/containers";
 import { Skill } from "@/enums";
 import { canCreateRecipe, getActivityList, getName, rollLoot } from "@/helpers";
-import type { Activity } from "@/types";
 
 type PageLayoutProps = {
 	skill: Skill;
 };
 
 export const PageLayout = ({ skill }: PageLayoutProps) => {
-	const [currentActivity, setCurrentActivity] = useState<Activity>();
 	const mc = useMc();
 
 	const activityList = getActivityList(skill);
@@ -26,7 +23,7 @@ export const PageLayout = ({ skill }: PageLayoutProps) => {
 			<div className="grid grid-cols-4 gap-4">
 				{activityList.map((activity) => {
 					const isDisabled = activity.requiredExp > exp || !canCreateRecipe(mc.inv.itemList, activity.recipe);
-					const isPerformingActivity = currentActivity?.name === activity.name;
+					const isPerformingActivity = mc.activity?.name === activity.name && !isDisabled;
 
 					return (
 						<ActivityCard
@@ -44,13 +41,14 @@ export const PageLayout = ({ skill }: PageLayoutProps) => {
 								}
 							}}
 							onClick={(isPerformingActivity) => {
-								setCurrentActivity(isPerformingActivity ? undefined : activity);
+								mc.setActivity(isPerformingActivity ? undefined : activity);
 							}}
 						/>
 					);
 				})}
 			</div>
 			<Inventory
+				isDisabled={!!mc.activity}
 				itemList={mc.inv.itemList}
 				onItemDestroy={(_, position) => {
 					mc.inv.destroyAt(position);
