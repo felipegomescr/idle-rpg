@@ -2,30 +2,30 @@ import { useState } from "react";
 import { ActivityCard, Inventory } from "@/components";
 import { useMc } from "@/containers";
 import { Skill } from "@/enums";
-import { canCreateRecipe, getSkillActivityList, getSkillName, rollLoot } from "@/helpers";
+import { canCreateRecipe, getActivityList, getName, rollLoot } from "@/helpers";
 import type { Activity } from "@/types";
 
-type SkillPageLayoutProps = {
+type PageLayoutProps = {
 	skill: Skill;
 };
 
-export const SkillPageLayout = ({ skill }: SkillPageLayoutProps) => {
+export const PageLayout = ({ skill }: PageLayoutProps) => {
 	const [currentActivity, setCurrentActivity] = useState<Activity>();
 	const mc = useMc();
 
-	const skillActivityList = getSkillActivityList(skill);
-	const skillExp = mc.getSkillExp(skill);
-	const skillName = getSkillName(skill);
+	const activityList = getActivityList(skill);
+	const exp = mc.getExp(skill);
+	const name = getName(skill);
 
 	return (
 		<div className="p-4 space-y-4">
-			<h1 className="text-4xl font-bold">{skillName}</h1>
+			<h1 className="text-4xl font-bold">{name}</h1>
 			<div>
-				<span className="font-bold">{skillName} experience:</span> {skillExp}
+				<span className="font-bold">{name} experience:</span> {exp}
 			</div>
 			<div className="grid grid-cols-4 gap-4">
-				{skillActivityList.map((activity) => {
-					const isDisabled = activity.requiredExp > skillExp || !canCreateRecipe(mc.inv.itemList, activity.recipe);
+				{activityList.map((activity) => {
+					const isDisabled = activity.requiredExp > exp || !canCreateRecipe(mc.inv.itemList, activity.recipe);
 					const isPerformingActivity = currentActivity?.name === activity.name;
 
 					return (
@@ -36,7 +36,7 @@ export const SkillPageLayout = ({ skill }: SkillPageLayoutProps) => {
 							isDisabled={isDisabled}
 							isPerformingActivity={isPerformingActivity}
 							onActivityComplete={(expReward, lootTable) => {
-								mc.increaseSkillExpBy(expReward, skill);
+								mc.increaseExp(expReward, skill);
 								mc.inv.bulkAdd(rollLoot(lootTable));
 
 								if (activity.recipe) {

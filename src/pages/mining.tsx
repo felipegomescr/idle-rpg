@@ -1,9 +1,9 @@
-import { SkillPageLayout } from "@/components";
+import { PageLayout } from "@/components";
 import { Skill } from "@/enums";
 import type { NextPage } from "next";
 
 const MiningPage: NextPage = () => {
-	return <SkillPageLayout skill={Skill.MINING} />;
+	return <PageLayout skill={Skill.MINING} />;
 };
 
 export default MiningPage;

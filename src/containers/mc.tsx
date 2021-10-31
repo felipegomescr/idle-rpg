@@ -53,7 +53,7 @@ const McContainer = createContainer(() => {
 				);
 			},
 		},
-		getSkillExp: (skill: Skill) => {
+		getExp: (skill: Skill) => {
 			switch (skill) {
 				case Skill.LOGGING:
 					return loggingExp;
@@ -63,20 +63,20 @@ const McContainer = createContainer(() => {
 					return smithingExp;
 			}
 		},
-		increaseSkillExpBy: (amount: number, skill: Skill) => {
-			const increaseSkillExp = (prevSkillExp: number) => {
-				return prevSkillExp + amount;
+		increaseExp: (amount: number, skill: Skill) => {
+			const increaseExp = (prevExp: number) => {
+				return prevExp + amount;
 			};
 
 			switch (skill) {
 				case Skill.LOGGING:
-					setLoggingExp(increaseSkillExp);
+					setLoggingExp(increaseExp);
 					break;
 				case Skill.MINING:
-					setMiningExp(increaseSkillExp);
+					setMiningExp(increaseExp);
 					break;
 				case Skill.SMITHING:
-					setSmithingExp(increaseSkillExp);
+					setSmithingExp(increaseExp);
 					break;
 			}
 		},

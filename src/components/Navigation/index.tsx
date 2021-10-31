@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export const SkillNavigation = () => {
+export const Navigation = () => {
 	return (
 		<nav className="p-4 space-x-4">
 			<Link href="/logging">

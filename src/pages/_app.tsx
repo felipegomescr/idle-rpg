@@ -1,4 +1,4 @@
-import { SkillNavigation } from "@/components";
+import { Navigation } from "@/components";
 import { McProvider } from "@/containers";
 import type { AppProps } from "next/app";
 
@@ -7,7 +7,7 @@ import "tailwindcss/tailwind.css";
 const CustomApp = ({ Component, pageProps }: AppProps) => {
 	return (
 		<McProvider>
-			<SkillNavigation />
+			<Navigation />
 			<Component {...pageProps} />
 		</McProvider>
 	);

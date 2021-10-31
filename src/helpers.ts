@@ -37,7 +37,7 @@ export const canCreateRecipe = (container: Item[], recipe?: Collection) => {
 	});
 };
 
-export const getSkillActivityList = (skill: Skill) => {
+export const getActivityList = (skill: Skill) => {
 	switch (skill) {
 		case Skill.LOGGING:
 			return activityList.logging;
@@ -48,7 +48,7 @@ export const getSkillActivityList = (skill: Skill) => {
 	}
 };
 
-export const getSkillName = (skill: Skill) => {
+export const getName = (skill: Skill) => {
 	switch (skill) {
 		case Skill.LOGGING:
 			return "Logging";
