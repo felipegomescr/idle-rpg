@@ -1,7 +1,7 @@
 import { ItemType } from "@/enums";
 import * as itemList from "@/items";
 
-export type Action = {
+export type Activity = {
 	id: string;
 	actionText: string;
 	expReward: number;

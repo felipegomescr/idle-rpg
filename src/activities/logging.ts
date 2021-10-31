@@ -1,9 +1,9 @@
 import { uid } from "uid";
 import { birdNest, oakLog, teakLog, willowLog } from "@/items";
 import { progressMultiplier } from "@/values";
-import type { Action } from "@/types";
+import type { Activity } from "@/types";
 
-const chopMahogany: Action = {
+const chopMahogany: Activity = {
 	id: uid(),
 	actionText: "Chop",
 	expReward: 10 * progressMultiplier,
@@ -13,7 +13,7 @@ const chopMahogany: Action = {
 	timeToCompletion: 5000 / progressMultiplier,
 };
 
-const chopOak: Action = {
+const chopOak: Activity = {
 	id: uid(),
 	actionText: "Chop",
 	expReward: 20 * progressMultiplier,
@@ -23,7 +23,7 @@ const chopOak: Action = {
 	timeToCompletion: 10000 / progressMultiplier,
 };
 
-const chopWillow: Action = {
+const chopWillow: Activity = {
 	id: uid(),
 	actionText: "Chop",
 	expReward: 30 * progressMultiplier,

@@ -1,19 +1,19 @@
 import { useState } from "react";
-import { ActionCard, Inventory } from "@/components";
+import { ActivityCard, Inventory } from "@/components";
 import { useMc } from "@/containers";
 import { Skill } from "@/enums";
-import { canCreateRecipe, getSkillActionList, getSkillName, rollLoot } from "@/helpers";
-import type { Action } from "@/types";
+import { canCreateRecipe, getSkillActivityList, getSkillName, rollLoot } from "@/helpers";
+import type { Activity } from "@/types";
 
 type SkillPageLayoutProps = {
 	skill: Skill;
 };
 
 export const SkillPageLayout = ({ skill }: SkillPageLayoutProps) => {
-	const [currentAction, setCurrentAction] = useState<Action>();
+	const [currentActivity, setCurrentActivity] = useState<Activity>();
 	const mc = useMc();
 
-	const skillActionList = getSkillActionList(skill);
+	const skillActivityList = getSkillActivityList(skill);
 	const skillExp = mc.getSkillExp(skill);
 	const skillName = getSkillName(skill);
 
@@ -24,27 +24,27 @@ export const SkillPageLayout = ({ skill }: SkillPageLayoutProps) => {
 				<span className="font-bold">{skillName} experience:</span> {skillExp}
 			</div>
 			<div className="grid grid-cols-4 gap-4">
-				{skillActionList.map((action) => {
-					const isDisabled = action.requiredExp > skillExp || !canCreateRecipe(mc.inv.itemList, action.recipe);
-					const isPerformingAction = currentAction?.name === action.name;
+				{skillActivityList.map((activity) => {
+					const isDisabled = activity.requiredExp > skillExp || !canCreateRecipe(mc.inv.itemList, activity.recipe);
+					const isPerformingActivity = currentActivity?.name === activity.name;
 
 					return (
-						<ActionCard
-							key={action.id}
-							action={action}
-							actionText={action.actionText}
+						<ActivityCard
+							key={activity.id}
+							actionText={activity.actionText}
+							activity={activity}
 							isDisabled={isDisabled}
-							isPerformingAction={isPerformingAction}
-							onActionComplete={(expReward, lootTable) => {
+							isPerformingActivity={isPerformingActivity}
+							onActivityComplete={(expReward, lootTable) => {
 								mc.increaseSkillExpBy(expReward, skill);
 								mc.inv.bulkAdd(rollLoot(lootTable));
 
-								if (action.recipe) {
-									mc.inv.bulkDestroy(action.recipe);
+								if (activity.recipe) {
+									mc.inv.bulkDestroy(activity.recipe);
 								}
 							}}
-							onClick={(isPerformingAction) => {
-								setCurrentAction(isPerformingAction ? undefined : action);
+							onClick={(isPerformingActivity) => {
+								setCurrentActivity(isPerformingActivity ? undefined : activity);
 							}}
 						/>
 					);

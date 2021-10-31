@@ -1,9 +1,9 @@
 import { uid } from "uid";
 import { bronzeOre, ironOre, steelOre } from "@/items";
 import { progressMultiplier } from "@/values";
-import type { Action } from "@/types";
+import type { Activity } from "@/types";
 
-const mineBronzeOre: Action = {
+const mineBronzeOre: Activity = {
 	id: uid(),
 	actionText: "Mine",
 	expReward: 10 * progressMultiplier,
@@ -13,7 +13,7 @@ const mineBronzeOre: Action = {
 	timeToCompletion: 5000 / progressMultiplier,
 };
 
-const mineIronOre: Action = {
+const mineIronOre: Activity = {
 	id: uid(),
 	actionText: "Mine",
 	expReward: 20 * progressMultiplier,
@@ -23,7 +23,7 @@ const mineIronOre: Action = {
 	timeToCompletion: 10000 / progressMultiplier,
 };
 
-const mineSteelOre: Action = {
+const mineSteelOre: Activity = {
 	id: uid(),
 	actionText: "Mine",
 	expReward: 30 * progressMultiplier,

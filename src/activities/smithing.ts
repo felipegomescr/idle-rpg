@@ -1,9 +1,9 @@
 import { uid } from "uid";
 import { bronzeSword, ironSword, steelSword } from "@/items";
 import { progressMultiplier } from "@/values";
-import type { Action } from "@/types";
+import type { Activity } from "@/types";
 
-const smithBronzeSword: Action = {
+const smithBronzeSword: Activity = {
 	id: uid(),
 	actionText: "Smith",
 	expReward: 10 * progressMultiplier,
@@ -16,7 +16,7 @@ const smithBronzeSword: Action = {
 	timeToCompletion: 5000 / progressMultiplier,
 };
 
-const smithIronSword: Action = {
+const smithIronSword: Activity = {
 	id: uid(),
 	actionText: "Smith",
 	expReward: 20 * progressMultiplier,
@@ -29,7 +29,7 @@ const smithIronSword: Action = {
 	timeToCompletion: 10000 / progressMultiplier,
 };
 
-const smithSteelSword: Action = {
+const smithSteelSword: Activity = {
 	id: uid(),
 	actionText: "Smith",
 	expReward: 30 * progressMultiplier,

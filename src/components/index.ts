@@ -1,4 +1,4 @@
-export * from "./ActionCard";
+export * from "./ActivityCard";
 export * from "./Inventory";
 export * from "./ProgressBar";
 export * from "./SkillNavigation";

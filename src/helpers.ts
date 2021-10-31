@@ -1,4 +1,4 @@
-import * as actionList from "@/actions";
+import * as activityList from "@/activities";
 import { Skill } from "@/enums";
 import { Collection, Item, ItemKey } from "@/types";
 
@@ -37,14 +37,14 @@ export const canCreateRecipe = (container: Item[], recipe?: Collection) => {
 	});
 };
 
-export const getSkillActionList = (skill: Skill) => {
+export const getSkillActivityList = (skill: Skill) => {
 	switch (skill) {
 		case Skill.LOGGING:
-			return actionList.logging;
+			return activityList.logging;
 		case Skill.MINING:
-			return actionList.mining;
+			return activityList.mining;
 		case Skill.SMITHING:
-			return actionList.smithing;
+			return activityList.smithing;
 	}
 };
 
