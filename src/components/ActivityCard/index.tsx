@@ -31,7 +31,7 @@ export const ActivityCard = ({
 	}, [isPerformingActivity]);
 
 	return (
-		<div className="flex flex-col items-center justify-center p-4 space-y-4 border border-black">
+		<div className="flex flex-col items-center justify-center p-4 space-y-4 border border-main">
 			<span className="font-bold">{`${activity.name} - ${formatTime(activity.timeToCompletion)}`}</span>
 			<div className="text-center">
 				{isPerformingActivity && <ProgressBar duration={activity.timeToCompletion} loop />}
