@@ -1,20 +1,50 @@
-import { dequal } from "dequal";
-import camelCase from "lodash.camelcase";
-import groupBy from "lodash.groupby";
-import mapKeys from "lodash.mapkeys";
-import mapValues from "lodash.mapvalues";
-import * as actions from "@/actions";
+import * as actionList from "@/actions";
 import { Skill } from "@/enums";
-import { Item, ItemsKeys, RequiredItems } from "@/models";
+import { Collection, Item, ItemKey } from "@/types";
 
-export const getSkillActions = (skill: Skill) => {
+export const canCreateRecipe = (container: Item[], recipe?: Collection) => {
+	if (!recipe || !Object.keys(recipe).length) {
+		return true;
+	}
+
+	const itemList = (Object.keys(recipe) as ItemKey[]).reduce((itemListAcc, itemKey) => {
+		const item = container.find((item) => {
+			return item.key === itemKey;
+		});
+
+		if (!item) {
+			return itemListAcc;
+		}
+
+		const amount = container.filter((item) => {
+			return item.key === itemKey;
+		}).length;
+
+		return {
+			...itemListAcc,
+			[item.key]: amount,
+		};
+	}, {}) as Collection;
+
+	return (Object.keys(recipe) as ItemKey[]).every((key) => {
+		const amount = itemList[key];
+
+		if (!amount) {
+			return false;
+		}
+
+		return amount >= recipe[key]!;
+	});
+};
+
+export const getSkillActionList = (skill: Skill) => {
 	switch (skill) {
 		case Skill.LOGGING:
-			return actions.loggingActions;
+			return actionList.logging;
 		case Skill.MINING:
-			return actions.miningActions;
+			return actionList.mining;
 		case Skill.SMITHING:
-			return actions.smithingActions;
+			return actionList.smithing;
 	}
 };
 
@@ -29,38 +59,12 @@ export const getSkillName = (skill: Skill) => {
 	}
 };
 
-export const hasRequiredItems = (container: Item[], requiredItems?: RequiredItems) => {
-	if (!requiredItems) {
-		return true;
-	}
-
-	const mappedContainer = mapKeys(
-		mapValues(groupBy(container, "name"), (value) => {
-			return value.length;
-		}),
-		(_, key) => {
-			return camelCase(key);
-		}
-	);
-
-	const sortedKeysFromMappedContainer = Object.keys(mappedContainer).sort() as ItemsKeys[];
-	const sortedKeysFromRequiredItems = Object.keys(requiredItems).sort() as ItemsKeys[];
-
-	if (!dequal(sortedKeysFromMappedContainer, sortedKeysFromRequiredItems)) {
-		return false;
-	}
-
-	return sortedKeysFromMappedContainer.every((key) => {
-		return mappedContainer[key] >= (requiredItems[key] || 0);
-	});
-};
-
 export const parseTimeInMsToTextInSec = (time: number) => {
 	return `${(time / 1000).toFixed(1)}s`;
 };
 
-export const rollForLoot = (lootTable: Item[]) => {
+export const rollLoot = (lootTable: Item[]) => {
 	return lootTable.filter((item) => {
-		return item.dropRate > Math.random();
+		return item.dropRate >= Math.random();
 	});
 };

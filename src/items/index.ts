@@ -1,4 +1,4 @@
 export * from "./logs";
-export * from "./misc";
+export * from "./miscellaneous";
 export * from "./ores";
 export * from "./swords";

@@ -1,11 +1,10 @@
 import { useEffect, useRef } from "react";
-import { BaseActionCard } from "@/components/BaseActionCard";
-import { ProgressBar } from "@/components/ProgressBar";
+import { ProgressBar } from "@/components";
 import { parseTimeInMsToTextInSec } from "@/helpers";
-import { GatheringAction, Item } from "@/models";
+import { Action, Item } from "@/types";
 
-type GatheringActionCardProps = {
-	action: GatheringAction;
+type ActionCardProps = {
+	action: Action;
 	actionText: string;
 	isDisabled: boolean;
 	isPerformingAction: boolean;
@@ -13,14 +12,14 @@ type GatheringActionCardProps = {
 	onClick: (isPerformingAction: boolean) => void;
 };
 
-export const GatheringActionCard = ({
+export const ActionCard = ({
 	action,
 	actionText,
 	isDisabled,
 	isPerformingAction,
 	onActionComplete: handleActionComplete,
 	onClick: handleClick,
-}: GatheringActionCardProps) => {
+}: ActionCardProps) => {
 	const timeToCompletionCounter = useRef<NodeJS.Timer>();
 
 	useEffect(() => {
@@ -32,7 +31,8 @@ export const GatheringActionCard = ({
 	}, [isPerformingAction]);
 
 	return (
-		<BaseActionCard title={`${action.name} - ${parseTimeInMsToTextInSec(action.timeToCompletion)}`}>
+		<div className="flex flex-col items-center justify-center p-4 space-y-4 border border-black">
+			<span className="font-bold">{`${action.name} - ${parseTimeInMsToTextInSec(action.timeToCompletion)}`}</span>
 			<div className="text-center">
 				{isPerformingAction && <ProgressBar duration={action.timeToCompletion} loop />}
 				<p>
@@ -46,9 +46,7 @@ export const GatheringActionCard = ({
 				className="px-4 py-2 font-bold text-white bg-blue-600 disabled:opacity-50"
 				disabled={isDisabled}
 				onClick={() => {
-					if (isPerformingAction) {
-						clearInterval(timeToCompletionCounter.current!);
-					} else {
+					if (!isPerformingAction) {
 						timeToCompletionCounter.current = setInterval(() => {
 							handleActionComplete(action.expReward, action.lootTable);
 						}, action.timeToCompletion);
@@ -59,6 +57,6 @@ export const GatheringActionCard = ({
 			>
 				{isPerformingAction ? "Cancel" : actionText}
 			</button>
-		</BaseActionCard>
+		</div>
 	);
 };

@@ -1,6 +1,6 @@
 export enum ItemType {
 	LOG,
-	MISC,
+	MISCELLANEOUS,
 	ORE,
 	SWORD,
 }

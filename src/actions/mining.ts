@@ -1,9 +1,9 @@
 import { uid } from "uid";
 import { bronzeOre, ironOre, steelOre } from "@/items";
 import { progressMultiplier } from "@/values";
-import type { GatheringAction } from "@/models";
+import type { Action } from "@/types";
 
-const mineBronzeOre: GatheringAction = {
+const mineBronzeOre: Action = {
 	id: uid(),
 	actionText: "Mine",
 	expReward: 10 * progressMultiplier,
@@ -13,7 +13,7 @@ const mineBronzeOre: GatheringAction = {
 	timeToCompletion: 5000 / progressMultiplier,
 };
 
-const mineIronOre: GatheringAction = {
+const mineIronOre: Action = {
 	id: uid(),
 	actionText: "Mine",
 	expReward: 20 * progressMultiplier,
@@ -23,7 +23,7 @@ const mineIronOre: GatheringAction = {
 	timeToCompletion: 10000 / progressMultiplier,
 };
 
-const mineSteelOre: GatheringAction = {
+const mineSteelOre: Action = {
 	id: uid(),
 	actionText: "Mine",
 	expReward: 30 * progressMultiplier,
@@ -33,4 +33,4 @@ const mineSteelOre: GatheringAction = {
 	timeToCompletion: 15000 / progressMultiplier,
 };
 
-export const miningActions = [mineBronzeOre, mineIronOre, mineSteelOre];
+export const mining = [mineBronzeOre, mineIronOre, mineSteelOre];

@@ -1,9 +1,10 @@
+import times from "lodash.times";
 import { useState } from "react";
 import { createContainer } from "unstated-next";
 import { Skill } from "@/enums";
 import { maxInvCapacity } from "@/values";
 import type { ReactNode } from "react";
-import type { Item, ItemsKeys } from "@/models";
+import type { Collection, Item } from "@/types";
 
 type McProviderProps = {
 	children: ReactNode;
@@ -17,29 +18,39 @@ const McContainer = createContainer(() => {
 
 	return {
 		inv: {
-			items: inv,
-			destroyAt: (itemIndex: number) => {
+			itemList: inv,
+			bulkAdd: (itemList: Item[]) => {
+				setInv((prevInv) => {
+					return [...prevInv, ...itemList.slice(0, maxInvCapacity - prevInv.length)];
+				});
+			},
+			bulkDestroy: (itemList: Collection) => {
+				setInv((prevInv) => {
+					const prevInvClone = [...prevInv];
+
+					Object.entries(itemList).forEach(([itemKey, amount]) => {
+						times(amount, () => {
+							const index = prevInv.findIndex((item) => {
+								return item.key === itemKey;
+							});
+
+							if (index === -1) {
+								return;
+							}
+
+							prevInvClone.splice(index, 1);
+						});
+					});
+
+					return prevInvClone;
+				});
+			},
+			destroyAt: (position: number) => {
 				setInv(
 					inv.filter((_, index) => {
-						return index !== itemIndex;
+						return index !== position;
 					})
 				);
-			},
-			destroyByName: (itemName: ItemsKeys) => {
-				setInv(
-					inv.filter((item) => {
-						return item.name !== itemName;
-					})
-				);
-			},
-			keep: (item: Item) => {
-				setInv((prevInv) => {
-					if (prevInv.length === maxInvCapacity) {
-						return prevInv;
-					}
-
-					return [...prevInv, item];
-				});
 			},
 		},
 		getSkillExp: (skill: Skill) => {
@@ -60,10 +71,13 @@ const McContainer = createContainer(() => {
 			switch (skill) {
 				case Skill.LOGGING:
 					setLoggingExp(increaseSkillExp);
+					break;
 				case Skill.MINING:
 					setMiningExp(increaseSkillExp);
+					break;
 				case Skill.SMITHING:
 					setSmithingExp(increaseSkillExp);
+					break;
 			}
 		},
 	};

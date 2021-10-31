@@ -1,6 +1,6 @@
 module.exports = {
 	mode: "jit",
-	purge: ["**/*.{ts,tsx}"],
+	purge: ["**/*.tsx"],
 	variants: {
 		extend: {
 			opacity: ["disabled"],
