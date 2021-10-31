@@ -6,30 +6,30 @@ import type { Activity } from "@/types";
 const chopMahogany: Activity = {
 	id: uid(),
 	actionText: "Chop",
-	expReward: 10 * progressMultiplier,
+	experienceReward: 10 * progressMultiplier,
 	lootTable: [birdNest, oakLog],
 	name: "Mahogany",
-	requiredExp: 0,
+	requiredExperience: 0,
 	timeToCompletion: 5000 / progressMultiplier,
 };
 
 const chopOak: Activity = {
 	id: uid(),
 	actionText: "Chop",
-	expReward: 20 * progressMultiplier,
+	experienceReward: 20 * progressMultiplier,
 	lootTable: [birdNest, willowLog],
 	name: "Oak",
-	requiredExp: 200,
+	requiredExperience: 200,
 	timeToCompletion: 10000 / progressMultiplier,
 };
 
 const chopWillow: Activity = {
 	id: uid(),
 	actionText: "Chop",
-	expReward: 30 * progressMultiplier,
+	experienceReward: 30 * progressMultiplier,
 	lootTable: [birdNest, teakLog],
 	name: "Willow",
-	requiredExp: 400,
+	requiredExperience: 400,
 	timeToCompletion: 15000 / progressMultiplier,
 };
 

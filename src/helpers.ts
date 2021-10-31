@@ -7,13 +7,13 @@ export const canCreateRecipe = (container: Item[], recipe?: Collection) => {
 		return true;
 	}
 
-	const itemList = (Object.keys(recipe) as ItemKey[]).reduce((itemListAcc, itemKey) => {
+	const itemList = (Object.keys(recipe) as ItemKey[]).reduce((itemListAccumulator, itemKey) => {
 		const item = container.find((item) => {
 			return item.key === itemKey;
 		});
 
 		if (!item) {
-			return itemListAcc;
+			return itemListAccumulator;
 		}
 
 		const amount = container.filter((item) => {
@@ -21,7 +21,7 @@ export const canCreateRecipe = (container: Item[], recipe?: Collection) => {
 		}).length;
 
 		return {
-			...itemListAcc,
+			...itemListAccumulator,
 			[item.key]: amount,
 		};
 	}, {}) as Collection;
@@ -35,6 +35,10 @@ export const canCreateRecipe = (container: Item[], recipe?: Collection) => {
 
 		return amount >= recipe[key]!;
 	});
+};
+
+export const formatTime = (time: number) => {
+	return `${(time / 1000).toFixed(1)}s`;
 };
 
 export const getActivityList = (skill: Skill) => {
@@ -57,10 +61,6 @@ export const getName = (skill: Skill) => {
 		case Skill.SMITHING:
 			return "Smithing";
 	}
-};
-
-export const parseTimeInMsToTextInSec = (time: number) => {
-	return `${(time / 1000).toFixed(1)}s`;
 };
 
 export const rollLoot = (lootTable: Item[]) => {

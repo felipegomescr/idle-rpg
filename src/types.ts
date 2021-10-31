@@ -4,11 +4,11 @@ import * as itemList from "@/items";
 export type Activity = {
 	id: string;
 	actionText: string;
-	expReward: number;
+	experienceReward: number;
 	lootTable: Item[];
 	name: string;
 	recipe?: Collection;
-	requiredExp: number;
+	requiredExperience: number;
 	timeToCompletion: number;
 };
 

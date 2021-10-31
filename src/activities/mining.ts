@@ -6,30 +6,30 @@ import type { Activity } from "@/types";
 const mineBronzeOre: Activity = {
 	id: uid(),
 	actionText: "Mine",
-	expReward: 10 * progressMultiplier,
+	experienceReward: 10 * progressMultiplier,
 	lootTable: [bronzeOre],
 	name: "Bronze Ore",
-	requiredExp: 0,
+	requiredExperience: 0,
 	timeToCompletion: 5000 / progressMultiplier,
 };
 
 const mineIronOre: Activity = {
 	id: uid(),
 	actionText: "Mine",
-	expReward: 20 * progressMultiplier,
+	experienceReward: 20 * progressMultiplier,
 	lootTable: [ironOre],
 	name: "Iron Ore",
-	requiredExp: 200,
+	requiredExperience: 200,
 	timeToCompletion: 10000 / progressMultiplier,
 };
 
 const mineSteelOre: Activity = {
 	id: uid(),
 	actionText: "Mine",
-	expReward: 30 * progressMultiplier,
+	experienceReward: 30 * progressMultiplier,
 	lootTable: [steelOre],
 	name: "Steel Ore",
-	requiredExp: 400,
+	requiredExperience: 400,
 	timeToCompletion: 15000 / progressMultiplier,
 };
 

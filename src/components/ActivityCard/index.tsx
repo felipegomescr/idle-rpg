@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { ProgressBar } from "@/components";
-import { parseTimeInMsToTextInSec } from "@/helpers";
+import { formatTime } from "@/helpers";
 import { Activity, Item } from "@/types";
 
 type ActivityCardProps = {
@@ -8,7 +8,7 @@ type ActivityCardProps = {
 	activity: Activity;
 	isDisabled: boolean;
 	isPerformingActivity: boolean;
-	onActivityComplete: (expReward: number, lootTable: Item[]) => void;
+	onActivityComplete: (experienceReward: number, lootTable: Item[]) => void;
 	onClick: (isPerformingActivity: boolean) => void;
 };
 
@@ -32,14 +32,14 @@ export const ActivityCard = ({
 
 	return (
 		<div className="flex flex-col items-center justify-center p-4 space-y-4 border border-black">
-			<span className="font-bold">{`${activity.name} - ${parseTimeInMsToTextInSec(activity.timeToCompletion)}`}</span>
+			<span className="font-bold">{`${activity.name} - ${formatTime(activity.timeToCompletion)}`}</span>
 			<div className="text-center">
 				{isPerformingActivity && <ProgressBar duration={activity.timeToCompletion} loop />}
 				<p>
-					<span className="font-bold">Required experience:</span> {activity.requiredExp}
+					<span className="font-bold">Required experience:</span> {activity.requiredExperience}
 				</p>
 				<p>
-					<span className="font-bold">Experience reward:</span> {activity.expReward}
+					<span className="font-bold">Experience reward:</span> {activity.experienceReward}
 				</p>
 			</div>
 			<button
@@ -48,7 +48,7 @@ export const ActivityCard = ({
 				onClick={() => {
 					if (!isPerformingActivity) {
 						timeToCompletionCounter.current = setInterval(() => {
-							handleActivityComplete(activity.expReward, activity.lootTable);
+							handleActivityComplete(activity.experienceReward, activity.lootTable);
 						}, activity.timeToCompletion);
 					}
 

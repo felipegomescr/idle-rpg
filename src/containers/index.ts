@@ -1,1 +1,1 @@
-export * from "./mc";
+export * from "./mainCharacter";

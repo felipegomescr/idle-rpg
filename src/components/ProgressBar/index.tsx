@@ -1,4 +1,4 @@
-import { parseTimeInMsToTextInSec } from "@/helpers";
+import { formatTime } from "@/helpers";
 
 import css from "./index.module.css";
 
@@ -15,7 +15,7 @@ export const ProgressBar = ({ duration, loop }: ProgressBarProps) => {
 			<div
 				className={css.progressBar}
 				style={{
-					animation: `${css.progressBarAnimation} ${parseTimeInMsToTextInSec(duration)} linear ${loopValue}`,
+					animation: `${css.progressBarAnimation} ${formatTime(duration)} linear ${loopValue}`,
 				}}
 			/>
 		</div>

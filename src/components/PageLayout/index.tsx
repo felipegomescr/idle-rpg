@@ -1,5 +1,5 @@
 import { ActivityCard, Inventory } from "@/components";
-import { useMc } from "@/containers";
+import { useMainCharacter } from "@/containers";
 import { Skill } from "@/enums";
 import { canCreateRecipe, getActivityList, getName, rollLoot } from "@/helpers";
 
@@ -8,22 +8,24 @@ type PageLayoutProps = {
 };
 
 export const PageLayout = ({ skill }: PageLayoutProps) => {
-	const mc = useMc();
+	const mainCharacter = useMainCharacter();
 
 	const activityList = getActivityList(skill);
-	const exp = mc.getExp(skill);
+	const experience = mainCharacter.getExperience(skill);
 	const name = getName(skill);
 
 	return (
 		<div className="p-4 space-y-4">
 			<h1 className="text-4xl font-bold">{name}</h1>
 			<div>
-				<span className="font-bold">{name} experience:</span> {exp}
+				<span className="font-bold">{name} experience:</span> {experience}
 			</div>
 			<div className="grid grid-cols-4 gap-4">
 				{activityList.map((activity) => {
-					const isDisabled = activity.requiredExp > exp || !canCreateRecipe(mc.inv.itemList, activity.recipe);
-					const isPerformingActivity = mc.activity?.name === activity.name && !isDisabled;
+					const isDisabled =
+						activity.requiredExperience > experience ||
+						!canCreateRecipe(mainCharacter.inventory.itemList, activity.recipe);
+					const isPerformingActivity = mainCharacter.activity?.name === activity.name && !isDisabled;
 
 					return (
 						<ActivityCard
@@ -32,26 +34,26 @@ export const PageLayout = ({ skill }: PageLayoutProps) => {
 							activity={activity}
 							isDisabled={isDisabled}
 							isPerformingActivity={isPerformingActivity}
-							onActivityComplete={(expReward, lootTable) => {
-								mc.increaseExp(expReward, skill);
-								mc.inv.bulkAdd(rollLoot(lootTable));
+							onActivityComplete={(experienceReward, lootTable) => {
+								mainCharacter.increaseExperience(experienceReward, skill);
+								mainCharacter.inventory.bulkAdd(rollLoot(lootTable));
 
 								if (activity.recipe) {
-									mc.inv.bulkDestroy(activity.recipe);
+									mainCharacter.inventory.bulkDestroy(activity.recipe);
 								}
 							}}
 							onClick={(isPerformingActivity) => {
-								mc.setActivity(isPerformingActivity ? undefined : activity);
+								mainCharacter.setActivity(isPerformingActivity ? undefined : activity);
 							}}
 						/>
 					);
 				})}
 			</div>
 			<Inventory
-				isDisabled={!!mc.activity}
-				itemList={mc.inv.itemList}
+				isDisabled={!!mainCharacter.activity}
+				itemList={mainCharacter.inventory.itemList}
 				onItemDestroy={(_, position) => {
-					mc.inv.destroyAt(position);
+					mainCharacter.inventory.destroyAt(position);
 				}}
 			/>
 		</div>
