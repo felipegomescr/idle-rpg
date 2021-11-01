@@ -6,40 +6,40 @@ import type { Activity } from "@/types";
 const smithBronzeSword: Activity = {
 	id: uid(),
 	actionText: "Smith",
-	experienceReward: 10 * progressMultiplier,
+	experienceReward: 40 * progressMultiplier,
 	lootTable: [bronzeSword],
 	name: "Bronze Sword",
 	recipe: {
-		bronzeOre: 2,
+		bronzeOre: 4,
 	},
 	requiredExperience: 0,
-	timeToCompletion: 5000 / progressMultiplier,
+	timeToCompletion: 60000 / progressMultiplier,
 };
 
 const smithIronSword: Activity = {
 	id: uid(),
 	actionText: "Smith",
-	experienceReward: 20 * progressMultiplier,
+	experienceReward: 60 * progressMultiplier,
 	lootTable: [ironSword],
 	name: "Iron Sword",
 	recipe: {
 		ironOre: 4,
 	},
-	requiredExperience: 200,
-	timeToCompletion: 10000 / progressMultiplier,
+	requiredExperience: 2250,
+	timeToCompletion: 60000 / progressMultiplier,
 };
 
 const smithSteelSword: Activity = {
 	id: uid(),
 	actionText: "Smith",
-	experienceReward: 30 * progressMultiplier,
+	experienceReward: 100 * progressMultiplier,
 	lootTable: [steelSword],
 	name: "Steel Sword",
 	recipe: {
-		steelOre: 6,
+		steelOre: 4,
 	},
-	requiredExperience: 400,
-	timeToCompletion: 15000 / progressMultiplier,
+	requiredExperience: 9500,
+	timeToCompletion: 60000 / progressMultiplier,
 };
 
 export const smithing = [smithBronzeSword, smithIronSword, smithSteelSword];

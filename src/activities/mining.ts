@@ -10,27 +10,27 @@ const mineBronzeOre: Activity = {
 	lootTable: [bronzeOre],
 	name: "Bronze Ore",
 	requiredExperience: 0,
-	timeToCompletion: 5000 / progressMultiplier,
+	timeToCompletion: 10000 / progressMultiplier,
 };
 
 const mineIronOre: Activity = {
 	id: uid(),
 	actionText: "Mine",
-	experienceReward: 20 * progressMultiplier,
+	experienceReward: 15 * progressMultiplier,
 	lootTable: [ironOre],
 	name: "Iron Ore",
-	requiredExperience: 200,
+	requiredExperience: 2250,
 	timeToCompletion: 10000 / progressMultiplier,
 };
 
 const mineSteelOre: Activity = {
 	id: uid(),
 	actionText: "Mine",
-	experienceReward: 30 * progressMultiplier,
+	experienceReward: 25 * progressMultiplier,
 	lootTable: [steelOre],
 	name: "Steel Ore",
-	requiredExperience: 400,
-	timeToCompletion: 15000 / progressMultiplier,
+	requiredExperience: 9500,
+	timeToCompletion: 10000 / progressMultiplier,
 };
 
 export const mining = [mineBronzeOre, mineIronOre, mineSteelOre];
