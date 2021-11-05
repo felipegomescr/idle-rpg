@@ -1,14 +1,14 @@
 import { useEffect, useRef } from "react";
 import { ProgressBar } from "@/components";
 import { formatTime } from "@/helpers";
-import type { Activity, Item } from "@/types";
+import type { Activity, LootTable } from "@/types";
 
 type ActivityCardProps = {
 	actionText: string;
 	activity: Activity;
 	isDisabled: boolean;
 	isPerformingActivity: boolean;
-	onActivityComplete: (experience: number, lootTable: Item[]) => void;
+	onActivityComplete: (experience: number, lootTable: LootTable) => void;
 	onClick: (isPerformingActivity: boolean) => void;
 };
 

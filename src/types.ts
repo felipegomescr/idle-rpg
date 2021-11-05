@@ -5,7 +5,7 @@ export type Activity = {
 	id: string;
 	actionText: string;
 	experience: number;
-	lootTable: Item[];
+	lootTable: LootTable;
 	name: string;
 	recipe?: Collection;
 	requiredLevel: number;
@@ -19,8 +19,11 @@ export type Collection = {
 export type Item = {
 	id: string;
 	category: ItemCategory;
-	dropRate: number;
 	name: string;
 };
 
 export type ItemKey = keyof typeof itemList;
+
+export type LootTable = {
+	[key in ItemKey]?: number;
+};

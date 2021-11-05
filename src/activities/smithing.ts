@@ -7,12 +7,12 @@ const smeltCopperIngot: Activity = {
 	id: uid(),
 	actionText: "Smelt",
 	experience: 5 * progressMultiplier,
-	lootTable: [copperIngot],
+	lootTable: {
+		copperIngot: 1 * progressMultiplier,
+	},
 	name: "Copper Ingot",
 	recipe: {
-		copperOre: {
-			quantity: 1,
-		},
+		copperOre: 1,
 	},
 	requiredLevel: 0,
 	timeToCompletion: 10000 / progressMultiplier,
@@ -22,12 +22,12 @@ const smeltIronIngot: Activity = {
 	id: uid(),
 	actionText: "Smelt",
 	experience: 7.5 * progressMultiplier,
-	lootTable: [ironIngot],
+	lootTable: {
+		ironIngot: 1 * progressMultiplier,
+	},
 	name: "Iron Ingot",
 	recipe: {
-		ironOre: {
-			quantity: 1,
-		},
+		ironOre: 1,
 	},
 	requiredLevel: 0,
 	timeToCompletion: 10000 / progressMultiplier,
@@ -37,12 +37,12 @@ const smeltSteelIngot: Activity = {
 	id: uid(),
 	actionText: "Smelt",
 	experience: 12.5 * progressMultiplier,
-	lootTable: [steelIngot],
+	lootTable: {
+		steelIngot: 1 * progressMultiplier,
+	},
 	name: "Steel Ingot",
 	recipe: {
-		steelOre: {
-			quantity: 1,
-		},
+		steelOre: 1,
 	},
 	requiredLevel: 0,
 	timeToCompletion: 10000 / progressMultiplier,
@@ -52,12 +52,12 @@ const smithCopperSword: Activity = {
 	id: uid(),
 	actionText: "Smith",
 	experience: 20 * progressMultiplier,
-	lootTable: [copperSword],
+	lootTable: {
+		copperSword: 1 * progressMultiplier,
+	},
 	name: "Copper Sword",
 	recipe: {
-		copperIngot: {
-			quantity: 4,
-		},
+		copperIngot: 4,
 	},
 	requiredLevel: 0,
 	timeToCompletion: 60000 / progressMultiplier,
@@ -67,12 +67,12 @@ const smithIronSword: Activity = {
 	id: uid(),
 	actionText: "Smith",
 	experience: 30 * progressMultiplier,
-	lootTable: [ironSword],
+	lootTable: {
+		ironSword: 1 * progressMultiplier,
+	},
 	name: "Iron Sword",
 	recipe: {
-		ironIngot: {
-			quantity: 4,
-		},
+		ironIngot: 4,
 	},
 	requiredLevel: 5,
 	timeToCompletion: 60000 / progressMultiplier,
@@ -82,12 +82,12 @@ const smithSteelSword: Activity = {
 	id: uid(),
 	actionText: "Smith",
 	experience: 50 * progressMultiplier,
-	lootTable: [steelSword],
+	lootTable: {
+		steelSword: 1 * progressMultiplier,
+	},
 	name: "Steel Sword",
 	recipe: {
-		steelIngot: {
-			quantity: 4,
-		},
+		steelIngot: 4,
 	},
 	requiredLevel: 10,
 	timeToCompletion: 60000 / progressMultiplier,

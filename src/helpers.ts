@@ -1,14 +1,15 @@
 import camelCase from "lodash.camelcase";
 import * as activityList from "@/activities";
+import * as itemList from "@/items";
 import { Mastery } from "@/values";
-import type { Collection, Item, ItemKey } from "@/types";
+import type { Collection, Item, ItemKey, LootTable } from "@/types";
 
 export const canCreateRecipe = (container: Item[], recipe?: Collection) => {
 	if (!recipe || !Object.keys(recipe).length) {
 		return true;
 	}
 
-	const collection: Collection = (Object.keys(recipe) as ItemKey[]).reduce((collectionAccumulator, itemKey) => {
+	const collection = (Object.keys(recipe) as ItemKey[]).reduce((collectionAccumulator, itemKey) => {
 		const item = container.find((item) => {
 			return camelCase(item.name) === itemKey;
 		});
@@ -25,7 +26,7 @@ export const canCreateRecipe = (container: Item[], recipe?: Collection) => {
 			...collectionAccumulator,
 			[camelCase(item.name)]: quantity,
 		};
-	}, {});
+	}, {} as Collection);
 
 	return (Object.keys(recipe) as ItemKey[]).every((key) => {
 		const quantity = collection[key];
@@ -63,10 +64,16 @@ export const getActivityList = (mastery: Mastery) => {
 	}
 };
 
-export const rollLoot = (lootTable: Item[]) => {
-	return lootTable.filter((item) => {
-		return item.dropRate >= Math.random();
-	});
+export const rollLoot = (lootTable: LootTable) => {
+	return (Object.entries(lootTable) as [ItemKey, number][]).reduce((lootAccumulator, [itemKey, dropRate]) => {
+		if (dropRate >= Math.random()) {
+			const item = itemList[itemKey];
+
+			return [...lootAccumulator, item];
+		}
+
+		return lootAccumulator;
+	}, [] as Item[]);
 };
 
 export const toNextLevel = (level: number) => {
