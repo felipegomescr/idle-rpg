@@ -1,17 +1,17 @@
 .progressBarContainer {
-	@apply relative w-full h-4 border border-main;
+	@apply relative w-full h-4 border border-gray-900;
 }
 
 .progressBar {
-	@apply w-0 h-full bg-blue-600;
+	@apply w-full h-full origin-left bg-blue-600;
 }
 
 @keyframes progressBarAnimation {
 	from {
-		@apply w-0;
+		transform: scaleX(0);
 	}
 
 	to {
-		@apply w-full;
+		transform: scaleX(1);
 	}
 }

@@ -1,4 +1,4 @@
-import { Item } from "@/types";
+import type { Item } from "@/types";
 
 type InventoryProps = {
 	isDisabled?: boolean;

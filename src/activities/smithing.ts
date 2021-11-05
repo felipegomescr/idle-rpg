@@ -1,45 +1,91 @@
 import { uid } from "uid";
-import { bronzeSword, ironSword, steelSword } from "@/items";
+import { copperIngot, copperSword, ironIngot, ironSword, steelIngot, steelSword } from "@/items";
 import { progressMultiplier } from "@/values";
 import type { Activity } from "@/types";
 
-const smithBronzeSword: Activity = {
+const smeltCopperIngot: Activity = {
+	id: uid(),
+	actionText: "Smelt",
+	experience: 5 * progressMultiplier,
+	lootTable: [copperIngot],
+	name: "Copper Ingot",
+	recipe: {
+		copperOre: 1,
+	},
+	requiredLevel: 0,
+	timeToCompletion: 10000 / progressMultiplier,
+};
+
+const smeltIronIngot: Activity = {
+	id: uid(),
+	actionText: "Smelt",
+	experience: 7.5 * progressMultiplier,
+	lootTable: [ironIngot],
+	name: "Iron Ingot",
+	recipe: {
+		ironOre: 1,
+	},
+	requiredLevel: 0,
+	timeToCompletion: 10000 / progressMultiplier,
+};
+
+const smeltSteelIngot: Activity = {
+	id: uid(),
+	actionText: "Smelt",
+	experience: 12.5 * progressMultiplier,
+	lootTable: [steelIngot],
+	name: "Steel Ingot",
+	recipe: {
+		steelOre: 1,
+	},
+	requiredLevel: 0,
+	timeToCompletion: 10000 / progressMultiplier,
+};
+
+const smithCopperSword: Activity = {
 	id: uid(),
 	actionText: "Smith",
-	experienceReward: 40 * progressMultiplier,
-	lootTable: [bronzeSword],
-	name: "Bronze Sword",
+	experience: 20 * progressMultiplier,
+	lootTable: [copperSword],
+	name: "Copper Sword",
 	recipe: {
-		bronzeOre: 4,
+		copperIngot: 4,
 	},
-	requiredExperience: 0,
+	requiredLevel: 0,
 	timeToCompletion: 60000 / progressMultiplier,
 };
 
 const smithIronSword: Activity = {
 	id: uid(),
 	actionText: "Smith",
-	experienceReward: 60 * progressMultiplier,
+	experience: 30 * progressMultiplier,
 	lootTable: [ironSword],
 	name: "Iron Sword",
 	recipe: {
-		ironOre: 4,
+		ironIngot: 4,
 	},
-	requiredExperience: 2250,
+	requiredLevel: 5,
 	timeToCompletion: 60000 / progressMultiplier,
 };
 
 const smithSteelSword: Activity = {
 	id: uid(),
 	actionText: "Smith",
-	experienceReward: 100 * progressMultiplier,
+	experience: 50 * progressMultiplier,
 	lootTable: [steelSword],
 	name: "Steel Sword",
 	recipe: {
-		steelOre: 4,
+		steelIngot: 4,
 	},
-	requiredExperience: 9500,
+	requiredLevel: 10,
 	timeToCompletion: 60000 / progressMultiplier,
 };
 
-export const smithing = [smithBronzeSword, smithIronSword, smithSteelSword];
+export const smithing = [
+	smeltCopperIngot,
+	smeltIronIngot,
+	smeltSteelIngot,
+	smithCopperSword,
+	smithIronSword,
+	smithSteelSword,
+];

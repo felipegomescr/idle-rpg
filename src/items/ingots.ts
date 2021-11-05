@@ -2,23 +2,23 @@ import { uid } from "uid";
 import { ItemCategory, progressMultiplier } from "@/values";
 import type { Item } from "@/types";
 
-export const oakLog: Item = {
+export const copperIngot: Item = {
 	id: uid(),
-	category: [ItemCategory.LOG],
+	category: [ItemCategory.INGOT],
 	dropRate: 1 * progressMultiplier,
-	name: "Oak Log",
+	name: "Copper Ingot",
 };
 
-export const teakLog: Item = {
+export const ironIngot: Item = {
 	id: uid(),
-	category: [ItemCategory.LOG],
+	category: [ItemCategory.INGOT],
 	dropRate: 1 * progressMultiplier,
-	name: "Teak Log",
+	name: "Iron Ingot",
 };
 
-export const willowLog: Item = {
+export const steelIngot: Item = {
 	id: uid(),
-	category: [ItemCategory.LOG],
+	category: [ItemCategory.INGOT],
 	dropRate: 1 * progressMultiplier,
-	name: "Willow Log",
+	name: "Steel Ingot",
 };

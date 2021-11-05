@@ -1,36 +1,36 @@
 import { uid } from "uid";
-import { bronzeOre, ironOre, steelOre } from "@/items";
+import { copperOre, ironOre, steelOre } from "@/items";
 import { progressMultiplier } from "@/values";
 import type { Activity } from "@/types";
 
-const mineBronzeOre: Activity = {
+const mineCopperOre: Activity = {
 	id: uid(),
 	actionText: "Mine",
-	experienceReward: 10 * progressMultiplier,
-	lootTable: [bronzeOre],
-	name: "Bronze Ore",
-	requiredExperience: 0,
+	experience: 10 * progressMultiplier,
+	lootTable: [copperOre],
+	name: "Copper Ore",
+	requiredLevel: 0,
 	timeToCompletion: 10000 / progressMultiplier,
 };
 
 const mineIronOre: Activity = {
 	id: uid(),
 	actionText: "Mine",
-	experienceReward: 15 * progressMultiplier,
+	experience: 15 * progressMultiplier,
 	lootTable: [ironOre],
 	name: "Iron Ore",
-	requiredExperience: 2250,
+	requiredLevel: 5,
 	timeToCompletion: 10000 / progressMultiplier,
 };
 
 const mineSteelOre: Activity = {
 	id: uid(),
 	actionText: "Mine",
-	experienceReward: 25 * progressMultiplier,
+	experience: 25 * progressMultiplier,
 	lootTable: [steelOre],
 	name: "Steel Ore",
-	requiredExperience: 9500,
+	requiredLevel: 10,
 	timeToCompletion: 10000 / progressMultiplier,
 };
 
-export const mining = [mineBronzeOre, mineIronOre, mineSteelOre];
+export const mining = [mineCopperOre, mineIronOre, mineSteelOre];

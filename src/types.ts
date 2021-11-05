@@ -1,14 +1,14 @@
-import { ItemType } from "@/enums";
 import * as itemList from "@/items";
+import { ItemCategory } from "@/values";
 
 export type Activity = {
 	id: string;
 	actionText: string;
-	experienceReward: number;
+	experience: number;
 	lootTable: Item[];
 	name: string;
 	recipe?: Collection;
-	requiredExperience: number;
+	requiredLevel: number;
 	timeToCompletion: number;
 };
 
@@ -18,10 +18,9 @@ export type Collection = {
 
 export type Item = {
 	id: string;
+	category: ItemCategory[];
 	dropRate: number;
 	name: string;
-	key: ItemKey;
-	type: ItemType;
 };
 
 export type ItemKey = keyof typeof itemList;

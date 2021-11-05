@@ -1,3 +1,20 @@
+export enum ItemCategory {
+	INGOT = "Ingot",
+	LOG = "Log",
+	MISCELLANY = "Miscellany",
+	ORE = "Ore",
+	SWORD = "Sword",
+}
+
+export enum Mastery {
+	CARVING = "Carving",
+	COOKING = "Cooking",
+	FISHING = "Fishing",
+	LOGGING = "Logging",
+	MINING = "Mining",
+	SMITHING = "Smithing",
+}
+
 export const maximumInventoryCapacity = 24;
 
 export const progressMultiplier =

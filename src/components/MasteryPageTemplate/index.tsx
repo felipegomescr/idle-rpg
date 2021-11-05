@@ -1,30 +1,35 @@
 import { ActivityCard, Inventory } from "@/components";
 import { useMainCharacter } from "@/containers";
-import { Skill } from "@/enums";
-import { canCreateRecipe, getActivityList, getName, rollLoot } from "@/helpers";
+import { Mastery } from "@/enums";
+import { canCreateRecipe, experienceToLevel, getActivityList, rollLoot, toNextLevel } from "@/helpers";
 
-type PageLayoutProps = {
-	skill: Skill;
+type MasteryPageTemplateProps = {
+	mastery: Mastery;
 };
 
-export const PageLayout = ({ skill }: PageLayoutProps) => {
+export const MasteryPageTemplate = ({ mastery }: MasteryPageTemplateProps) => {
 	const mainCharacter = useMainCharacter();
 
-	const activityList = getActivityList(skill);
-	const experience = mainCharacter.getExperience(skill);
-	const name = getName(skill);
+	const activityList = getActivityList(mastery);
+	const experience = mainCharacter.getExperience(mastery);
+	const level = experienceToLevel(experience);
 
 	return (
 		<div className="p-4 space-y-4">
-			<h1 className="text-4xl font-bold">{name}</h1>
+			<h1 className="text-4xl font-bold">{mastery}</h1>
 			<div>
-				<span className="font-bold">{name} experience:</span> {experience}
+				<span className="font-bold">{mastery} level:</span> {level}
+			</div>
+			<div>
+				<span className="font-bold">{mastery} experience:</span> <span>{experience}</span>
+			</div>
+			<div>
+				<span className="font-bold">To next level:</span> <span>{toNextLevel(level + 1)}</span>
 			</div>
 			<div className="grid grid-cols-4 gap-4">
 				{activityList.map((activity) => {
 					const isDisabled =
-						activity.requiredExperience > experience ||
-						!canCreateRecipe(mainCharacter.inventory.itemList, activity.recipe);
+						activity.requiredLevel > level || !canCreateRecipe(mainCharacter.inventory.itemList, activity.recipe);
 					const isPerformingActivity = mainCharacter.activity?.name === activity.name && !isDisabled;
 
 					return (
@@ -34,9 +39,9 @@ export const PageLayout = ({ skill }: PageLayoutProps) => {
 							activity={activity}
 							isDisabled={isDisabled}
 							isPerformingActivity={isPerformingActivity}
-							onActivityComplete={(experienceReward, lootTable) => {
-								mainCharacter.increaseExperience(experienceReward, skill);
+							onActivityComplete={(experience, lootTable) => {
 								mainCharacter.inventory.bulkAdd(rollLoot(lootTable));
+								mainCharacter.setExperience(experience, mastery);
 
 								if (activity.recipe) {
 									mainCharacter.inventory.bulkDestroy(activity.recipe);

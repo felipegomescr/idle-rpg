@@ -1,8 +1,8 @@
+import camelCase from "lodash.camelcase";
 import times from "lodash.times";
 import { useState } from "react";
 import { createContainer } from "unstated-next";
-import { Skill } from "@/enums";
-import { maximumInventoryCapacity } from "@/values";
+import { Mastery, maximumInventoryCapacity } from "@/values";
 import type { ReactNode } from "react";
 import type { Activity, Collection, Item } from "@/types";
 
@@ -13,6 +13,9 @@ type MainCharacterProviderProps = {
 const MainCharacterContainer = createContainer(() => {
 	const [activity, setActivity] = useState<Activity>();
 	const [inventory, setInventory] = useState<Item[]>([]);
+	const [carvingExperience, setCarvingExperience] = useState(0);
+	const [cookingExperience, setCookingExperience] = useState(0);
+	const [fishingExperience, setFishingExperience] = useState(0);
 	const [loggingExperience, setLoggingExperience] = useState(0);
 	const [miningExperience, setMiningExperience] = useState(0);
 	const [smithingExperience, setSmithingExperience] = useState(0);
@@ -23,17 +26,27 @@ const MainCharacterContainer = createContainer(() => {
 			itemList: inventory,
 			bulkAdd: (itemList: Item[]) => {
 				setInventory((previousInventory) => {
-					return [...previousInventory, ...itemList.slice(0, maximumInventoryCapacity - previousInventory.length)];
+					const inventory = [
+						...previousInventory,
+						...itemList.slice(0, maximumInventoryCapacity - previousInventory.length),
+					];
+
+					if (inventory.length === maximumInventoryCapacity) {
+						alert("Inventory is full!");
+						setActivity(undefined);
+					}
+
+					return inventory;
 				});
 			},
 			bulkDestroy: (itemList: Collection) => {
 				setInventory((previousInventory) => {
 					const previousInventoryClone = [...previousInventory];
 
-					Object.entries(itemList).forEach(([itemKey, amount]) => {
-						times(amount, () => {
+					Object.entries(itemList).forEach(([itemKey, quantity]) => {
+						times(quantity, () => {
 							const index = previousInventory.findIndex((item) => {
-								return item.key === itemKey;
+								return camelCase(item.name) === itemKey;
 							});
 
 							if (index === -1) {
@@ -55,34 +68,49 @@ const MainCharacterContainer = createContainer(() => {
 				);
 			},
 		},
-		getExperience: (skill: Skill) => {
-			switch (skill) {
-				case Skill.LOGGING:
+		getExperience: (mastery: Mastery) => {
+			switch (mastery) {
+				case Mastery.CARVING:
+					return carvingExperience;
+				case Mastery.COOKING:
+					return cookingExperience;
+				case Mastery.FISHING:
+					return fishingExperience;
+				case Mastery.LOGGING:
 					return loggingExperience;
-				case Skill.MINING:
+				case Mastery.MINING:
 					return miningExperience;
-				case Skill.SMITHING:
+				case Mastery.SMITHING:
 					return smithingExperience;
 			}
 		},
-		increaseExperience: (amount: number, skill: Skill) => {
-			const increaseExperience = (previousExperience: number) => {
+		setActivity,
+		setExperience: (amount: number, mastery: Mastery) => {
+			const setExperience = (previousExperience: number) => {
 				return previousExperience + amount;
 			};
 
-			switch (skill) {
-				case Skill.LOGGING:
-					setLoggingExperience(increaseExperience);
+			switch (mastery) {
+				case Mastery.CARVING:
+					setCarvingExperience(setExperience);
 					break;
-				case Skill.MINING:
-					setMiningExperience(increaseExperience);
+				case Mastery.COOKING:
+					setCookingExperience(setExperience);
 					break;
-				case Skill.SMITHING:
-					setSmithingExperience(increaseExperience);
+				case Mastery.FISHING:
+					setFishingExperience(setExperience);
+					break;
+				case Mastery.LOGGING:
+					setLoggingExperience(setExperience);
+					break;
+				case Mastery.MINING:
+					setMiningExperience(setExperience);
+					break;
+				case Mastery.SMITHING:
+					setSmithingExperience(setExperience);
 					break;
 			}
 		},
-		setActivity,
 	};
 });
 

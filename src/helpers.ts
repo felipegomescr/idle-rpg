@@ -1,6 +1,7 @@
+import camelCase from "lodash.camelcase";
 import * as activityList from "@/activities";
-import { Skill } from "@/enums";
-import { Collection, Item, ItemKey } from "@/types";
+import { Mastery } from "@/values";
+import type { Collection, Item, ItemKey } from "@/types";
 
 export const canCreateRecipe = (container: Item[], recipe?: Collection) => {
 	if (!recipe || !Object.keys(recipe).length) {
@@ -9,57 +10,56 @@ export const canCreateRecipe = (container: Item[], recipe?: Collection) => {
 
 	const itemList = (Object.keys(recipe) as ItemKey[]).reduce((itemListAccumulator, itemKey) => {
 		const item = container.find((item) => {
-			return item.key === itemKey;
+			return camelCase(item.name) === itemKey;
 		});
 
 		if (!item) {
 			return itemListAccumulator;
 		}
 
-		const amount = container.filter((item) => {
-			return item.key === itemKey;
+		const quantity = container.filter((item) => {
+			return camelCase(item.name) === itemKey;
 		}).length;
 
 		return {
 			...itemListAccumulator,
-			[item.key]: amount,
+			[camelCase(item.name)]: quantity,
 		};
 	}, {}) as Collection;
 
 	return (Object.keys(recipe) as ItemKey[]).every((key) => {
-		const amount = itemList[key];
+		const quantity = itemList[key];
 
-		if (!amount) {
+		if (!quantity) {
 			return false;
 		}
 
-		return amount >= recipe[key]!;
+		return quantity >= recipe[key]!;
 	});
+};
+
+export const experienceToLevel = (experience: number) => {
+	return Math.floor(Math.floor(25 + Math.sqrt(625 + 100 * experience)) / 50);
 };
 
 export const formatTime = (time: number) => {
 	return `${(time / 1000).toFixed(1)}s`;
 };
 
-export const getActivityList = (skill: Skill) => {
-	switch (skill) {
-		case Skill.LOGGING:
+export const getActivityList = (mastery: Mastery) => {
+	switch (mastery) {
+		case Mastery.CARVING:
+			return activityList.carving;
+		case Mastery.COOKING:
+			return activityList.cooking;
+		case Mastery.FISHING:
+			return activityList.fishing;
+		case Mastery.LOGGING:
 			return activityList.logging;
-		case Skill.MINING:
+		case Mastery.MINING:
 			return activityList.mining;
-		case Skill.SMITHING:
+		case Mastery.SMITHING:
 			return activityList.smithing;
-	}
-};
-
-export const getName = (skill: Skill) => {
-	switch (skill) {
-		case Skill.LOGGING:
-			return "Logging";
-		case Skill.MINING:
-			return "Mining";
-		case Skill.SMITHING:
-			return "Smithing";
 	}
 };
 
@@ -67,4 +67,8 @@ export const rollLoot = (lootTable: Item[]) => {
 	return lootTable.filter((item) => {
 		return item.dropRate >= Math.random();
 	});
+};
+
+export const toNextLevel = (level: number) => {
+	return 25 * level * level - 25 * level;
 };
