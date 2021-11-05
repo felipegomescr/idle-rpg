@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { ProgressBar } from "@/components";
 import { formatTime } from "@/helpers";
+import { progressMultiplier } from "@/values";
 import type { Activity, LootTable } from "@/types";
 
 type ActivityCardProps = {
@@ -49,7 +50,7 @@ export const ActivityCard = ({
 					if (!isPerformingActivity) {
 						timeToCompletionCounter.current = setInterval(() => {
 							handleActivityComplete(activity.experience, activity.lootTable);
-						}, activity.timeToCompletion);
+						}, activity.timeToCompletion / progressMultiplier);
 					}
 
 					handleClick(isPerformingActivity);

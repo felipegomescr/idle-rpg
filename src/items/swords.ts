@@ -1,5 +1,5 @@
 import { uid } from "uid";
-import { ItemCategory, progressMultiplier } from "@/values";
+import { ItemCategory } from "@/values";
 import type { Item } from "@/types";
 
 export const copperSword: Item = {

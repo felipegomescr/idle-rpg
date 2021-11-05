@@ -1,7 +1,7 @@
 import camelCase from "lodash.camelcase";
 import * as activityList from "@/activities";
 import * as itemList from "@/items";
-import { Mastery, localStorageProgressKey } from "@/values";
+import { Mastery, localStorageProgressKey, progressMultiplier } from "@/values";
 import type { Collection, Item, ItemKey, LootTable, Progress } from "@/types";
 
 export const canCreateRecipe = (container: Item[], recipe?: Collection) => {
@@ -91,8 +91,8 @@ export const getActivityList = (mastery: Mastery) => {
 };
 
 export const rollLoot = (lootTable: LootTable) => {
-	return (Object.entries(lootTable) as [ItemKey, number][]).reduce((lootAccumulator, [itemKey, dropRate]) => {
-		if (dropRate >= Math.random()) {
+	return (Object.entries(lootTable) as [ItemKey, number][]).reduce((lootAccumulator, [itemKey, chance]) => {
+		if (chance * progressMultiplier >= Math.random()) {
 			const item = itemList[itemKey];
 
 			return [...lootAccumulator, item];
