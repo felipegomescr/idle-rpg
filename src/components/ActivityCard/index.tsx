@@ -1,7 +1,8 @@
+import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { ProgressBar } from "@/components";
 import { formatTime } from "@/helpers";
-import { progressMultiplier } from "@/values";
+import { notFoundPlaceholderIcon, progressMultiplier } from "@/values";
 import type { Activity, LootTable } from "@/types";
 
 type ActivityCardProps = {
@@ -34,6 +35,9 @@ export const ActivityCard = ({
 	return (
 		<div className="flex flex-col items-center justify-center p-4 space-y-4 border border-gray-900">
 			<span className="font-bold">{`${activity.name} - ${formatTime(activity.timeToCompletion)}`}</span>
+			<div className="relative w-16 h-16">
+				<Image alt="" layout="fill" src={activity.icon || notFoundPlaceholderIcon} />
+			</div>
 			<div className="text-center">
 				{isPerformingActivity && <ProgressBar duration={activity.timeToCompletion} loop />}
 				<p>

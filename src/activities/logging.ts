@@ -1,29 +1,31 @@
 import { uid } from "uid";
 import type { Activity } from "@/types";
 
-const chopMahogany: Activity = {
-	id: uid(),
-	actionText: "Chop",
-	experience: 10,
-	lootTable: {
-		birdNest: 0.2,
-		oakLog: 1,
-	},
-	name: "Mahogany",
-	requiredLevel: 0,
-	timeToCompletion: 10000,
-};
-
 const chopOak: Activity = {
 	id: uid(),
 	actionText: "Chop",
 	experience: 15,
+	icon: "/assets/icons/activities/logging/chop-oak.png",
 	lootTable: {
 		birdNest: 0.2,
-		willowLog: 1,
+		oakLog: 1,
 	},
 	name: "Oak",
 	requiredLevel: 5,
+	timeToCompletion: 10000,
+};
+
+const chopPine: Activity = {
+	id: uid(),
+	actionText: "Chop",
+	experience: 25,
+	icon: "/assets/icons/activities/logging/chop-pine.png",
+	lootTable: {
+		birdNest: 0.2,
+		pineLog: 1,
+	},
+	name: "Pine",
+	requiredLevel: 10,
 	timeToCompletion: 10000,
 };
 
@@ -31,13 +33,14 @@ const chopWillow: Activity = {
 	id: uid(),
 	actionText: "Chop",
 	experience: 25,
+	icon: "/assets/icons/activities/logging/chop-willow.png",
 	lootTable: {
 		birdNest: 0.2,
-		teakLog: 1,
+		willowLog: 1,
 	},
 	name: "Willow",
 	requiredLevel: 10,
 	timeToCompletion: 10000,
 };
 
-export const logging = [chopMahogany, chopOak, chopWillow];
+export const logging = [chopOak, chopPine, chopWillow];

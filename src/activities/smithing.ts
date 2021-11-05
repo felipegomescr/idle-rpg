@@ -5,6 +5,7 @@ const smeltCopperIngot: Activity = {
 	id: uid(),
 	actionText: "Smelt",
 	experience: 5,
+	icon: "/assets/icons/activities/smithing/smelt-copper-ingot.png",
 	lootTable: {
 		copperIngot: 1,
 	},
@@ -20,6 +21,7 @@ const smeltIronIngot: Activity = {
 	id: uid(),
 	actionText: "Smelt",
 	experience: 7.5,
+	icon: "/assets/icons/activities/smithing/smelt-iron-ingot.png",
 	lootTable: {
 		ironIngot: 1,
 	},
@@ -35,6 +37,7 @@ const smeltSteelIngot: Activity = {
 	id: uid(),
 	actionText: "Smelt",
 	experience: 12.5,
+	icon: "/assets/icons/activities/smithing/smelt-steel-ingot.png",
 	lootTable: {
 		steelIngot: 1,
 	},
@@ -50,6 +53,7 @@ const smithCopperSword: Activity = {
 	id: uid(),
 	actionText: "Smith",
 	experience: 20,
+	icon: "/assets/icons/activities/smithing/smith-copper-sword.png",
 	lootTable: {
 		copperSword: 1,
 	},
@@ -65,6 +69,7 @@ const smithIronSword: Activity = {
 	id: uid(),
 	actionText: "Smith",
 	experience: 30,
+	icon: "/assets/icons/activities/smithing/smith-iron-sword.png",
 	lootTable: {
 		ironSword: 1,
 	},
@@ -80,6 +85,7 @@ const smithSteelSword: Activity = {
 	id: uid(),
 	actionText: "Smith",
 	experience: 50,
+	icon: "/assets/icons/activities/smithing/smith-steel-sword.png",
 	lootTable: {
 		steelSword: 1,
 	},

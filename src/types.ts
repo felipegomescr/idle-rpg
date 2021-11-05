@@ -5,6 +5,7 @@ export type Activity = {
 	id: string;
 	actionText: string;
 	experience: number;
+	icon: string;
 	lootTable: LootTable;
 	name: string;
 	recipe?: Collection;
@@ -19,6 +20,7 @@ export type Collection = {
 export type Item = {
 	id: string;
 	category: ItemCategory;
+	icon: string;
 	name: string;
 };
 

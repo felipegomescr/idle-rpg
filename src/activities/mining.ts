@@ -5,8 +5,10 @@ const mineCopperOre: Activity = {
 	id: uid(),
 	actionText: "Mine",
 	experience: 10,
+	icon: "/assets/icons/activities/mining/mine-copper-ore.png",
 	lootTable: {
 		copperOre: 1,
+		stone: 0.2,
 	},
 	name: "Copper Ore",
 	requiredLevel: 0,
@@ -17,8 +19,10 @@ const mineIronOre: Activity = {
 	id: uid(),
 	actionText: "Mine",
 	experience: 15,
+	icon: "/assets/icons/activities/mining/mine-iron-ore.png",
 	lootTable: {
 		ironOre: 1,
+		stone: 0.2,
 	},
 	name: "Iron Ore",
 	requiredLevel: 5,
@@ -29,8 +33,10 @@ const mineSteelOre: Activity = {
 	id: uid(),
 	actionText: "Mine",
 	experience: 25,
+	icon: "/assets/icons/activities/mining/mine-steel-ore.png",
 	lootTable: {
 		steelOre: 1,
+		stone: 0.2,
 	},
 	name: "Steel Ore",
 	requiredLevel: 10,
