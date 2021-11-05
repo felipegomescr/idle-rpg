@@ -3,10 +3,10 @@ import type { Item } from "@/types";
 type InventoryProps = {
 	isDisabled?: boolean;
 	itemList: Item[];
-	onItemDestroy: (item: Item, position: number) => void;
+	onItemDelete: (item: Item, position: number) => void;
 };
 
-export const Inventory = ({ isDisabled, itemList, onItemDestroy: handleItemDestroy }: InventoryProps) => {
+export const Inventory = ({ isDisabled, itemList, onItemDelete: handleItemDelete }: InventoryProps) => {
 	return (
 		<>
 			<div className="font-bold">Inventory</div>
@@ -18,7 +18,7 @@ export const Inventory = ({ isDisabled, itemList, onItemDestroy: handleItemDestr
 								className="w-8 h-8 font-bold text-white bg-red-600 rounded-full disabled:opacity-50"
 								disabled={isDisabled}
 								onClick={() => {
-									handleItemDestroy(item, position);
+									handleItemDelete(item, position);
 								}}
 							>
 								&#10005;

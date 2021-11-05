@@ -15,6 +15,8 @@ export enum Mastery {
 	SMITHING = "Smithing",
 }
 
+export const localStorageProgressKey = "idle-rpg-progress";
+
 export const maximumInventoryCapacity = 24;
 
 export const progressMultiplier =

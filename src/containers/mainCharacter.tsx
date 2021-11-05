@@ -1,7 +1,8 @@
 import camelCase from "lodash.camelcase";
 import times from "lodash.times";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createContainer } from "unstated-next";
+import { loadProgress, saveProgress } from "@/helpers";
 import { Mastery, maximumInventoryCapacity } from "@/values";
 import type { ReactNode } from "react";
 import type { Activity, Collection, Item } from "@/types";
@@ -19,6 +20,40 @@ const MainCharacterContainer = createContainer(() => {
 	const [loggingExperience, setLoggingExperience] = useState(0);
 	const [miningExperience, setMiningExperience] = useState(0);
 	const [smithingExperience, setSmithingExperience] = useState(0);
+
+	useEffect(() => {
+		const progress = loadProgress();
+
+		if (progress) {
+			setInventory(progress.inventory);
+			setCarvingExperience(progress.carvingExperience);
+			setCookingExperience(progress.cookingExperience);
+			setFishingExperience(progress.fishingExperience);
+			setLoggingExperience(progress.loggingExperience);
+			setMiningExperience(progress.miningExperience);
+			setSmithingExperience(progress.smithingExperience);
+		}
+	}, []);
+
+	useEffect(() => {
+		saveProgress({
+			inventory,
+			carvingExperience,
+			cookingExperience,
+			fishingExperience,
+			loggingExperience,
+			miningExperience,
+			smithingExperience,
+		});
+	}, [
+		inventory,
+		carvingExperience,
+		cookingExperience,
+		fishingExperience,
+		loggingExperience,
+		miningExperience,
+		smithingExperience,
+	]);
 
 	return {
 		activity,
@@ -39,7 +74,7 @@ const MainCharacterContainer = createContainer(() => {
 					return inventory;
 				});
 			},
-			bulkDestroy: (itemList: Collection) => {
+			bulkDelete: (itemList: Collection) => {
 				setInventory((previousInventory) => {
 					const previousInventoryClone = [...previousInventory];
 
@@ -60,7 +95,7 @@ const MainCharacterContainer = createContainer(() => {
 					return previousInventoryClone;
 				});
 			},
-			destroyAt: (position: number) => {
+			deleteAt: (position: number) => {
 				setInventory(
 					inventory.filter((_, index) => {
 						return index !== position;

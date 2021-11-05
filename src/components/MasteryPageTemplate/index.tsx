@@ -44,7 +44,7 @@ export const MasteryPageTemplate = ({ mastery }: MasteryPageTemplateProps) => {
 								mainCharacter.setExperience(experience, mastery);
 
 								if (activity.recipe) {
-									mainCharacter.inventory.bulkDestroy(activity.recipe);
+									mainCharacter.inventory.bulkDelete(activity.recipe);
 								}
 							}}
 							onClick={(isPerformingActivity) => {
@@ -57,8 +57,8 @@ export const MasteryPageTemplate = ({ mastery }: MasteryPageTemplateProps) => {
 			<Inventory
 				isDisabled={!!mainCharacter.activity}
 				itemList={mainCharacter.inventory.itemList}
-				onItemDestroy={(_, position) => {
-					mainCharacter.inventory.destroyAt(position);
+				onItemDelete={(_, position) => {
+					mainCharacter.inventory.deleteAt(position);
 				}}
 			/>
 		</div>

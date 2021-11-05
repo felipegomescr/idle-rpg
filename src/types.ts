@@ -27,3 +27,13 @@ export type ItemKey = keyof typeof itemList;
 export type LootTable = {
 	[key in ItemKey]?: number;
 };
+
+export type Progress = {
+	inventory: Item[];
+	carvingExperience: number;
+	cookingExperience: number;
+	fishingExperience: number;
+	loggingExperience: number;
+	miningExperience: number;
+	smithingExperience: number;
+};
