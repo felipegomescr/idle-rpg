@@ -6,7 +6,7 @@ const chopMahogany: Activity = {
 	actionText: "Chop",
 	experience: 10,
 	lootTable: {
-		birdNest: 0.5,
+		birdNest: 0.2,
 		oakLog: 1,
 	},
 	name: "Mahogany",
@@ -19,7 +19,7 @@ const chopOak: Activity = {
 	actionText: "Chop",
 	experience: 15,
 	lootTable: {
-		birdNest: 0.5,
+		birdNest: 0.2,
 		willowLog: 1,
 	},
 	name: "Oak",
@@ -32,7 +32,7 @@ const chopWillow: Activity = {
 	actionText: "Chop",
 	experience: 25,
 	lootTable: {
-		birdNest: 0.5,
+		birdNest: 0.2,
 		teakLog: 1,
 	},
 	name: "Willow",

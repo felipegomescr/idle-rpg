@@ -2,7 +2,7 @@ import camelCase from "lodash.camelcase";
 import times from "lodash.times";
 import { useEffect, useState } from "react";
 import { createContainer } from "unstated-next";
-import { loadProgress, saveProgress } from "@/helpers";
+import { progressService } from "@/helpers";
 import { Mastery, maximumInventoryCapacity, progressMultiplier } from "@/values";
 import type { ReactNode } from "react";
 import type { Activity, Collection, Item } from "@/types";
@@ -22,7 +22,7 @@ const MainCharacterContainer = createContainer(() => {
 	const [smithingExperience, setSmithingExperience] = useState(0);
 
 	useEffect(() => {
-		const progress = loadProgress();
+		const progress = progressService.load();
 
 		if (progress) {
 			setInventory(progress.inventory);
@@ -36,7 +36,7 @@ const MainCharacterContainer = createContainer(() => {
 	}, []);
 
 	useEffect(() => {
-		saveProgress({
+		progressService.save({
 			inventory,
 			carvingExperience,
 			cookingExperience,

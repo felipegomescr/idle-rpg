@@ -28,8 +28,10 @@ export const MasteryPageTemplate = ({ mastery }: MasteryPageTemplateProps) => {
 			</div>
 			<div className="grid grid-cols-4 gap-4">
 				{activityList.map((activity) => {
-					const isDisabled =
-						activity.requiredLevel > level || !canCreateRecipe(mainCharacter.inventory.itemList, activity.recipe);
+					const hasRequiredLevel = level >= activity.requiredLevel;
+					const isDisabled = activity.recipe
+						? !hasRequiredLevel || !canCreateRecipe(mainCharacter.inventory.itemList, activity.recipe)
+						: !hasRequiredLevel;
 					const isPerformingActivity = mainCharacter.activity?.name === activity.name && !isDisabled;
 
 					return (

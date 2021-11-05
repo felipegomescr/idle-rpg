@@ -1,11 +1,11 @@
 import camelCase from "lodash.camelcase";
 import * as activityList from "@/activities";
 import * as itemList from "@/items";
-import { Mastery, localStorageProgressKey, progressMultiplier } from "@/values";
+import { localStorageProgressKey, Mastery, progressMultiplier } from "@/values";
 import type { Collection, Item, ItemKey, LootTable, Progress } from "@/types";
 
-export const canCreateRecipe = (container: Item[], recipe?: Collection) => {
-	if (!recipe || !Object.keys(recipe).length) {
+export const canCreateRecipe = (container: Item[], recipe: Collection) => {
+	if (!Object.keys(recipe).length) {
 		return true;
 	}
 
@@ -39,28 +39,6 @@ export const canCreateRecipe = (container: Item[], recipe?: Collection) => {
 	});
 };
 
-export const deleteProgress = () => {
-	if (isClient()) {
-		window.localStorage.removeItem(localStorageProgressKey);
-	}
-};
-
-export const loadProgress = (): Progress | undefined => {
-	if (isClient()) {
-		const progress = window.localStorage.getItem(localStorageProgressKey);
-
-		if (progress) {
-			return JSON.parse(progress);
-		}
-	}
-};
-
-export const saveProgress = (progress: Progress) => {
-	if (isClient()) {
-		window.localStorage.setItem(localStorageProgressKey, JSON.stringify(progress));
-	}
-};
-
 export const experienceToLevel = (experience: number) => {
 	return Math.floor(Math.floor(25 + Math.sqrt(625 + 100 * experience)) / 50);
 };
@@ -88,6 +66,28 @@ export const getActivityList = (mastery: Mastery) => {
 		case Mastery.SMITHING:
 			return activityList.smithing;
 	}
+};
+
+export const progressService = {
+	delete: () => {
+		if (isClient()) {
+			window.localStorage.removeItem(localStorageProgressKey);
+		}
+	},
+	load: (): Progress | undefined => {
+		if (isClient()) {
+			const progress = window.localStorage.getItem(localStorageProgressKey);
+
+			if (progress) {
+				return JSON.parse(progress);
+			}
+		}
+	},
+	save: (progress: Progress) => {
+		if (isClient()) {
+			window.localStorage.setItem(localStorageProgressKey, JSON.stringify(progress));
+		}
+	},
 };
 
 export const rollLoot = (lootTable: LootTable) => {
