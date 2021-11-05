@@ -24,7 +24,7 @@ export const MasteryPageTemplate = ({ mastery }: MasteryPageTemplateProps) => {
 				<span className="font-bold">{mastery} experience:</span> <span>{experience}</span>
 			</div>
 			<div>
-				<span className="font-bold">To next level:</span> <span>{toNextLevel(level + 1)}</span>
+				<span className="font-bold">To next level:</span> <span>{toNextLevel(level + 1) - experience}</span>
 			</div>
 			<div className="grid grid-cols-4 gap-4">
 				{activityList.map((activity) => {
