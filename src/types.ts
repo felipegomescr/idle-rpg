@@ -18,7 +18,7 @@ export type Collection = {
 
 export type Item = {
 	id: string;
-	category: ItemCategory[];
+	category: ItemCategory;
 	dropRate: number;
 	name: string;
 };

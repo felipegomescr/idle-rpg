@@ -1,7 +1,7 @@
 import { ActivityCard, Inventory } from "@/components";
 import { useMainCharacter } from "@/containers";
-import { Mastery } from "@/enums";
 import { canCreateRecipe, experienceToLevel, getActivityList, rollLoot, toNextLevel } from "@/helpers";
+import { Mastery } from "@/values";
 
 type MasteryPageTemplateProps = {
 	mastery: Mastery;

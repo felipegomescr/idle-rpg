@@ -10,7 +10,9 @@ const smeltCopperIngot: Activity = {
 	lootTable: [copperIngot],
 	name: "Copper Ingot",
 	recipe: {
-		copperOre: 1,
+		copperOre: {
+			quantity: 1,
+		},
 	},
 	requiredLevel: 0,
 	timeToCompletion: 10000 / progressMultiplier,
@@ -23,7 +25,9 @@ const smeltIronIngot: Activity = {
 	lootTable: [ironIngot],
 	name: "Iron Ingot",
 	recipe: {
-		ironOre: 1,
+		ironOre: {
+			quantity: 1,
+		},
 	},
 	requiredLevel: 0,
 	timeToCompletion: 10000 / progressMultiplier,
@@ -36,7 +40,9 @@ const smeltSteelIngot: Activity = {
 	lootTable: [steelIngot],
 	name: "Steel Ingot",
 	recipe: {
-		steelOre: 1,
+		steelOre: {
+			quantity: 1,
+		},
 	},
 	requiredLevel: 0,
 	timeToCompletion: 10000 / progressMultiplier,
@@ -49,7 +55,9 @@ const smithCopperSword: Activity = {
 	lootTable: [copperSword],
 	name: "Copper Sword",
 	recipe: {
-		copperIngot: 4,
+		copperIngot: {
+			quantity: 4,
+		},
 	},
 	requiredLevel: 0,
 	timeToCompletion: 60000 / progressMultiplier,
@@ -62,7 +70,9 @@ const smithIronSword: Activity = {
 	lootTable: [ironSword],
 	name: "Iron Sword",
 	recipe: {
-		ironIngot: 4,
+		ironIngot: {
+			quantity: 4,
+		},
 	},
 	requiredLevel: 5,
 	timeToCompletion: 60000 / progressMultiplier,
@@ -75,7 +85,9 @@ const smithSteelSword: Activity = {
 	lootTable: [steelSword],
 	name: "Steel Sword",
 	recipe: {
-		steelIngot: 4,
+		steelIngot: {
+			quantity: 4,
+		},
 	},
 	requiredLevel: 10,
 	timeToCompletion: 60000 / progressMultiplier,

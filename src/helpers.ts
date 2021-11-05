@@ -8,13 +8,13 @@ export const canCreateRecipe = (container: Item[], recipe?: Collection) => {
 		return true;
 	}
 
-	const itemList = (Object.keys(recipe) as ItemKey[]).reduce((itemListAccumulator, itemKey) => {
+	const collection: Collection = (Object.keys(recipe) as ItemKey[]).reduce((collectionAccumulator, itemKey) => {
 		const item = container.find((item) => {
 			return camelCase(item.name) === itemKey;
 		});
 
 		if (!item) {
-			return itemListAccumulator;
+			return collectionAccumulator;
 		}
 
 		const quantity = container.filter((item) => {
@@ -22,13 +22,13 @@ export const canCreateRecipe = (container: Item[], recipe?: Collection) => {
 		}).length;
 
 		return {
-			...itemListAccumulator,
+			...collectionAccumulator,
 			[camelCase(item.name)]: quantity,
 		};
-	}, {}) as Collection;
+	}, {});
 
 	return (Object.keys(recipe) as ItemKey[]).every((key) => {
-		const quantity = itemList[key];
+		const quantity = collection[key];
 
 		if (!quantity) {
 			return false;
