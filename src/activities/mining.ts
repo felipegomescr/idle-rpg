@@ -5,7 +5,7 @@ const mineCopperOre: Activity = {
 	id: uid(),
 	actionText: "Mine",
 	experience: 10,
-	icon: "/assets/icons/activities/mining/mine-copper-ore.png",
+	icon: "/assets/icons/items/ores/copper-ore.png",
 	lootTable: {
 		copperOre: 1,
 		stone: 0.2,
@@ -19,7 +19,7 @@ const mineIronOre: Activity = {
 	id: uid(),
 	actionText: "Mine",
 	experience: 15,
-	icon: "/assets/icons/activities/mining/mine-iron-ore.png",
+	icon: "/assets/icons/items/ores/iron-ore.png",
 	lootTable: {
 		ironOre: 1,
 		stone: 0.2,
@@ -29,18 +29,18 @@ const mineIronOre: Activity = {
 	timeToCompletion: 10000,
 };
 
-const mineSteelOre: Activity = {
+const mineMithrilOre: Activity = {
 	id: uid(),
 	actionText: "Mine",
 	experience: 25,
-	icon: "/assets/icons/activities/mining/mine-steel-ore.png",
+	icon: "/assets/icons/items/ores/mithril-ore.png",
 	lootTable: {
-		steelOre: 1,
+		mithrilOre: 1,
 		stone: 0.2,
 	},
-	name: "Steel Ore",
+	name: "Mithril Ore",
 	requiredLevel: 10,
 	timeToCompletion: 10000,
 };
 
-export const mining = [mineCopperOre, mineIronOre, mineSteelOre];
+export const mining = [mineCopperOre, mineIronOre, mineMithrilOre];

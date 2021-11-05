@@ -16,9 +16,9 @@ export const ironSword: Item = {
 	name: "Iron Sword",
 };
 
-export const steelSword: Item = {
+export const mithrilSword: Item = {
 	id: uid(),
 	category: ItemCategory.SWORD,
-	icon: "/assets/icons/items/swords/steel-sword.png",
-	name: "Steel Sword",
+	icon: "/assets/icons/items/swords/mithril-sword.png",
+	name: "Mithril Sword",
 };

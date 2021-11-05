@@ -16,9 +16,9 @@ export const ironOre: Item = {
 	name: "Iron Ore",
 };
 
-export const steelOre: Item = {
+export const mithrilOre: Item = {
 	id: uid(),
 	category: ItemCategory.ORE,
-	icon: "/assets/icons/items/ores/steel-ore.png",
-	name: "Steel Ore",
+	icon: "/assets/icons/items/ores/mithril-ore.png",
+	name: "Mithril Ore",
 };

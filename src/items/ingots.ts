@@ -16,9 +16,9 @@ export const ironIngot: Item = {
 	name: "Iron Ingot",
 };
 
-export const steelIngot: Item = {
+export const mithrilIngot: Item = {
 	id: uid(),
 	category: ItemCategory.INGOT,
-	icon: "/assets/icons/items/ingots/steel-ingot.png",
-	name: "Steel Ingot",
+	icon: "/assets/icons/items/ingots/mithril-ingot.png",
+	name: "Mithril Ingot",
 };

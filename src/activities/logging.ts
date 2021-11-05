@@ -5,7 +5,7 @@ const chopOak: Activity = {
 	id: uid(),
 	actionText: "Chop",
 	experience: 15,
-	icon: "/assets/icons/activities/logging/chop-oak.png",
+	icon: "/assets/icons/items/logs/oak-log.png",
 	lootTable: {
 		birdNest: 0.2,
 		oakLog: 1,
@@ -19,7 +19,7 @@ const chopPine: Activity = {
 	id: uid(),
 	actionText: "Chop",
 	experience: 25,
-	icon: "/assets/icons/activities/logging/chop-pine.png",
+	icon: "/assets/icons/items/logs/pine-log.png",
 	lootTable: {
 		birdNest: 0.2,
 		pineLog: 1,
@@ -33,7 +33,7 @@ const chopWillow: Activity = {
 	id: uid(),
 	actionText: "Chop",
 	experience: 25,
-	icon: "/assets/icons/activities/logging/chop-willow.png",
+	icon: "/assets/icons/items/logs/willow-log.png",
 	lootTable: {
 		birdNest: 0.2,
 		willowLog: 1,
