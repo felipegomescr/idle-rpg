@@ -32,19 +32,22 @@ export const ActivityCard = ({
 		};
 	}, [isPerformingActivity]);
 
+	const experience = activity.experience * progressMultiplier;
+	const timeToCompletion = activity.timeToCompletion / progressMultiplier;
+
 	return (
 		<div className="flex flex-col items-center justify-center p-4 space-y-4 border border-gray-900">
-			<span className="font-bold">{`${activity.name} - ${formatTime(activity.timeToCompletion)}`}</span>
+			<span className="font-bold">{`${activity.name} - ${formatTime(timeToCompletion)}`}</span>
 			<div className="relative w-16 h-16">
 				<Image alt="" layout="fill" src={activity.icon || notFoundPlaceholderIcon} />
 			</div>
 			<div className="text-center">
-				{isPerformingActivity && <ProgressBar duration={activity.timeToCompletion} loop />}
+				{isPerformingActivity && <ProgressBar duration={timeToCompletion} loop />}
 				<p>
 					<span className="font-bold">Required level:</span> {activity.requiredLevel}
 				</p>
 				<p>
-					<span className="font-bold">Experience:</span> {activity.experience}
+					<span className="font-bold">Experience:</span> {experience}
 				</p>
 			</div>
 			<button
@@ -53,8 +56,8 @@ export const ActivityCard = ({
 				onClick={() => {
 					if (!isPerformingActivity) {
 						timeToCompletionCounter.current = setInterval(() => {
-							handleActivityComplete(activity.experience, activity.lootTable);
-						}, activity.timeToCompletion / progressMultiplier);
+							handleActivityComplete(experience, activity.lootTable);
+						}, timeToCompletion);
 					}
 
 					handleClick(isPerformingActivity);

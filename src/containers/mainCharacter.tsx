@@ -3,7 +3,7 @@ import times from "lodash.times";
 import { useEffect, useState } from "react";
 import { createContainer } from "unstated-next";
 import { progressService } from "@/helpers";
-import { Mastery, maximumInventoryCapacity, progressMultiplier } from "@/values";
+import { Mastery, maximumInventoryCapacity } from "@/values";
 import type { ReactNode } from "react";
 import type { Activity, Collection, Item } from "@/types";
 
@@ -122,7 +122,7 @@ const MainCharacterContainer = createContainer(() => {
 		setActivity,
 		setExperience: (amount: number, mastery: Mastery) => {
 			const setExperience = (previousExperience: number) => {
-				return previousExperience + amount * progressMultiplier;
+				return previousExperience + amount;
 			};
 
 			switch (mastery) {

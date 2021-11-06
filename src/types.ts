@@ -21,6 +21,7 @@ export type Item = {
 	id: string;
 	category: ItemCategory;
 	icon: string;
+	isStackable: boolean;
 	name: string;
 };
 

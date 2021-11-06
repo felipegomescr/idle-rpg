@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { Item } from "@/types";
 
 type InventoryProps = {
@@ -13,17 +14,22 @@ export const Inventory = ({ isDisabled, itemList, onItemDelete: handleItemDelete
 			<ul className="grid grid-cols-8 gap-2">
 				{itemList.map((item, position) => {
 					return (
-						<li key={position} className="space-x-2">
-							<button
-								className="w-8 h-8 font-bold text-white bg-red-600 rounded-full disabled:opacity-50"
-								disabled={isDisabled}
-								onClick={() => {
-									handleItemDelete(item, position);
-								}}
-							>
-								&#10005;
-							</button>
-							<span>{item.name}</span>
+						<li key={position}>
+							<div className="flex flex-col items-center p-2 space-y-2 border border-gray-900">
+								<div className="relative w-8 h-8">
+									<Image alt="" layout="fill" src={item.icon} />
+								</div>
+								<span>{item.name}</span>
+								<button
+									className="w-8 h-8 font-bold text-white bg-red-600 rounded-full disabled:opacity-50"
+									disabled={isDisabled}
+									onClick={() => {
+										handleItemDelete(item, position);
+									}}
+								>
+									&#10005;
+								</button>
+							</div>
 						</li>
 					);
 				})}

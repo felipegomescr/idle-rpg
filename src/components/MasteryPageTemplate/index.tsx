@@ -26,7 +26,7 @@ export const MasteryPageTemplate = ({ mastery }: MasteryPageTemplateProps) => {
 			<div>
 				<span className="font-bold">To next level:</span> <span>{toNextLevel(level + 1) - experience}</span>
 			</div>
-			<div className="grid grid-cols-4 gap-4">
+			<div className="grid grid-cols-4 gap-2">
 				{activityList.map((activity) => {
 					const hasRequiredLevel = level >= activity.requiredLevel;
 					const isDisabled = activity.recipe
@@ -59,8 +59,10 @@ export const MasteryPageTemplate = ({ mastery }: MasteryPageTemplateProps) => {
 			<Inventory
 				isDisabled={!!mainCharacter.activity}
 				itemList={mainCharacter.inventory.itemList}
-				onItemDelete={(_, position) => {
-					mainCharacter.inventory.deleteAt(position);
+				onItemDelete={(item, position) => {
+					if (confirm(`Are you sure you want to delete ${item.name}? This action is not reversible.`)) {
+						mainCharacter.inventory.deleteAt(position);
+					}
 				}}
 			/>
 		</div>
