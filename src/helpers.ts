@@ -3,7 +3,7 @@ import { Mastery, progressMultiplier } from "@/values";
 import type { Collection, ItemKey, LootTable } from "@/types";
 
 export const cloneMap = <Key, Value>(map: Map<Key, Value>) => {
-	return new Map<Key, Value>(JSON.parse(JSON.stringify(map)));
+	return new Map<Key, Value>(JSON.parse(JSON.stringify([...map])));
 };
 
 export const experienceToLevel = (experience: number) => {
