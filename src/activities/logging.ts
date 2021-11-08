@@ -1,17 +1,31 @@
 import { uid } from "uid";
-import type { Activity } from "@/types";
+import type { Activity, ItemKey, LootStatistics } from "@/types";
 
 const chopOak: Activity = {
 	id: uid(),
 	actionText: "Chop",
 	experience: 15,
 	icon: "/assets/icons/items/logs/oak-log.png",
-	lootTable: {
-		birdNest: 0.2,
-		oakLog: 1,
-	},
+	level: 0,
+	lootTable: new Map<ItemKey, LootStatistics>([
+		[
+			"birdNest",
+			{
+				chance: 0.2,
+				minimumQuantity: 1,
+				maximumQuantity: 2,
+			},
+		],
+		[
+			"oakLog",
+			{
+				chance: 1,
+				minimumQuantity: 1,
+				maximumQuantity: 2,
+			},
+		],
+	]),
 	name: "Oak",
-	requiredLevel: 5,
 	timeToCompletion: 10000,
 };
 
@@ -20,12 +34,26 @@ const chopPine: Activity = {
 	actionText: "Chop",
 	experience: 25,
 	icon: "/assets/icons/items/logs/pine-log.png",
-	lootTable: {
-		birdNest: 0.2,
-		pineLog: 1,
-	},
+	level: 5,
+	lootTable: new Map<ItemKey, LootStatistics>([
+		[
+			"birdNest",
+			{
+				chance: 0.2,
+				minimumQuantity: 1,
+				maximumQuantity: 2,
+			},
+		],
+		[
+			"pineLog",
+			{
+				chance: 1,
+				minimumQuantity: 1,
+				maximumQuantity: 2,
+			},
+		],
+	]),
 	name: "Pine",
-	requiredLevel: 10,
 	timeToCompletion: 10000,
 };
 
@@ -34,12 +62,26 @@ const chopWillow: Activity = {
 	actionText: "Chop",
 	experience: 25,
 	icon: "/assets/icons/items/logs/willow-log.png",
-	lootTable: {
-		birdNest: 0.2,
-		willowLog: 1,
-	},
+	level: 10,
+	lootTable: new Map<ItemKey, LootStatistics>([
+		[
+			"birdNest",
+			{
+				chance: 0.2,
+				minimumQuantity: 1,
+				maximumQuantity: 2,
+			},
+		],
+		[
+			"willowLog",
+			{
+				chance: 1,
+				minimumQuantity: 1,
+				maximumQuantity: 2,
+			},
+		],
+	]),
 	name: "Willow",
-	requiredLevel: 10,
 	timeToCompletion: 10000,
 };
 

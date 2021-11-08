@@ -1,53 +1,20 @@
-import camelCase from "lodash.camelcase";
 import * as activityList from "@/activities";
-import * as itemList from "@/items";
-import { localStorageProgressKey, Mastery, progressMultiplier } from "@/values";
-import type { Collection, Item, ItemKey, LootTable, Progress } from "@/types";
+import { Mastery, progressMultiplier } from "@/values";
+import type { Collection, ItemKey, LootTable } from "@/types";
 
-export const canCreateRecipe = (container: Item[], recipe: Collection) => {
-	if (!Object.keys(recipe).length) {
-		return true;
-	}
-
-	const collection = (Object.keys(recipe) as ItemKey[]).reduce((collectionAccumulator, itemKey) => {
-		const item = container.find((item) => {
-			return camelCase(item.name) === itemKey;
-		});
-
-		if (!item) {
-			return collectionAccumulator;
-		}
-
-		const quantity = container.filter((item) => {
-			return camelCase(item.name) === itemKey;
-		}).length;
-
-		return {
-			...collectionAccumulator,
-			[camelCase(item.name)]: quantity,
-		};
-	}, {} as Collection);
-
-	return (Object.keys(recipe) as ItemKey[]).every((key) => {
-		const quantity = collection[key];
-
-		if (!quantity) {
-			return false;
-		}
-
-		return quantity >= recipe[key]!;
-	});
+export const cloneMap = <Key, Value>(map: Map<Key, Value>) => {
+	return new Map<Key, Value>(JSON.parse(JSON.stringify(map)));
 };
 
 export const experienceToLevel = (experience: number) => {
 	return Math.floor(Math.floor(25 + Math.sqrt(625 + 100 * experience)) / 50);
 };
 
-export const isClient = () => {
-	return typeof document !== "undefined" && typeof window !== "undefined";
+export const levelToExperience = (level: number) => {
+	return 25 * level * level - 25 * level;
 };
 
-export const formatTime = (time: number) => {
+export const formatTimeToSecondsText = (time: number) => {
 	return `${(time / 1000).toFixed(1)}s`;
 };
 
@@ -68,40 +35,40 @@ export const getActivityList = (mastery: Mastery) => {
 	}
 };
 
-export const progressService = {
-	delete: () => {
-		if (isClient()) {
-			window.localStorage.removeItem(localStorageProgressKey);
-		}
-	},
-	load: (): Progress | undefined => {
-		if (isClient()) {
-			const progress = window.localStorage.getItem(localStorageProgressKey);
-
-			if (progress) {
-				return JSON.parse(progress);
-			}
-		}
-	},
-	save: (progress: Progress) => {
-		if (isClient()) {
-			window.localStorage.setItem(localStorageProgressKey, JSON.stringify(progress));
-		}
-	},
+export const isClient = () => {
+	return typeof document !== "undefined" && typeof window !== "undefined";
 };
 
-export const rollLoot = (lootTable: LootTable) => {
-	return (Object.entries(lootTable) as [ItemKey, number][]).reduce((lootAccumulator, [itemKey, chance]) => {
-		if (chance * progressMultiplier >= Math.random()) {
-			const item = itemList[itemKey];
+export const possessRequiredItemList = (backpack: Collection, requiredItemList: Collection) => {
+	for (let [itemKey, minimumQuantity] of requiredItemList.entries()) {
+		const possessedQuantity = backpack.get(itemKey) || 0;
 
-			return [...lootAccumulator, item];
+		if (possessedQuantity < minimumQuantity) {
+			return false;
 		}
+	}
 
-		return lootAccumulator;
-	}, [] as Item[]);
+	return true;
 };
 
-export const toNextLevel = (level: number) => {
-	return 25 * level * level - 25 * level;
+export const randomInteger = (minimum: number, maximum: number) => {
+	return Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
+};
+
+export const rollForLoot = (lootTable: LootTable) => {
+	const loot = new Map<ItemKey, number>();
+
+	for (let [itemKey, lootStatistics] of lootTable.entries()) {
+		if (lootStatistics.chance * progressMultiplier >= Math.random()) {
+			loot.set(itemKey, randomInteger(lootStatistics.minimumQuantity, lootStatistics.maximumQuantity));
+		}
+	}
+
+	return loot;
+};
+
+export const times = (amount: number, callback: (iteration?: number) => void) => {
+	for (let index = 0; index < amount; index++) {
+		callback(index);
+	}
 };

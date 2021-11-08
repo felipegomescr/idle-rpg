@@ -1,19 +1,24 @@
 import { uid } from "uid";
-import type { Activity } from "@/types";
+import type { Activity, ItemKey, LootStatistics } from "@/types";
 
 const smeltCopperIngot: Activity = {
 	id: uid(),
 	actionText: "Smelt",
 	experience: 5,
 	icon: "/assets/icons/items/ingots/copper-ingot.png",
-	lootTable: {
-		copperIngot: 1,
-	},
+	level: 0,
+	lootTable: new Map<ItemKey, LootStatistics>([
+		[
+			"copperIngot",
+			{
+				chance: 1,
+				minimumQuantity: 1,
+				maximumQuantity: 1,
+			},
+		],
+	]),
 	name: "Copper Ingot",
-	recipe: {
-		copperOre: 1,
-	},
-	requiredLevel: 0,
+	requiredItemList: new Map<ItemKey, number>([["copperOre", 1]]),
 	timeToCompletion: 10000,
 };
 
@@ -22,14 +27,19 @@ const smeltIronIngot: Activity = {
 	actionText: "Smelt",
 	experience: 7.5,
 	icon: "/assets/icons/items/ingots/iron-ingot.png",
-	lootTable: {
-		ironIngot: 1,
-	},
+	level: 5,
+	lootTable: new Map<ItemKey, LootStatistics>([
+		[
+			"ironIngot",
+			{
+				chance: 1,
+				minimumQuantity: 1,
+				maximumQuantity: 1,
+			},
+		],
+	]),
 	name: "Iron Ingot",
-	recipe: {
-		ironOre: 1,
-	},
-	requiredLevel: 0,
+	requiredItemList: new Map<ItemKey, number>([["ironOre", 1]]),
 	timeToCompletion: 10000,
 };
 
@@ -38,14 +48,19 @@ const smeltMithrilIngot: Activity = {
 	actionText: "Smelt",
 	experience: 12.5,
 	icon: "/assets/icons/items/ingots/mithril-ingot.png",
-	lootTable: {
-		mithrilIngot: 1,
-	},
+	level: 10,
+	lootTable: new Map<ItemKey, LootStatistics>([
+		[
+			"mithrilIngot",
+			{
+				chance: 1,
+				minimumQuantity: 1,
+				maximumQuantity: 1,
+			},
+		],
+	]),
 	name: "Mithril Ingot",
-	recipe: {
-		mithrilOre: 1,
-	},
-	requiredLevel: 0,
+	requiredItemList: new Map<ItemKey, number>([["mithrilOre", 1]]),
 	timeToCompletion: 10000,
 };
 
@@ -54,14 +69,19 @@ const smithCopperSword: Activity = {
 	actionText: "Smith",
 	experience: 20,
 	icon: "/assets/icons/items/swords/copper-sword.png",
-	lootTable: {
-		copperSword: 1,
-	},
+	level: 0,
+	lootTable: new Map<ItemKey, LootStatistics>([
+		[
+			"copperSword",
+			{
+				chance: 1,
+				minimumQuantity: 1,
+				maximumQuantity: 1,
+			},
+		],
+	]),
 	name: "Copper Sword",
-	recipe: {
-		copperIngot: 4,
-	},
-	requiredLevel: 0,
+	requiredItemList: new Map<ItemKey, number>([["copperIngot", 4]]),
 	timeToCompletion: 60000,
 };
 
@@ -70,14 +90,19 @@ const smithIronSword: Activity = {
 	actionText: "Smith",
 	experience: 30,
 	icon: "/assets/icons/items/swords/iron-sword.png",
-	lootTable: {
-		ironSword: 1,
-	},
+	level: 5,
+	lootTable: new Map<ItemKey, LootStatistics>([
+		[
+			"ironSword",
+			{
+				chance: 1,
+				minimumQuantity: 1,
+				maximumQuantity: 1,
+			},
+		],
+	]),
 	name: "Iron Sword",
-	recipe: {
-		ironIngot: 4,
-	},
-	requiredLevel: 5,
+	requiredItemList: new Map<ItemKey, number>([["ironIngot", 4]]),
 	timeToCompletion: 60000,
 };
 
@@ -86,14 +111,19 @@ const smithMithrilSword: Activity = {
 	actionText: "Smith",
 	experience: 50,
 	icon: "/assets/icons/items/swords/mithril-sword.png",
-	lootTable: {
-		mithrilSword: 1,
-	},
+	level: 10,
+	lootTable: new Map<ItemKey, LootStatistics>([
+		[
+			"mithrilSword",
+			{
+				chance: 1,
+				minimumQuantity: 1,
+				maximumQuantity: 1,
+			},
+		],
+	]),
 	name: "Mithril Sword",
-	recipe: {
-		mithrilIngot: 4,
-	},
-	requiredLevel: 10,
+	requiredItemList: new Map<ItemKey, number>([["mithrilIngot", 4]]),
 	timeToCompletion: 60000,
 };
 

@@ -1,11 +1,9 @@
-import camelCase from "lodash.camelcase";
-import times from "lodash.times";
 import { useEffect, useState } from "react";
 import { createContainer } from "unstated-next";
-import { progressService } from "@/helpers";
-import { Mastery, maximumInventoryCapacity } from "@/values";
+import { containerService, progressService } from "@/services";
+import { Mastery } from "@/values";
 import type { ReactNode } from "react";
-import type { Activity, Collection, Item } from "@/types";
+import type { Activity, Collection, ContainerItem, ItemKey } from "@/types";
 
 type MainCharacterProviderProps = {
 	children: ReactNode;
@@ -13,7 +11,7 @@ type MainCharacterProviderProps = {
 
 const MainCharacterContainer = createContainer(() => {
 	const [activity, setActivity] = useState<Activity>();
-	const [inventory, setInventory] = useState<Item[]>([]);
+	const [backpack, setBackpack] = useState<Collection>(new Map<ItemKey, number>());
 	const [carvingExperience, setCarvingExperience] = useState(0);
 	const [cookingExperience, setCookingExperience] = useState(0);
 	const [fishingExperience, setFishingExperience] = useState(0);
@@ -25,7 +23,7 @@ const MainCharacterContainer = createContainer(() => {
 		const progress = progressService.load();
 
 		if (progress) {
-			setInventory(progress.inventory);
+			setBackpack(new Map<ItemKey, number>(progress.backpack));
 			setCarvingExperience(progress.carvingExperience);
 			setCookingExperience(progress.cookingExperience);
 			setFishingExperience(progress.fishingExperience);
@@ -37,7 +35,7 @@ const MainCharacterContainer = createContainer(() => {
 
 	useEffect(() => {
 		progressService.save({
-			inventory,
+			backpack,
 			carvingExperience,
 			cookingExperience,
 			fishingExperience,
@@ -46,7 +44,7 @@ const MainCharacterContainer = createContainer(() => {
 			smithingExperience,
 		});
 	}, [
-		inventory,
+		backpack,
 		carvingExperience,
 		cookingExperience,
 		fishingExperience,
@@ -57,50 +55,30 @@ const MainCharacterContainer = createContainer(() => {
 
 	return {
 		activity,
-		inventory: {
-			itemList: inventory,
-			bulkAdd: (itemList: Item[]) => {
-				setInventory((previousInventory) => {
-					const inventory = [
-						...previousInventory,
-						...itemList.slice(0, maximumInventoryCapacity - previousInventory.length),
-					];
-
-					if (inventory.length === maximumInventoryCapacity) {
-						alert("Inventory is full!");
-						setActivity(undefined);
-					}
-
-					return inventory;
+		backpack: {
+			content: backpack,
+			add: (item: ContainerItem) => {
+				setBackpack((previousBackpack) => {
+					return containerService.add(previousBackpack, item);
 				});
 			},
-			bulkDelete: (itemList: Collection) => {
-				setInventory((previousInventory) => {
-					const previousInventoryClone = [...previousInventory];
-
-					Object.entries(itemList).forEach(([itemKey, quantity]) => {
-						times(quantity, () => {
-							const index = previousInventory.findIndex((item) => {
-								return camelCase(item.name) === itemKey;
-							});
-
-							if (index === -1) {
-								return;
-							}
-
-							previousInventoryClone.splice(index, 1);
-						});
-					});
-
-					return previousInventoryClone;
+			addMultiple: (itemList: Collection) => {
+				setBackpack((previousBackpack) => {
+					return containerService.addMultiple(itemList, previousBackpack);
 				});
 			},
-			deleteAt: (position: number) => {
-				setInventory(
-					inventory.filter((_, index) => {
-						return index !== position;
-					})
-				);
+			discard: (item: ContainerItem) => {
+				setBackpack((previousBackpack) => {
+					return containerService.discard(previousBackpack, item);
+				});
+			},
+			discardAll: () => {
+				setBackpack(new Map());
+			},
+			discardMultiple: (itemList: Collection) => {
+				setBackpack((previousBackpack) => {
+					return containerService.discardMultiple(itemList, previousBackpack);
+				});
 			},
 		},
 		getExperience: (mastery: Mastery) => {

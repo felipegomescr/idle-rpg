@@ -1,7 +1,7 @@
-import { ActivityCard, Inventory } from "@/components";
+import { ActivityCard, Backpack } from "@/components";
 import { useMainCharacter } from "@/containers";
-import { canCreateRecipe, experienceToLevel, getActivityList, rollLoot, toNextLevel } from "@/helpers";
-import { Mastery } from "@/values";
+import { experienceToLevel, getActivityList, levelToExperience, possessRequiredItemList, rollForLoot } from "@/helpers";
+import { Mastery, progressMultiplier } from "@/values";
 
 type MasteryPageTemplateProps = {
 	mastery: Mastery;
@@ -18,20 +18,20 @@ export const MasteryPageTemplate = ({ mastery }: MasteryPageTemplateProps) => {
 		<div className="p-4 space-y-4">
 			<h1 className="text-4xl font-bold">{mastery}</h1>
 			<div>
-				<span className="font-bold">{mastery} level:</span> {level}
+				<span className="font-bold">Level:</span> {level}
 			</div>
 			<div>
-				<span className="font-bold">{mastery} experience:</span> <span>{experience}</span>
+				<span className="font-bold">Experience:</span> <span>{experience}</span>
 			</div>
 			<div>
-				<span className="font-bold">To next level:</span> <span>{toNextLevel(level + 1) - experience}</span>
+				<span className="font-bold">To next level:</span> <span>{levelToExperience(level + 1) - experience}</span>
 			</div>
 			<div className="grid grid-cols-4 gap-2">
 				{activityList.map((activity) => {
-					const hasRequiredLevel = level >= activity.requiredLevel;
-					const isDisabled = activity.recipe
-						? !hasRequiredLevel || !canCreateRecipe(mainCharacter.inventory.itemList, activity.recipe)
-						: !hasRequiredLevel;
+					const hasLevel = level >= activity.level;
+					const isDisabled = activity.requiredItemList
+						? !hasLevel || !possessRequiredItemList(mainCharacter.backpack.content, activity.requiredItemList)
+						: !hasLevel;
 					const isPerformingActivity = mainCharacter.activity?.name === activity.name && !isDisabled;
 
 					return (
@@ -41,27 +41,44 @@ export const MasteryPageTemplate = ({ mastery }: MasteryPageTemplateProps) => {
 							activity={activity}
 							isDisabled={isDisabled}
 							isPerformingActivity={isPerformingActivity}
-							onActivityComplete={(experience, lootTable) => {
-								mainCharacter.inventory.bulkAdd(rollLoot(lootTable));
-								mainCharacter.setExperience(experience, mastery);
-
-								if (activity.recipe) {
-									mainCharacter.inventory.bulkDelete(activity.recipe);
-								}
-							}}
-							onClick={(isPerformingActivity) => {
+							onActionClick={() => {
 								mainCharacter.setActivity(isPerformingActivity ? undefined : activity);
+							}}
+							onActivityComplete={() => {
+								mainCharacter.setExperience(activity.experience * progressMultiplier, mastery);
+
+								if (!!activity.lootTable) {
+									mainCharacter.backpack.addMultiple(rollForLoot(activity.lootTable));
+								}
+
+								if (!!activity.requiredItemList) {
+									mainCharacter.backpack.discardMultiple(activity.requiredItemList);
+								}
 							}}
 						/>
 					);
 				})}
 			</div>
-			<Inventory
+			<Backpack
+				content={mainCharacter.backpack.content}
 				isDisabled={!!mainCharacter.activity}
-				itemList={mainCharacter.inventory.itemList}
-				onItemDelete={(item, position) => {
-					if (confirm(`Are you sure you want to delete ${item.name}? This action is not reversible.`)) {
-						mainCharacter.inventory.deleteAt(position);
+				onAllDiscard={() => {
+					if (confirm("Are you sure you want to discard all content?")) {
+						mainCharacter.backpack.discardAll();
+					}
+				}}
+				onItemDiscard={(item) => {
+					if (item.isStackable) {
+						const quantity = Number(prompt("Quantity to discard:") || 0);
+
+						mainCharacter.backpack.discard({
+							...item,
+							quantity,
+						});
+					} else {
+						if (confirm(`Are you sure you want to discard ${item.name}?`)) {
+							mainCharacter.backpack.discard(item);
+						}
 					}
 				}}
 			/>

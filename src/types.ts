@@ -6,33 +6,40 @@ export type Activity = {
 	actionText: string;
 	experience: number;
 	icon: string;
-	lootTable: LootTable;
+	level: number;
+	lootTable?: LootTable;
 	name: string;
-	recipe?: Collection;
-	requiredLevel: number;
+	requiredItemList?: Collection;
 	timeToCompletion: number;
 };
 
-export type Collection = {
-	[key in ItemKey]?: number;
+export type Collection = Map<ItemKey, number>;
+
+export type ContainerItem = Item & {
+	quantity: number;
 };
 
 export type Item = {
 	id: string;
 	category: ItemCategory;
 	icon: string;
-	isStackable: boolean;
+	isStackable?: boolean;
+	key: ItemKey;
 	name: string;
 };
 
 export type ItemKey = keyof typeof itemList;
 
-export type LootTable = {
-	[key in ItemKey]?: number;
+export type LootStatistics = {
+	chance: number;
+	minimumQuantity: number;
+	maximumQuantity: number;
 };
 
+export type LootTable = Map<ItemKey, LootStatistics>;
+
 export type Progress = {
-	inventory: Item[];
+	backpack: Collection;
 	carvingExperience: number;
 	cookingExperience: number;
 	fishingExperience: number;
