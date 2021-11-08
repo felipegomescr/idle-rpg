@@ -1,8 +1,8 @@
 import { cloneMap } from "@/helpers";
 import * as materialList from "@/materials";
-import type { Collection, ContainerMaterial, MaterialKey } from "@/types";
+import type { Collection, MaterialInContainer, MaterialKey } from "@/types";
 
-const discard = (material: ContainerMaterial, container: Map<MaterialKey, number>) => {
+const discard = (material: MaterialInContainer, container: Map<MaterialKey, number>) => {
 	const backpackClone = cloneMap(container);
 	const possessedNumber = backpackClone.get(material.key) || 0;
 
@@ -15,7 +15,7 @@ const discard = (material: ContainerMaterial, container: Map<MaterialKey, number
 	return backpackClone;
 };
 
-const store = (material: ContainerMaterial, container: Map<MaterialKey, number>) => {
+const store = (material: MaterialInContainer, container: Map<MaterialKey, number>) => {
 	const backpackClone = cloneMap(container);
 	const possessedNumber = backpackClone.get(material.key) || 0;
 

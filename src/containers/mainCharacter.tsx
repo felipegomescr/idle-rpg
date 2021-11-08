@@ -3,7 +3,7 @@ import { createContainer } from "unstated-next";
 import { Mastery } from "@/enums";
 import { containerService, progressService } from "@/services";
 import type { ReactNode } from "react";
-import type { Activity, Collection, ContainerMaterial, MaterialKey } from "@/types";
+import type { Activity, Collection, MaterialInContainer, MaterialKey } from "@/types";
 
 type MainCharacterProviderProps = {
 	children: ReactNode;
@@ -57,7 +57,7 @@ const MainCharacterContainer = createContainer(() => {
 		activity,
 		backpack: {
 			content: backpack,
-			discard: (material: ContainerMaterial) => {
+			discard: (material: MaterialInContainer) => {
 				setBackpack((previousBackpack) => {
 					return containerService.discard(material, previousBackpack);
 				});
@@ -70,7 +70,7 @@ const MainCharacterContainer = createContainer(() => {
 					return containerService.discardMultiple(materialList, previousBackpack);
 				});
 			},
-			store: (material: ContainerMaterial) => {
+			store: (material: MaterialInContainer) => {
 				setBackpack((previousBackpack) => {
 					return containerService.store(material, previousBackpack);
 				});

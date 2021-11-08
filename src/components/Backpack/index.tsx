@@ -1,12 +1,12 @@
 import Image from "next/image";
-import { collectionToContainerMaterialList } from "@/adapters";
-import type { Collection, ContainerMaterial } from "@/types";
+import { collectionToMaterialInContainerList } from "@/adapters";
+import type { Collection, MaterialInContainer } from "@/types";
 
 type BackpackProps = {
 	content: Collection;
 	isDisabled?: boolean;
 	onAllDiscard: () => void;
-	onMaterialDiscard: (material: ContainerMaterial) => void;
+	onMaterialDiscard: (material: MaterialInContainer) => void;
 };
 
 export const Backpack = ({
@@ -15,7 +15,7 @@ export const Backpack = ({
 	onAllDiscard: handleAllDiscard,
 	onMaterialDiscard: handleMaterialDiscard,
 }: BackpackProps) => {
-	const materialList = collectionToContainerMaterialList(content);
+	const materialList = collectionToMaterialInContainerList(content);
 
 	return (
 		<>

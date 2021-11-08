@@ -15,10 +15,6 @@ export type Activity = {
 
 export type Collection = Map<MaterialKey, number>;
 
-export type ContainerMaterial = Material & {
-	number: number;
-};
-
 export type LootStatistics = {
 	chance: number;
 	minimumNumber: number;
@@ -34,6 +30,10 @@ export type Material = {
 	icon: string;
 	key: MaterialKey;
 	name: string;
+};
+
+export type MaterialInContainer = Material & {
+	number: number;
 };
 
 export type MaterialKey = keyof typeof materialList;

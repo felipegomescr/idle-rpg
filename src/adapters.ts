@@ -1,8 +1,8 @@
 import * as materialList from "@/materials";
-import type { Collection, ContainerMaterial } from "@/types";
+import type { Collection, MaterialInContainer } from "@/types";
 
-export const collectionToContainerMaterialList = (collection: Collection) => {
-	const accumulator: ContainerMaterial[] = [];
+export const collectionToMaterialInContainerList = (collection: Collection) => {
+	const accumulator: MaterialInContainer[] = [];
 
 	for (let [materialKey, number] of collection.entries()) {
 		const material = materialList[materialKey];
