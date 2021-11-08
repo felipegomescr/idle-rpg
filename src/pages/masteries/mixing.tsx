@@ -2,8 +2,8 @@ import { MasteryPageTemplate } from "@/components";
 import { Mastery } from "@/values";
 import type { NextPage } from "next";
 
-const CarvingPage: NextPage = () => {
-	return <MasteryPageTemplate mastery={Mastery.CARVING} />;
+const MixingPage: NextPage = () => {
+	return <MasteryPageTemplate mastery={Mastery.MIXING} />;
 };
 
-export default CarvingPage;
+export default MixingPage;

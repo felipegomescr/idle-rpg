@@ -12,11 +12,11 @@ type MainCharacterProviderProps = {
 const MainCharacterContainer = createContainer(() => {
 	const [activity, setActivity] = useState<Activity>();
 	const [backpack, setBackpack] = useState<Collection>(new Map<ItemKey, number>());
-	const [carvingExperience, setCarvingExperience] = useState(0);
 	const [cookingExperience, setCookingExperience] = useState(0);
 	const [fishingExperience, setFishingExperience] = useState(0);
-	const [loggingExperience, setLoggingExperience] = useState(0);
+	const [foragingExperience, setForagingExperience] = useState(0);
 	const [miningExperience, setMiningExperience] = useState(0);
+	const [mixingExperience, setMixingExperience] = useState(0);
 	const [smithingExperience, setSmithingExperience] = useState(0);
 
 	useEffect(() => {
@@ -24,11 +24,11 @@ const MainCharacterContainer = createContainer(() => {
 
 		if (progress) {
 			setBackpack(new Map<ItemKey, number>(progress.backpack));
-			setCarvingExperience(progress.carvingExperience);
 			setCookingExperience(progress.cookingExperience);
 			setFishingExperience(progress.fishingExperience);
-			setLoggingExperience(progress.loggingExperience);
+			setForagingExperience(progress.foragingExperience);
 			setMiningExperience(progress.miningExperience);
+			setMixingExperience(progress.mixingExperience);
 			setSmithingExperience(progress.smithingExperience);
 		}
 	}, []);
@@ -36,20 +36,20 @@ const MainCharacterContainer = createContainer(() => {
 	useEffect(() => {
 		progressService.save({
 			backpack,
-			carvingExperience,
 			cookingExperience,
 			fishingExperience,
-			loggingExperience,
+			foragingExperience,
 			miningExperience,
+			mixingExperience,
 			smithingExperience,
 		});
 	}, [
 		backpack,
-		carvingExperience,
 		cookingExperience,
 		fishingExperience,
-		loggingExperience,
+		foragingExperience,
 		miningExperience,
+		mixingExperience,
 		smithingExperience,
 	]);
 
@@ -83,16 +83,16 @@ const MainCharacterContainer = createContainer(() => {
 		},
 		getExperience: (mastery: Mastery) => {
 			switch (mastery) {
-				case Mastery.CARVING:
-					return carvingExperience;
 				case Mastery.COOKING:
 					return cookingExperience;
 				case Mastery.FISHING:
 					return fishingExperience;
-				case Mastery.LOGGING:
-					return loggingExperience;
+				case Mastery.FORAGING:
+					return foragingExperience;
 				case Mastery.MINING:
 					return miningExperience;
+				case Mastery.MIXING:
+					return mixingExperience;
 				case Mastery.SMITHING:
 					return smithingExperience;
 			}
@@ -104,20 +104,20 @@ const MainCharacterContainer = createContainer(() => {
 			};
 
 			switch (mastery) {
-				case Mastery.CARVING:
-					setCarvingExperience(setExperience);
-					break;
 				case Mastery.COOKING:
 					setCookingExperience(setExperience);
 					break;
 				case Mastery.FISHING:
 					setFishingExperience(setExperience);
 					break;
-				case Mastery.LOGGING:
-					setLoggingExperience(setExperience);
+				case Mastery.FORAGING:
+					setForagingExperience(setExperience);
 					break;
 				case Mastery.MINING:
 					setMiningExperience(setExperience);
+					break;
+				case Mastery.MIXING:
+					setMixingExperience(setExperience);
 					break;
 				case Mastery.SMITHING:
 					setSmithingExperience(setExperience);

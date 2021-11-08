@@ -40,10 +40,10 @@ export type LootTable = Map<ItemKey, LootStatistics>;
 
 export type Progress = {
 	backpack: Collection;
-	carvingExperience: number;
 	cookingExperience: number;
 	fishingExperience: number;
-	loggingExperience: number;
+	foragingExperience: number;
 	miningExperience: number;
+	mixingExperience: number;
 	smithingExperience: number;
 };

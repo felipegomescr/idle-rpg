@@ -7,11 +7,11 @@ export enum ItemCategory {
 }
 
 export enum Mastery {
-	CARVING = "Carving",
 	COOKING = "Cooking",
 	FISHING = "Fishing",
-	LOGGING = "Logging",
+	FORAGING = "Foraging",
 	MINING = "Mining",
+	MIXING = "Mixing",
 	SMITHING = "Smithing",
 }
 

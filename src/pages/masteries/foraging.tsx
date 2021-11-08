@@ -2,8 +2,8 @@ import { MasteryPageTemplate } from "@/components";
 import { Mastery } from "@/values";
 import type { NextPage } from "next";
 
-const LoggingPage: NextPage = () => {
-	return <MasteryPageTemplate mastery={Mastery.LOGGING} />;
+const ForagingPage: NextPage = () => {
+	return <MasteryPageTemplate mastery={Mastery.FORAGING} />;
 };
 
-export default LoggingPage;
+export default ForagingPage;

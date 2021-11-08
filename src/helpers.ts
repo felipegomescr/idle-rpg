@@ -20,16 +20,16 @@ export const formatTimeToSecondsText = (time: number) => {
 
 export const getActivityList = (mastery: Mastery) => {
 	switch (mastery) {
-		case Mastery.CARVING:
-			return activityList.carving;
 		case Mastery.COOKING:
 			return activityList.cooking;
 		case Mastery.FISHING:
 			return activityList.fishing;
-		case Mastery.LOGGING:
-			return activityList.logging;
+		case Mastery.FORAGING:
+			return activityList.foraging;
 		case Mastery.MINING:
 			return activityList.mining;
+		case Mastery.MIXING:
+			return activityList.mixing;
 		case Mastery.SMITHING:
 			return activityList.smithing;
 	}
