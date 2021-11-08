@@ -21,7 +21,11 @@ export const Backpack = ({
 		<>
 			<div className="flex items-center justify-between">
 				<span className="font-bold">Backpack</span>
-				<button className="px-4 py-2 font-bold text-white bg-red-600" onClick={handleAllDiscard}>
+				<button
+					className="px-4 py-2 font-bold text-white bg-red-600 disabled:opacity-50"
+					disabled={isDisabled}
+					onClick={handleAllDiscard}
+				>
 					Discard all
 				</button>
 			</div>
