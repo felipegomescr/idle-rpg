@@ -1,5 +1,5 @@
-import * as itemList from "@/items";
-import { ItemCategory } from "@/values";
+import { MaterialCategory } from "@/enums";
+import * as materialList from "@/materials";
 
 export type Activity = {
 	id: string;
@@ -9,34 +9,34 @@ export type Activity = {
 	level: number;
 	lootTable?: LootTable;
 	name: string;
-	requiredItemList?: Collection;
+	requiredMaterialList?: Collection;
 	timeToCompletion: number;
 };
 
-export type Collection = Map<ItemKey, number>;
+export type Collection = Map<MaterialKey, number>;
 
-export type ContainerItem = Item & {
-	quantity: number;
+export type ContainerMaterial = Material & {
+	number: number;
 };
-
-export type Item = {
-	id: string;
-	category: ItemCategory;
-	description: string;
-	icon: string;
-	key: ItemKey;
-	name: string;
-};
-
-export type ItemKey = keyof typeof itemList;
 
 export type LootStatistics = {
 	chance: number;
-	minimumQuantity: number;
-	maximumQuantity: number;
+	minimumNumber: number;
+	maximumNumber: number;
 };
 
-export type LootTable = Map<ItemKey, LootStatistics>;
+export type LootTable = Map<MaterialKey, LootStatistics>;
+
+export type Material = {
+	id: string;
+	category: MaterialCategory;
+	description: string;
+	icon: string;
+	key: MaterialKey;
+	name: string;
+};
+
+export type MaterialKey = keyof typeof materialList;
 
 export type Progress = {
 	backpack: Collection;

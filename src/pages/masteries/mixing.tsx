@@ -1,5 +1,5 @@
 import { MasteryPageTemplate } from "@/components";
-import { Mastery } from "@/values";
+import { Mastery } from "@/enums";
 import type { NextPage } from "next";
 
 const MixingPage: NextPage = () => {

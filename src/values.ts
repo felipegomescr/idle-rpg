@@ -1,20 +1,3 @@
-export enum ItemCategory {
-	INGOT = "Ingot",
-	LOG = "Log",
-	MISCELLANY = "Miscellany",
-	ORE = "Ore",
-	SWORD = "Sword",
-}
-
-export enum Mastery {
-	COOKING = "Cooking",
-	FISHING = "Fishing",
-	FORAGING = "Foraging",
-	MINING = "Mining",
-	MIXING = "Mixing",
-	SMITHING = "Smithing",
-}
-
 export const localStorageProgressKey = "idle-rpg-progress";
 
 export const maximumInventoryCapacity = 24;

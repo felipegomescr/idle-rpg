@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Mastery } from "@/values";
+import { Mastery } from "@/enums";
 
 export const Navigation = () => {
 	return (

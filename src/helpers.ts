@@ -1,6 +1,7 @@
 import * as activityList from "@/activities";
-import { Mastery, progressMultiplier } from "@/values";
-import type { Collection, ItemKey, LootTable } from "@/types";
+import { Mastery } from "@/enums";
+import { progressMultiplier } from "@/values";
+import type { Collection, LootTable, MaterialKey } from "@/types";
 
 export const cloneMap = <Key, Value>(map: Map<Key, Value>) => {
 	return new Map<Key, Value>(JSON.parse(JSON.stringify([...map])));
@@ -39,11 +40,11 @@ export const isClient = () => {
 	return typeof document !== "undefined" && typeof window !== "undefined";
 };
 
-export const possessRequiredItemList = (backpack: Collection, requiredItemList: Collection) => {
-	for (let [itemKey, minimumQuantity] of requiredItemList.entries()) {
-		const possessedQuantity = backpack.get(itemKey) || 0;
+export const possessRequiredMaterialList = (backpack: Collection, requiredMaterialList: Collection) => {
+	for (let [materialKey, minimumNumber] of requiredMaterialList.entries()) {
+		const possessedNumber = backpack.get(materialKey) || 0;
 
-		if (possessedQuantity < minimumQuantity) {
+		if (possessedNumber < minimumNumber) {
 			return false;
 		}
 	}
@@ -56,19 +57,19 @@ export const randomInteger = (minimum: number, maximum: number) => {
 };
 
 export const rollForLoot = (lootTable: LootTable) => {
-	const loot = new Map<ItemKey, number>();
+	const loot = new Map<MaterialKey, number>();
 
-	for (let [itemKey, lootStatistics] of lootTable.entries()) {
+	for (let [materialKey, lootStatistics] of lootTable.entries()) {
 		if (lootStatistics.chance * progressMultiplier >= Math.random()) {
-			loot.set(itemKey, randomInteger(lootStatistics.minimumQuantity, lootStatistics.maximumQuantity));
+			loot.set(materialKey, randomInteger(lootStatistics.minimumNumber, lootStatistics.maximumNumber));
 		}
 	}
 
 	return loot;
 };
 
-export const times = (amount: number, callback: (iteration?: number) => void) => {
+export const times = (amount: number, callbackFunction: (iteration?: number) => void) => {
 	for (let index = 0; index < amount; index++) {
-		callback(index);
+		callbackFunction(index);
 	}
 };

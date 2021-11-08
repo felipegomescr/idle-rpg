@@ -1,21 +1,21 @@
 import Image from "next/image";
-import { collectionToContainerItemList } from "@/adapters";
-import type { Collection, ContainerItem } from "@/types";
+import { collectionToContainerMaterialList } from "@/adapters";
+import type { Collection, ContainerMaterial } from "@/types";
 
 type BackpackProps = {
 	content: Collection;
 	isDisabled?: boolean;
 	onAllDiscard: () => void;
-	onItemDiscard: (item: ContainerItem) => void;
+	onMaterialDiscard: (material: ContainerMaterial) => void;
 };
 
 export const Backpack = ({
 	content,
 	isDisabled,
 	onAllDiscard: handleAllDiscard,
-	onItemDiscard: handleItemDiscard,
+	onMaterialDiscard: handleMaterialDiscard,
 }: BackpackProps) => {
-	const itemList = collectionToContainerItemList(content);
+	const materialList = collectionToContainerMaterialList(content);
 
 	return (
 		<>
@@ -30,21 +30,21 @@ export const Backpack = ({
 				</button>
 			</div>
 			<ul className="grid grid-cols-8 gap-2">
-				{itemList.map((item, index) => {
+				{materialList.map((material, index) => {
 					return (
 						<li key={index}>
 							<div className="flex flex-col items-center p-2 space-y-2 border border-gray-900">
 								<div className="relative w-8 h-8">
-									<Image alt="" layout="fill" src={item.icon} />
+									<Image alt="" layout="fill" src={material.icon} />
 								</div>
 								<span>
-									{`${item.quantity}x`} {item.name}
+									{`${material.number}x`} {material.name}
 								</span>
 								<button
 									className="w-8 h-8 font-bold text-white bg-red-600 rounded-full disabled:opacity-50"
 									disabled={isDisabled}
 									onClick={() => {
-										handleItemDiscard(item);
+										handleMaterialDiscard(material);
 									}}
 								>
 									&#10005;

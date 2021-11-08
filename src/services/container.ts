@@ -1,56 +1,62 @@
 import { cloneMap } from "@/helpers";
-import * as itemList from "@/items";
-import type { Collection, ContainerItem, ItemKey } from "@/types";
+import * as materialList from "@/materials";
+import type { Collection, ContainerMaterial, MaterialKey } from "@/types";
 
-const add = (container: Map<ItemKey, number>, item: ContainerItem) => {
+const discard = (material: ContainerMaterial, container: Map<MaterialKey, number>) => {
 	const backpackClone = cloneMap(container);
-	const possessedQuantity = backpackClone.get(item.key) || 0;
+	const possessedNumber = backpackClone.get(material.key) || 0;
 
-	backpackClone.set(item.key, possessedQuantity + item.quantity);
-
-	return backpackClone;
-};
-
-const discard = (container: Map<ItemKey, number>, item: ContainerItem) => {
-	const backpackClone = cloneMap(container);
-	const possessedQuantity = backpackClone.get(item.key) || 0;
-
-	if (possessedQuantity - item.quantity <= 0) {
-		backpackClone.delete(item.key);
+	if (possessedNumber - material.number <= 0) {
+		backpackClone.delete(material.key);
 	} else {
-		backpackClone.set(item.key, possessedQuantity - item.quantity);
+		backpackClone.set(material.key, possessedNumber - material.number);
 	}
 
 	return backpackClone;
 };
 
+const store = (material: ContainerMaterial, container: Map<MaterialKey, number>) => {
+	const backpackClone = cloneMap(container);
+	const possessedNumber = backpackClone.get(material.key) || 0;
+
+	backpackClone.set(material.key, possessedNumber + material.number);
+
+	return backpackClone;
+};
+
 export const containerService = {
-	add,
-	addMultiple: (collection: Collection, container: Map<ItemKey, number>) => {
+	discard,
+	discardMultiple: (materialCollection: Collection, container: Map<MaterialKey, number>) => {
 		let containerClone = cloneMap(container);
 
-		for (let [itemKey, quantity] of collection.entries()) {
-			const item = itemList[itemKey];
+		for (let [materialKey, number] of materialCollection.entries()) {
+			const material = materialList[materialKey];
 
-			containerClone = add(containerClone, {
-				...item,
-				quantity,
-			});
+			containerClone = discard(
+				{
+					...material,
+					number,
+				},
+				containerClone
+			);
 		}
 
 		return containerClone;
 	},
-	discard,
-	discardMultiple: (collection: Collection, container: Map<ItemKey, number>) => {
+	store,
+	storeMultiple: (materialCollection: Collection, container: Map<MaterialKey, number>) => {
 		let containerClone = cloneMap(container);
 
-		for (let [itemKey, quantity] of collection.entries()) {
-			const item = itemList[itemKey];
+		for (let [materialKey, number] of materialCollection.entries()) {
+			const material = materialList[materialKey];
 
-			containerClone = discard(containerClone, {
-				...item,
-				quantity,
-			});
+			containerClone = store(
+				{
+					...material,
+					number,
+				},
+				containerClone
+			);
 		}
 
 		return containerClone;

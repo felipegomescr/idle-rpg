@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { createContainer } from "unstated-next";
+import { Mastery } from "@/enums";
 import { containerService, progressService } from "@/services";
-import { Mastery } from "@/values";
 import type { ReactNode } from "react";
-import type { Activity, Collection, ContainerItem, ItemKey } from "@/types";
+import type { Activity, Collection, ContainerMaterial, MaterialKey } from "@/types";
 
 type MainCharacterProviderProps = {
 	children: ReactNode;
@@ -11,7 +11,7 @@ type MainCharacterProviderProps = {
 
 const MainCharacterContainer = createContainer(() => {
 	const [activity, setActivity] = useState<Activity>();
-	const [backpack, setBackpack] = useState<Collection>(new Map<ItemKey, number>());
+	const [backpack, setBackpack] = useState<Collection>(new Map<MaterialKey, number>());
 	const [cookingExperience, setCookingExperience] = useState(0);
 	const [fishingExperience, setFishingExperience] = useState(0);
 	const [foragingExperience, setForagingExperience] = useState(0);
@@ -23,7 +23,7 @@ const MainCharacterContainer = createContainer(() => {
 		const progress = progressService.load();
 
 		if (progress) {
-			setBackpack(new Map<ItemKey, number>(progress.backpack));
+			setBackpack(new Map<MaterialKey, number>(progress.backpack));
 			setCookingExperience(progress.cookingExperience);
 			setFishingExperience(progress.fishingExperience);
 			setForagingExperience(progress.foragingExperience);
@@ -57,27 +57,27 @@ const MainCharacterContainer = createContainer(() => {
 		activity,
 		backpack: {
 			content: backpack,
-			add: (item: ContainerItem) => {
+			discard: (material: ContainerMaterial) => {
 				setBackpack((previousBackpack) => {
-					return containerService.add(previousBackpack, item);
-				});
-			},
-			addMultiple: (itemList: Collection) => {
-				setBackpack((previousBackpack) => {
-					return containerService.addMultiple(itemList, previousBackpack);
-				});
-			},
-			discard: (item: ContainerItem) => {
-				setBackpack((previousBackpack) => {
-					return containerService.discard(previousBackpack, item);
+					return containerService.discard(material, previousBackpack);
 				});
 			},
 			discardAll: () => {
 				setBackpack(new Map());
 			},
-			discardMultiple: (itemList: Collection) => {
+			discardMultiple: (materialList: Collection) => {
 				setBackpack((previousBackpack) => {
-					return containerService.discardMultiple(itemList, previousBackpack);
+					return containerService.discardMultiple(materialList, previousBackpack);
+				});
+			},
+			store: (material: ContainerMaterial) => {
+				setBackpack((previousBackpack) => {
+					return containerService.store(material, previousBackpack);
+				});
+			},
+			storeMultiple: (materialList: Collection) => {
+				setBackpack((previousBackpack) => {
+					return containerService.storeMultiple(materialList, previousBackpack);
 				});
 			},
 		},

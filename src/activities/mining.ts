@@ -1,27 +1,27 @@
 import { uid } from "uid";
-import type { Activity, ItemKey, LootStatistics } from "@/types";
+import type { Activity, LootStatistics, MaterialKey } from "@/types";
 
 const mineCopperOre: Activity = {
 	id: uid(),
 	actionText: "Mine",
 	experience: 10,
-	icon: "/assets/icons/items/ores/copper-ore.png",
+	icon: "/assets/icons/materials/ores/copper-ore.png",
 	level: 0,
-	lootTable: new Map<ItemKey, LootStatistics>([
+	lootTable: new Map<MaterialKey, LootStatistics>([
 		[
 			"copperOre",
 			{
 				chance: 1,
-				minimumQuantity: 1,
-				maximumQuantity: 2,
+				minimumNumber: 1,
+				maximumNumber: 2,
 			},
 		],
 		[
 			"stone",
 			{
 				chance: 0.2,
-				minimumQuantity: 1,
-				maximumQuantity: 2,
+				minimumNumber: 1,
+				maximumNumber: 2,
 			},
 		],
 	]),
@@ -33,23 +33,23 @@ const mineIronOre: Activity = {
 	id: uid(),
 	actionText: "Mine",
 	experience: 15,
-	icon: "/assets/icons/items/ores/iron-ore.png",
+	icon: "/assets/icons/materials/ores/iron-ore.png",
 	level: 5,
-	lootTable: new Map<ItemKey, LootStatistics>([
+	lootTable: new Map<MaterialKey, LootStatistics>([
 		[
 			"ironOre",
 			{
 				chance: 1,
-				minimumQuantity: 1,
-				maximumQuantity: 2,
+				minimumNumber: 1,
+				maximumNumber: 2,
 			},
 		],
 		[
 			"stone",
 			{
 				chance: 0.2,
-				minimumQuantity: 1,
-				maximumQuantity: 2,
+				minimumNumber: 1,
+				maximumNumber: 2,
 			},
 		],
 	]),
@@ -61,23 +61,23 @@ const mineMithrilOre: Activity = {
 	id: uid(),
 	actionText: "Mine",
 	experience: 25,
-	icon: "/assets/icons/items/ores/mithril-ore.png",
+	icon: "/assets/icons/materials/ores/mithril-ore.png",
 	level: 10,
-	lootTable: new Map<ItemKey, LootStatistics>([
+	lootTable: new Map<MaterialKey, LootStatistics>([
 		[
 			"mithrilOre",
 			{
 				chance: 1,
-				minimumQuantity: 1,
-				maximumQuantity: 2,
+				minimumNumber: 1,
+				maximumNumber: 2,
 			},
 		],
 		[
 			"stone",
 			{
 				chance: 0.2,
-				minimumQuantity: 1,
-				maximumQuantity: 2,
+				minimumNumber: 1,
+				maximumNumber: 2,
 			},
 		],
 	]),

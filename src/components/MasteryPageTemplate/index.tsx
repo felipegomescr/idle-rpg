@@ -1,7 +1,14 @@
 import { ActivityCard, Backpack } from "@/components";
 import { useMainCharacter } from "@/containers";
-import { experienceToLevel, getActivityList, levelToExperience, possessRequiredItemList, rollForLoot } from "@/helpers";
-import { Mastery, progressMultiplier } from "@/values";
+import { Mastery } from "@/enums";
+import {
+	experienceToLevel,
+	getActivityList,
+	levelToExperience,
+	possessRequiredMaterialList,
+	rollForLoot,
+} from "@/helpers";
+import { progressMultiplier } from "@/values";
 
 type MasteryPageTemplateProps = {
 	mastery: Mastery;
@@ -29,8 +36,8 @@ export const MasteryPageTemplate = ({ mastery }: MasteryPageTemplateProps) => {
 			<div className="grid grid-cols-4 gap-2">
 				{activityList.map((activity) => {
 					const hasLevel = level >= activity.level;
-					const isDisabled = activity.requiredItemList
-						? !hasLevel || !possessRequiredItemList(mainCharacter.backpack.content, activity.requiredItemList)
+					const isDisabled = activity.requiredMaterialList
+						? !hasLevel || !possessRequiredMaterialList(mainCharacter.backpack.content, activity.requiredMaterialList)
 						: !hasLevel;
 					const isPerformingActivity = mainCharacter.activity?.name === activity.name && !isDisabled;
 
@@ -48,11 +55,11 @@ export const MasteryPageTemplate = ({ mastery }: MasteryPageTemplateProps) => {
 								mainCharacter.setExperience(activity.experience * progressMultiplier, mastery);
 
 								if (!!activity.lootTable) {
-									mainCharacter.backpack.addMultiple(rollForLoot(activity.lootTable));
+									mainCharacter.backpack.storeMultiple(rollForLoot(activity.lootTable));
 								}
 
-								if (!!activity.requiredItemList) {
-									mainCharacter.backpack.discardMultiple(activity.requiredItemList);
+								if (!!activity.requiredMaterialList) {
+									mainCharacter.backpack.discardMultiple(activity.requiredMaterialList);
 								}
 							}}
 						/>
@@ -67,12 +74,12 @@ export const MasteryPageTemplate = ({ mastery }: MasteryPageTemplateProps) => {
 						mainCharacter.backpack.discardAll();
 					}
 				}}
-				onItemDiscard={(item) => {
-					const quantity = Number(prompt("Quantity to discard:") || 0);
+				onMaterialDiscard={(material) => {
+					const number = Number(prompt("Number to discard:") || 0);
 
 					mainCharacter.backpack.discard({
-						...item,
-						quantity,
+						...material,
+						number,
 					});
 				}}
 			/>
