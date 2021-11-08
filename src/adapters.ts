@@ -1,4 +1,3 @@
-import { times } from "@/helpers";
 import * as itemList from "@/items";
 import type { Collection, ContainerItem } from "@/types";
 
