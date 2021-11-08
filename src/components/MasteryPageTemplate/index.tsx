@@ -68,18 +68,12 @@ export const MasteryPageTemplate = ({ mastery }: MasteryPageTemplateProps) => {
 					}
 				}}
 				onItemDiscard={(item) => {
-					if (item.isStackable) {
-						const quantity = Number(prompt("Quantity to discard:") || 0);
+					const quantity = Number(prompt("Quantity to discard:") || 0);
 
-						mainCharacter.backpack.discard({
-							...item,
-							quantity,
-						});
-					} else {
-						if (confirm(`Are you sure you want to discard ${item.name}?`)) {
-							mainCharacter.backpack.discard(item);
-						}
-					}
+					mainCharacter.backpack.discard({
+						...item,
+						quantity,
+					});
 				}}
 			/>
 		</div>

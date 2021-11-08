@@ -38,8 +38,7 @@ export const Backpack = ({
 									<Image alt="" layout="fill" src={item.icon} />
 								</div>
 								<span>
-									{item.isStackable ? `${item.quantity}x ` : ""}
-									{item.name}
+									{`${item.quantity}x`} {item.name}
 								</span>
 								<button
 									className="w-8 h-8 font-bold text-white bg-red-600 rounded-full disabled:opacity-50"

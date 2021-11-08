@@ -8,19 +8,10 @@ export const collectionToContainerItemList = (collection: Collection) => {
 	for (let [itemKey, quantity] of collection.entries()) {
 		const item = itemList[itemKey];
 
-		if (item.isStackable) {
-			accumulator.push({
-				...item,
-				quantity,
-			});
-		} else {
-			times(quantity, () => {
-				accumulator.push({
-					...item,
-					quantity: 1,
-				});
-			});
-		}
+		accumulator.push({
+			...item,
+			quantity,
+		});
 	}
 
 	return accumulator;

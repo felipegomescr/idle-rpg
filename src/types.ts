@@ -22,8 +22,8 @@ export type ContainerItem = Item & {
 export type Item = {
 	id: string;
 	category: ItemCategory;
+	description: string;
 	icon: string;
-	isStackable?: boolean;
 	key: ItemKey;
 	name: string;
 };

@@ -5,6 +5,7 @@ import type { Item } from "@/types";
 export const oakLog: Item = {
 	id: uid(),
 	category: ItemCategory.LOG,
+	description: "",
 	icon: "/assets/icons/items/logs/oak-log.png",
 	key: "oakLog",
 	name: "Oak Log",
@@ -13,6 +14,7 @@ export const oakLog: Item = {
 export const pineLog: Item = {
 	id: uid(),
 	category: ItemCategory.LOG,
+	description: "",
 	icon: "/assets/icons/items/logs/pine-log.png",
 	key: "pineLog",
 	name: "Pine Log",
@@ -21,6 +23,7 @@ export const pineLog: Item = {
 export const willowLog: Item = {
 	id: uid(),
 	category: ItemCategory.LOG,
+	description: "",
 	icon: "/assets/icons/items/logs/willow-log.png",
 	key: "willowLog",
 	name: "Willow Log",
