@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { createContainer } from "unstated-next";
 import { Mastery } from "@/enums";
 import { Container, Progress } from "@/services";
+import { backpackCapacity } from "@/values";
 import type { ReactNode } from "react";
 import type { Activity, Collection, MaterialInContainer, MaterialName } from "@/types";
 
@@ -11,7 +12,7 @@ type MainCharacterProviderProps = {
 
 const MainCharacterContainer = createContainer(() => {
 	const [activity, setActivity] = useState<Activity>();
-	const [backpack, setBackpack] = useState<Container>(new Container(new Map<MaterialName, number>()));
+	const [backpack, setBackpack] = useState<Container>(new Container(new Map<MaterialName, number>(), backpackCapacity));
 	const [cookingExperience, setCookingExperience] = useState(0);
 	const [fishingExperience, setFishingExperience] = useState(0);
 	const [foragingExperience, setForagingExperience] = useState(0);
@@ -23,7 +24,7 @@ const MainCharacterContainer = createContainer(() => {
 		const progress = Progress.load();
 
 		if (progress) {
-			setBackpack(new Container(progress.backpack));
+			setBackpack(new Container(progress.backpack, backpackCapacity));
 			setCookingExperience(progress.cookingExperience);
 			setFishingExperience(progress.fishingExperience);
 			setForagingExperience(progress.foragingExperience);
@@ -58,16 +59,23 @@ const MainCharacterContainer = createContainer(() => {
 		backpack: {
 			content: backpack.content,
 			discard: (material: MaterialInContainer) => {
-				setBackpack(new Container(backpack.discard(material)));
+				setBackpack(new Container(backpack.discard(material), backpackCapacity));
 			},
 			discardAll: () => {
-				setBackpack(new Container(new Map<MaterialName, number>()));
+				setBackpack(new Container(new Map<MaterialName, number>(), backpackCapacity));
 			},
 			discardMultiple: (materialList: Collection) => {
-				setBackpack(new Container(backpack.discardMultiple(materialList)));
+				setBackpack(new Container(backpack.discardMultiple(materialList), backpackCapacity));
 			},
 			store: (material: MaterialInContainer) => {
-				setBackpack(new Container(backpack.store(material)));
+				if (!backpack.canStore(material)) {
+					alert(`You cannot store ${material.name}.`);
+					setActivity(undefined);
+
+					return;
+				}
+
+				setBackpack(new Container(backpack.store(material), backpackCapacity));
 			},
 		},
 		getExperience: (mastery: Mastery) => {

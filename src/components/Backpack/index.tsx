@@ -38,7 +38,7 @@ export const Backpack = ({
 									<Image alt="" layout="fill" src={material.icon} />
 								</div>
 								<span className="text-center">
-									{`${material.number}x`} {material.name}
+									({material.number}/{material.maximumNumber}) {material.name}
 								</span>
 								<button
 									className="w-8 h-8 font-bold text-white bg-red-600 rounded-full disabled:opacity-50"

@@ -20,6 +20,7 @@ export type Material = {
 	category: MaterialCategory;
 	description: string;
 	icon: string;
+	maximumNumber: number;
 	name: string;
 };
 

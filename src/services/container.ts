@@ -1,9 +1,20 @@
-import { camelize } from "@/helpers";
+import { camelize, isUndefined } from "@/helpers";
 import * as materialList from "@/materials";
 import type { Collection, MaterialInContainer, MaterialName } from "@/types";
 
 export class Container {
-	constructor(public content: Collection) {}
+	constructor(public content: Collection, public capacity: number) {}
+
+	canStore(material: MaterialInContainer) {
+		const materialName = camelize(material.name) as MaterialName;
+		const possessedNumber = this.content.get(materialName);
+
+		if (isUndefined(possessedNumber)) {
+			return this.content.size < this.capacity;
+		} else {
+			return possessedNumber! < material.maximumNumber;
+		}
+	}
 
 	discard(material: MaterialInContainer) {
 		const materialName = camelize(material.name) as MaterialName;
@@ -34,8 +45,9 @@ export class Container {
 	store(material: MaterialInContainer) {
 		const materialName = camelize(material.name) as MaterialName;
 		const possessedNumber = this.content.get(materialName) || 0;
+		const number = possessedNumber + material.number;
 
-		this.content.set(materialName, possessedNumber + material.number);
+		this.content.set(materialName, Math.min(number, material.maximumNumber));
 
 		return this.content;
 	}

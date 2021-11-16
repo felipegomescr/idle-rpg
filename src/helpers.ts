@@ -47,7 +47,11 @@ export const getActivityList = (mastery: Mastery) => {
 };
 
 export const isClient = () => {
-	return typeof document !== "undefined" && typeof window !== "undefined";
+	return !isUndefined(document) && !isUndefined(window);
+};
+
+export const isUndefined = (value: any) => {
+	return typeof value === "undefined";
 };
 
 export const possessRequiredMaterialList = (backpack: Collection, requiredMaterialList: Collection) => {

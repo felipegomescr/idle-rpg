@@ -7,5 +7,6 @@ export const stone: Material = {
 	category: MaterialCategory.MISCELLANY,
 	description: "Trash. Obtained from mining ore.",
 	icon: "/assets/icons/materials/miscellaneous/stone.png",
+	maximumNumber: 50,
 	name: "Stone",
 };

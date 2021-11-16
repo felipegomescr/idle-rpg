@@ -1,6 +1,6 @@
-export const localStorageProgressKey = "idle-rpg-progress";
+export const backpackCapacity = 2;
 
-export const maximumInventoryCapacity = 24;
+export const localStorageProgressName = "idle-rpg-progress";
 
 export const notFoundPlaceholderIcon = "/assets/icons/not-found-placeholder.png";
 
