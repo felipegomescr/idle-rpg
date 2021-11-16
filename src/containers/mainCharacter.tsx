@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { createContainer } from "unstated-next";
 import { Mastery } from "@/enums";
-import { Container, progressService } from "@/services";
+import { Container, Progress } from "@/services";
 import type { ReactNode } from "react";
 import type { Activity, Collection, MaterialInContainer, MaterialKey } from "@/types";
 
@@ -20,7 +20,7 @@ const MainCharacterContainer = createContainer(() => {
 	const [smithingExperience, setSmithingExperience] = useState(0);
 
 	useEffect(() => {
-		const progress = progressService.load();
+		const progress = Progress.load();
 
 		if (progress) {
 			setBackpack(new Container(progress.backpack));
@@ -34,7 +34,7 @@ const MainCharacterContainer = createContainer(() => {
 	}, []);
 
 	useEffect(() => {
-		progressService.save({
+		Progress.save({
 			backpack: backpack.content,
 			cookingExperience,
 			fishingExperience,

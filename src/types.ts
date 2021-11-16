@@ -30,7 +30,7 @@ export type MaterialInContainer = Material & {
 
 export type MaterialKey = keyof typeof materialList;
 
-export type Progress = {
+export type ProgressData = {
 	backpack: Collection;
 	cookingExperience: number;
 	fishingExperience: number;
