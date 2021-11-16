@@ -7,21 +7,13 @@ export type Activity = {
 	experience: number;
 	icon: string;
 	level: number;
-	lootTable?: LootTable;
 	name: string;
 	requiredMaterialList?: Collection;
+	rewardTable?: RewardTable;
 	timeToCompletion: number;
 };
 
 export type Collection = Map<MaterialKey, number>;
-
-export type LootStatistics = {
-	chance: number;
-	minimumNumber: number;
-	maximumNumber: number;
-};
-
-export type LootTable = Map<MaterialKey, LootStatistics>;
 
 export type Material = {
 	id: string;
@@ -47,3 +39,11 @@ export type Progress = {
 	mixingExperience: number;
 	smithingExperience: number;
 };
+
+export type RewardStatistics = {
+	minimumNumber: number;
+	maximumNumber: number;
+	weight: number;
+};
+
+export type RewardTable = Map<MaterialKey, RewardStatistics>;

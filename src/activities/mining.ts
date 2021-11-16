@@ -1,5 +1,5 @@
 import { uid } from "uid";
-import type { Activity, LootStatistics, MaterialKey } from "@/types";
+import type { Activity, MaterialKey, RewardStatistics } from "@/types";
 
 const mineCopperOre: Activity = {
 	id: uid(),
@@ -7,25 +7,25 @@ const mineCopperOre: Activity = {
 	experience: 10,
 	icon: "/assets/icons/materials/ores/copper-ore.png",
 	level: 0,
-	lootTable: new Map<MaterialKey, LootStatistics>([
+	name: "Copper Ore",
+	rewardTable: new Map<MaterialKey, RewardStatistics>([
 		[
 			"copperOre",
 			{
-				chance: 1,
 				minimumNumber: 1,
 				maximumNumber: 2,
+				weight: 4,
 			},
 		],
 		[
 			"stone",
 			{
-				chance: 0.2,
 				minimumNumber: 1,
 				maximumNumber: 2,
+				weight: 1,
 			},
 		],
 	]),
-	name: "Copper Ore",
 	timeToCompletion: 10000,
 };
 
@@ -35,25 +35,25 @@ const mineIronOre: Activity = {
 	experience: 15,
 	icon: "/assets/icons/materials/ores/iron-ore.png",
 	level: 5,
-	lootTable: new Map<MaterialKey, LootStatistics>([
+	name: "Iron Ore",
+	rewardTable: new Map<MaterialKey, RewardStatistics>([
 		[
 			"ironOre",
 			{
-				chance: 1,
 				minimumNumber: 1,
 				maximumNumber: 2,
+				weight: 4,
 			},
 		],
 		[
 			"stone",
 			{
-				chance: 0.2,
 				minimumNumber: 1,
 				maximumNumber: 2,
+				weight: 1,
 			},
 		],
 	]),
-	name: "Iron Ore",
 	timeToCompletion: 10000,
 };
 
@@ -63,25 +63,25 @@ const mineMithrilOre: Activity = {
 	experience: 25,
 	icon: "/assets/icons/materials/ores/mithril-ore.png",
 	level: 10,
-	lootTable: new Map<MaterialKey, LootStatistics>([
+	name: "Mithril Ore",
+	rewardTable: new Map<MaterialKey, RewardStatistics>([
 		[
 			"mithrilOre",
 			{
-				chance: 1,
 				minimumNumber: 1,
 				maximumNumber: 2,
+				weight: 4,
 			},
 		],
 		[
 			"stone",
 			{
-				chance: 0.2,
 				minimumNumber: 1,
 				maximumNumber: 2,
+				weight: 1,
 			},
 		],
 	]),
-	name: "Mithril Ore",
 	timeToCompletion: 10000,
 };
 

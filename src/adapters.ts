@@ -1,5 +1,6 @@
+import { times } from "@/helpers";
 import * as materialList from "@/materials";
-import type { Collection, MaterialInContainer } from "@/types";
+import type { Collection, MaterialInContainer, MaterialKey, RewardTable } from "@/types";
 
 export const collectionToMaterialInContainerList = (collection: Collection) => {
 	const accumulator: MaterialInContainer[] = [];
@@ -10,6 +11,18 @@ export const collectionToMaterialInContainerList = (collection: Collection) => {
 		accumulator.push({
 			...material,
 			number,
+		});
+	}
+
+	return accumulator;
+};
+
+export const rewardTableToWeightedMaterialList = (rewardTable: RewardTable) => {
+	const accumulator: MaterialKey[] = [];
+
+	for (let [materialKey, rewardStatistics] of rewardTable.entries()) {
+		times(rewardStatistics.weight, () => {
+			accumulator.push(materialKey);
 		});
 	}
 

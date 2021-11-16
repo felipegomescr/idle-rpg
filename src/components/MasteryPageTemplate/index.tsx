@@ -6,7 +6,7 @@ import {
 	getActivityList,
 	levelToExperience,
 	possessRequiredMaterialList,
-	rollForLoot,
+	rollReward,
 } from "@/helpers";
 import { progressMultiplier } from "@/values";
 
@@ -54,8 +54,8 @@ export const MasteryPageTemplate = ({ mastery }: MasteryPageTemplateProps) => {
 							onActivityComplete={() => {
 								mainCharacter.setExperience(activity.experience * progressMultiplier, mastery);
 
-								if (!!activity.lootTable) {
-									mainCharacter.backpack.storeMultiple(rollForLoot(activity.lootTable));
+								if (!!activity.rewardTable) {
+									mainCharacter.backpack.store(rollReward(activity.rewardTable));
 								}
 
 								if (!!activity.requiredMaterialList) {

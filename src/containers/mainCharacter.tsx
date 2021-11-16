@@ -75,11 +75,6 @@ const MainCharacterContainer = createContainer(() => {
 					return containerService.store(material, previousBackpack);
 				});
 			},
-			storeMultiple: (materialList: Collection) => {
-				setBackpack((previousBackpack) => {
-					return containerService.storeMultiple(materialList, previousBackpack);
-				});
-			},
 		},
 		getExperience: (mastery: Mastery) => {
 			switch (mastery) {

@@ -1,7 +1,8 @@
 import * as activityList from "@/activities";
+import { rewardTableToWeightedMaterialList } from "@/adapters";
 import { Mastery } from "@/enums";
-import { progressMultiplier } from "@/values";
-import type { Collection, LootTable, MaterialKey } from "@/types";
+import * as materialList from "@/materials";
+import type { Collection, MaterialInContainer, RewardTable } from "@/types";
 
 export const cloneMap = <Key, Value>(map: Map<Key, Value>) => {
 	return new Map<Key, Value>(JSON.parse(JSON.stringify([...map])));
@@ -52,20 +53,24 @@ export const possessRequiredMaterialList = (backpack: Collection, requiredMateri
 	return true;
 };
 
-export const randomInteger = (minimum: number, maximum: number) => {
+export const range = (minimum: number, maximum: number) => {
 	return Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
 };
 
-export const rollForLoot = (lootTable: LootTable) => {
-	const loot = new Map<MaterialKey, number>();
+export const rollReward = (rewardTable: RewardTable) => {
+	const weightedMaterialList = rewardTableToWeightedMaterialList(rewardTable);
+	const materialKey = sample(weightedMaterialList);
+	const rewardStatistics = rewardTable.get(materialKey)!;
+	const material: MaterialInContainer = {
+		...materialList[materialKey],
+		number: range(rewardStatistics.minimumNumber, rewardStatistics.maximumNumber),
+	};
 
-	for (let [materialKey, lootStatistics] of lootTable.entries()) {
-		if (lootStatistics.chance * progressMultiplier >= Math.random()) {
-			loot.set(materialKey, randomInteger(lootStatistics.minimumNumber, lootStatistics.maximumNumber));
-		}
-	}
+	return material;
+};
 
-	return loot;
+export const sample = <Type>(array: Type[]) => {
+	return array[range(0, array.length - 1)];
 };
 
 export const times = (amount: number, callbackFunction: (iteration?: number) => void) => {

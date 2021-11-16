@@ -15,15 +15,6 @@ const discard = (material: MaterialInContainer, container: Map<MaterialKey, numb
 	return backpackClone;
 };
 
-const store = (material: MaterialInContainer, container: Map<MaterialKey, number>) => {
-	const backpackClone = cloneMap(container);
-	const possessedNumber = backpackClone.get(material.key) || 0;
-
-	backpackClone.set(material.key, possessedNumber + material.number);
-
-	return backpackClone;
-};
-
 export const containerService = {
 	discard,
 	discardMultiple: (materialCollection: Collection, container: Map<MaterialKey, number>) => {
@@ -43,22 +34,12 @@ export const containerService = {
 
 		return containerClone;
 	},
-	store,
-	storeMultiple: (materialCollection: Collection, container: Map<MaterialKey, number>) => {
-		let containerClone = cloneMap(container);
+	store: (material: MaterialInContainer, container: Map<MaterialKey, number>) => {
+		const backpackClone = cloneMap(container);
+		const possessedNumber = backpackClone.get(material.key) || 0;
 
-		for (let [materialKey, number] of materialCollection.entries()) {
-			const material = materialList[materialKey];
+		backpackClone.set(material.key, possessedNumber + material.number);
 
-			containerClone = store(
-				{
-					...material,
-					number,
-				},
-				containerClone
-			);
-		}
-
-		return containerClone;
+		return backpackClone;
 	},
 };
