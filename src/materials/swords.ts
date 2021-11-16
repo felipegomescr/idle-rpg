@@ -7,7 +7,6 @@ export const copperSword: Material = {
 	category: MaterialCategory.SWORD,
 	description: "A sword obtained from smithing copper bar.",
 	icon: "/assets/icons/materials/swords/copper-sword.png",
-	key: "copperSword",
 	name: "Copper Sword",
 };
 
@@ -16,7 +15,6 @@ export const ironSword: Material = {
 	category: MaterialCategory.SWORD,
 	description: "A sword obtained from smithing iron bar.",
 	icon: "/assets/icons/materials/swords/iron-sword.png",
-	key: "ironSword",
 	name: "Iron Sword",
 };
 
@@ -25,6 +23,5 @@ export const mithrilSword: Material = {
 	category: MaterialCategory.SWORD,
 	description: "A sword obtained from smithing mithril bar.",
 	icon: "/assets/icons/materials/swords/mithril-sword.png",
-	key: "mithrilSword",
 	name: "Mithril Sword",
 };

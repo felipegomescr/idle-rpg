@@ -1,5 +1,5 @@
 import { uid } from "uid";
-import type { Activity, MaterialKey, RewardStatistics } from "@/types";
+import type { Activity, MaterialName, RewardStatistics } from "@/types";
 
 const smeltCopperIngot: Activity = {
 	id: uid(),
@@ -8,8 +8,8 @@ const smeltCopperIngot: Activity = {
 	icon: "/assets/icons/materials/ingots/copper-ingot.png",
 	level: 0,
 	name: "Copper Ingot",
-	requiredMaterialList: new Map<MaterialKey, number>([["copperOre", 1]]),
-	rewardTable: new Map<MaterialKey, RewardStatistics>([
+	requiredMaterialList: new Map<MaterialName, number>([["copperOre", 1]]),
+	rewardTable: new Map<MaterialName, RewardStatistics>([
 		[
 			"copperIngot",
 			{
@@ -29,8 +29,8 @@ const smeltIronIngot: Activity = {
 	icon: "/assets/icons/materials/ingots/iron-ingot.png",
 	level: 5,
 	name: "Iron Ingot",
-	requiredMaterialList: new Map<MaterialKey, number>([["ironOre", 1]]),
-	rewardTable: new Map<MaterialKey, RewardStatistics>([
+	requiredMaterialList: new Map<MaterialName, number>([["ironOre", 1]]),
+	rewardTable: new Map<MaterialName, RewardStatistics>([
 		[
 			"ironIngot",
 			{
@@ -50,8 +50,8 @@ const smeltMithrilIngot: Activity = {
 	icon: "/assets/icons/materials/ingots/mithril-ingot.png",
 	level: 10,
 	name: "Mithril Ingot",
-	requiredMaterialList: new Map<MaterialKey, number>([["mithrilOre", 1]]),
-	rewardTable: new Map<MaterialKey, RewardStatistics>([
+	requiredMaterialList: new Map<MaterialName, number>([["mithrilOre", 1]]),
+	rewardTable: new Map<MaterialName, RewardStatistics>([
 		[
 			"mithrilIngot",
 			{
@@ -71,8 +71,8 @@ const smithCopperSword: Activity = {
 	icon: "/assets/icons/materials/swords/copper-sword.png",
 	level: 0,
 	name: "Copper Sword",
-	requiredMaterialList: new Map<MaterialKey, number>([["copperIngot", 4]]),
-	rewardTable: new Map<MaterialKey, RewardStatistics>([
+	requiredMaterialList: new Map<MaterialName, number>([["copperIngot", 4]]),
+	rewardTable: new Map<MaterialName, RewardStatistics>([
 		[
 			"copperSword",
 			{
@@ -92,8 +92,8 @@ const smithIronSword: Activity = {
 	icon: "/assets/icons/materials/swords/iron-sword.png",
 	level: 5,
 	name: "Iron Sword",
-	requiredMaterialList: new Map<MaterialKey, number>([["ironIngot", 4]]),
-	rewardTable: new Map<MaterialKey, RewardStatistics>([
+	requiredMaterialList: new Map<MaterialName, number>([["ironIngot", 4]]),
+	rewardTable: new Map<MaterialName, RewardStatistics>([
 		[
 			"ironSword",
 			{
@@ -113,8 +113,8 @@ const smithMithrilSword: Activity = {
 	icon: "/assets/icons/materials/swords/mithril-sword.png",
 	level: 10,
 	name: "Mithril Sword",
-	requiredMaterialList: new Map<MaterialKey, number>([["mithrilIngot", 4]]),
-	rewardTable: new Map<MaterialKey, RewardStatistics>([
+	requiredMaterialList: new Map<MaterialName, number>([["mithrilIngot", 4]]),
+	rewardTable: new Map<MaterialName, RewardStatistics>([
 		[
 			"mithrilSword",
 			{

@@ -6,6 +6,17 @@ import { WeightedList } from "@/services";
 import { progressMultiplier } from "@/values";
 import type { Collection, MaterialInContainer, RewardTable } from "@/types";
 
+export const camelize = (text: string) => {
+	return text
+		.replace(/\s./g, (text) => {
+			return text.toUpperCase();
+		})
+		.replace(/\s/g, "")
+		.replace(/^./, (text) => {
+			return text.toLowerCase();
+		});
+};
+
 export const experienceToLevel = (experience: number) => {
 	return Math.floor(Math.floor(25 + Math.sqrt(625 + 100 * experience)) / 50);
 };
@@ -40,8 +51,8 @@ export const isClient = () => {
 };
 
 export const possessRequiredMaterialList = (backpack: Collection, requiredMaterialList: Collection) => {
-	for (let [materialKey, minimumNumber] of requiredMaterialList.entries()) {
-		const possessedNumber = backpack.get(materialKey) || 0;
+	for (let [materialName, minimumNumber] of requiredMaterialList.entries()) {
+		const possessedNumber = backpack.get(materialName) || 0;
 
 		if (possessedNumber < minimumNumber) {
 			return false;
@@ -56,12 +67,13 @@ export const range = (minimum: number, maximum: number) => {
 };
 
 export const rollReward = (rewardTable: RewardTable) => {
-	const weightedMaterialList = new WeightedList(rewardTableToCollection(rewardTable));
-	const materialKey = weightedMaterialList.roll();
-	const rewardStatistics = rewardTable.get(materialKey)!;
+	const weightedRewardList = new WeightedList(rewardTableToCollection(rewardTable));
+	const rewardName = weightedRewardList.roll();
+	const rewardStatistics = rewardTable.get(rewardName)!;
+	const number = range(rewardStatistics.minimumNumber, rewardStatistics.maximumNumber);
 	const material: MaterialInContainer = {
-		...materialList[materialKey],
-		number: range(rewardStatistics.minimumNumber, rewardStatistics.maximumNumber) * progressMultiplier,
+		...materialList[rewardName],
+		number: number * progressMultiplier,
 	};
 
 	return material;

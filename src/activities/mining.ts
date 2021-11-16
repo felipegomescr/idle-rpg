@@ -1,5 +1,5 @@
 import { uid } from "uid";
-import type { Activity, MaterialKey, RewardStatistics } from "@/types";
+import type { Activity, MaterialName, RewardStatistics } from "@/types";
 
 const mineCopperOre: Activity = {
 	id: uid(),
@@ -8,7 +8,7 @@ const mineCopperOre: Activity = {
 	icon: "/assets/icons/materials/ores/copper-ore.png",
 	level: 0,
 	name: "Copper Ore",
-	rewardTable: new Map<MaterialKey, RewardStatistics>([
+	rewardTable: new Map<MaterialName, RewardStatistics>([
 		[
 			"copperOre",
 			{
@@ -36,7 +36,7 @@ const mineIronOre: Activity = {
 	icon: "/assets/icons/materials/ores/iron-ore.png",
 	level: 5,
 	name: "Iron Ore",
-	rewardTable: new Map<MaterialKey, RewardStatistics>([
+	rewardTable: new Map<MaterialName, RewardStatistics>([
 		[
 			"ironOre",
 			{
@@ -64,7 +64,7 @@ const mineMithrilOre: Activity = {
 	icon: "/assets/icons/materials/ores/mithril-ore.png",
 	level: 10,
 	name: "Mithril Ore",
-	rewardTable: new Map<MaterialKey, RewardStatistics>([
+	rewardTable: new Map<MaterialName, RewardStatistics>([
 		[
 			"mithrilOre",
 			{

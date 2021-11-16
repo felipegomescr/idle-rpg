@@ -7,7 +7,6 @@ export const copperOre: Material = {
 	category: MaterialCategory.ORE,
 	description: "Ore obtained from mining copper vein.",
 	icon: "/assets/icons/materials/ores/copper-ore.png",
-	key: "copperOre",
 	name: "Copper Ore",
 };
 
@@ -16,7 +15,6 @@ export const ironOre: Material = {
 	category: MaterialCategory.ORE,
 	description: "Ore obtained from mining iron vein.",
 	icon: "/assets/icons/materials/ores/iron-ore.png",
-	key: "ironOre",
 	name: "Iron Ore",
 };
 
@@ -25,6 +23,5 @@ export const mithrilOre: Material = {
 	category: MaterialCategory.ORE,
 	description: "Ore obtained from mining mithril vein.",
 	icon: "/assets/icons/materials/ores/mithril-ore.png",
-	key: "mithrilOre",
 	name: "Mithril Ore",
 };

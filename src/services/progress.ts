@@ -1,6 +1,6 @@
 import { isClient } from "@/helpers";
 import { localStorageProgressKey } from "@/values";
-import type { MaterialKey, ProgressData } from "@/types";
+import type { MaterialName, ProgressData } from "@/types";
 
 export class Progress {
 	static delete() {
@@ -18,7 +18,7 @@ export class Progress {
 
 				return {
 					...progressData,
-					backpack: new Map<MaterialKey, number>(progressData.backpack),
+					backpack: new Map<MaterialName, number>(progressData.backpack),
 				};
 			}
 		}

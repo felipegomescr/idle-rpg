@@ -37,7 +37,7 @@ export const Backpack = ({
 								<div className="relative w-8 h-8">
 									<Image alt="" layout="fill" src={material.icon} />
 								</div>
-								<span>
+								<span className="text-center">
 									{`${material.number}x`} {material.name}
 								</span>
 								<button

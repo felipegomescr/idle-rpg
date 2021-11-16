@@ -1,13 +1,13 @@
 import { sample, times } from "@/helpers";
-import type { Collection, MaterialKey } from "@/types";
+import type { Collection, MaterialName } from "@/types";
 
 export class WeightedList {
-	private accumulator: MaterialKey[] = [];
+	private accumulator: MaterialName[] = [];
 
 	constructor(data: Collection) {
-		for (let [materialKey, weight] of data.entries()) {
+		for (let [materialName, weight] of data.entries()) {
 			times(weight, () => {
-				this.accumulator.push(materialKey);
+				this.accumulator.push(materialName);
 			});
 		}
 	}
