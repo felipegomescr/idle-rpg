@@ -3,16 +3,16 @@ import * as materialList from "@/materials";
 import type { Collection, MaterialInContainer, MaterialKey } from "@/types";
 
 const discard = (material: MaterialInContainer, container: Map<MaterialKey, number>) => {
-	const backpackClone = cloneMap(container);
-	const possessedNumber = backpackClone.get(material.key) || 0;
+	const containerClone = cloneMap(container);
+	const possessedNumber = containerClone.get(material.key) || 0;
 
 	if (possessedNumber - material.number <= 0) {
-		backpackClone.delete(material.key);
+		containerClone.delete(material.key);
 	} else {
-		backpackClone.set(material.key, possessedNumber - material.number);
+		containerClone.set(material.key, possessedNumber - material.number);
 	}
 
-	return backpackClone;
+	return containerClone;
 };
 
 export const containerService = {
@@ -35,11 +35,11 @@ export const containerService = {
 		return containerClone;
 	},
 	store: (material: MaterialInContainer, container: Map<MaterialKey, number>) => {
-		const backpackClone = cloneMap(container);
-		const possessedNumber = backpackClone.get(material.key) || 0;
+		const containerClone = cloneMap(container);
+		const possessedNumber = containerClone.get(material.key) || 0;
 
-		backpackClone.set(material.key, possessedNumber + material.number);
+		containerClone.set(material.key, possessedNumber + material.number);
 
-		return backpackClone;
+		return containerClone;
 	},
 };
