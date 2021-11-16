@@ -1,4 +1,3 @@
-import { times } from "@/helpers";
 import * as materialList from "@/materials";
 import type { Collection, MaterialInContainer, MaterialKey, RewardTable } from "@/types";
 
@@ -17,13 +16,11 @@ export const collectionToMaterialInContainerList = (collection: Collection) => {
 	return accumulator;
 };
 
-export const rewardTableToWeightedMaterialList = (rewardTable: RewardTable) => {
-	const accumulator: MaterialKey[] = [];
+export const rewardTableToCollection = (rewardTable: RewardTable) => {
+	const accumulator: Collection = new Map<MaterialKey, number>();
 
 	for (let [materialKey, rewardStatistics] of rewardTable.entries()) {
-		times(rewardStatistics.weight, () => {
-			accumulator.push(materialKey);
-		});
+		accumulator.set(materialKey, rewardStatistics.weight);
 	}
 
 	return accumulator;

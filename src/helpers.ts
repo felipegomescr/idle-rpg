@@ -1,7 +1,8 @@
 import * as activityList from "@/activities";
-import { rewardTableToWeightedMaterialList } from "@/adapters";
+import { rewardTableToCollection } from "@/adapters";
 import { Mastery } from "@/enums";
 import * as materialList from "@/materials";
+import { WeightedList } from "@/services";
 import { progressMultiplier } from "@/values";
 import type { Collection, MaterialInContainer, RewardTable } from "@/types";
 
@@ -55,8 +56,8 @@ export const range = (minimum: number, maximum: number) => {
 };
 
 export const rollReward = (rewardTable: RewardTable) => {
-	const weightedMaterialList = rewardTableToWeightedMaterialList(rewardTable);
-	const materialKey = sample(weightedMaterialList);
+	const weightedMaterialList = new WeightedList(rewardTableToCollection(rewardTable));
+	const materialKey = weightedMaterialList.roll();
 	const rewardStatistics = rewardTable.get(materialKey)!;
 	const material: MaterialInContainer = {
 		...materialList[materialKey],
