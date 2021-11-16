@@ -1,45 +1,39 @@
-import { cloneMap } from "@/helpers";
 import * as materialList from "@/materials";
-import type { Collection, MaterialInContainer, MaterialKey } from "@/types";
+import type { Collection, MaterialInContainer } from "@/types";
 
-const discard = (material: MaterialInContainer, container: Map<MaterialKey, number>) => {
-	const containerClone = cloneMap(container);
-	const possessedNumber = containerClone.get(material.key) || 0;
+export class Container {
+	constructor(public content: Collection) {}
 
-	if (possessedNumber - material.number <= 0) {
-		containerClone.delete(material.key);
-	} else {
-		containerClone.set(material.key, possessedNumber - material.number);
-	}
+	discard(material: MaterialInContainer) {
+		const possessedNumber = this.content.get(material.key)!;
 
-	return containerClone;
-};
-
-export const containerService = {
-	discard,
-	discardMultiple: (materialCollection: Collection, container: Map<MaterialKey, number>) => {
-		let containerClone = cloneMap(container);
-
-		for (let [materialKey, number] of materialCollection.entries()) {
-			const material = materialList[materialKey];
-
-			containerClone = discard(
-				{
-					...material,
-					number,
-				},
-				containerClone
-			);
+		if (possessedNumber - material.number <= 0) {
+			this.content.delete(material.key);
+		} else {
+			this.content.set(material.key, possessedNumber - material.number);
 		}
 
-		return containerClone;
-	},
-	store: (material: MaterialInContainer, container: Map<MaterialKey, number>) => {
-		const containerClone = cloneMap(container);
-		const possessedNumber = containerClone.get(material.key) || 0;
+		return this.content;
+	}
 
-		containerClone.set(material.key, possessedNumber + material.number);
+	discardMultiple(discardList: Collection) {
+		for (let [materialKey, number] of discardList.entries()) {
+			const material = materialList[materialKey];
 
-		return containerClone;
-	},
-};
+			this.discard({
+				...material,
+				number,
+			});
+		}
+
+		return this.content;
+	}
+
+	store(material: MaterialInContainer) {
+		const possessedNumber = this.content.get(material.key) || 0;
+
+		this.content.set(material.key, possessedNumber + material.number);
+
+		return this.content;
+	}
+}

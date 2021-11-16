@@ -75,7 +75,7 @@ export const MasteryPageTemplate = ({ mastery }: MasteryPageTemplateProps) => {
 					}
 				}}
 				onMaterialDiscard={(material) => {
-					const number = Number(prompt("Number to discard:") || 0);
+					const number = Number(prompt("Number to discard:")) || 0;
 
 					mainCharacter.backpack.discard({
 						...material,

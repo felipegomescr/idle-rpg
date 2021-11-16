@@ -2,11 +2,8 @@ import * as activityList from "@/activities";
 import { rewardTableToWeightedMaterialList } from "@/adapters";
 import { Mastery } from "@/enums";
 import * as materialList from "@/materials";
+import { progressMultiplier } from "@/values";
 import type { Collection, MaterialInContainer, RewardTable } from "@/types";
-
-export const cloneMap = <Key, Value>(map: Map<Key, Value>) => {
-	return new Map<Key, Value>(JSON.parse(JSON.stringify([...map])));
-};
 
 export const experienceToLevel = (experience: number) => {
 	return Math.floor(Math.floor(25 + Math.sqrt(625 + 100 * experience)) / 50);
@@ -63,7 +60,7 @@ export const rollReward = (rewardTable: RewardTable) => {
 	const rewardStatistics = rewardTable.get(materialKey)!;
 	const material: MaterialInContainer = {
 		...materialList[materialKey],
-		number: range(rewardStatistics.minimumNumber, rewardStatistics.maximumNumber),
+		number: range(rewardStatistics.minimumNumber, rewardStatistics.maximumNumber) * progressMultiplier,
 	};
 
 	return material;

@@ -1,6 +1,6 @@
 import { isClient } from "@/helpers";
 import { localStorageProgressKey } from "@/values";
-import type { Progress } from "@/types";
+import type { MaterialKey, Progress } from "@/types";
 
 export const progressService = {
 	discard: () => {
@@ -10,10 +10,15 @@ export const progressService = {
 	},
 	load: (): Progress | undefined => {
 		if (isClient()) {
-			const progress = window.localStorage.getItem(localStorageProgressKey);
+			const progressString = window.localStorage.getItem(localStorageProgressKey);
 
-			if (progress) {
-				return JSON.parse(progress);
+			if (progressString) {
+				const progress: Progress = JSON.parse(progressString);
+
+				return {
+					...progress,
+					backpack: new Map<MaterialKey, number>(progress.backpack),
+				};
 			}
 		}
 	},
