@@ -46,7 +46,7 @@ export const ActivityCard = ({
 					<span className="font-bold">Level:</span> {activity.level}
 				</p>
 				<p>
-					<span className="font-bold">Experience:</span> {activity.experience}
+					<span className="font-bold">Experience:</span> {activity.experience * progressMultiplier}
 				</p>
 			</div>
 			<button

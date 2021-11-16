@@ -36,9 +36,10 @@ export const MasteryPageTemplate = ({ mastery }: MasteryPageTemplateProps) => {
 			<div className="grid grid-cols-4 gap-2">
 				{activityList.map((activity) => {
 					const hasLevel = level >= activity.level;
-					const isDisabled = activity.requiredMaterialList
-						? !hasLevel || !possessRequiredMaterialList(mainCharacter.backpack.content, activity.requiredMaterialList)
-						: !hasLevel;
+					const hasRequiredMaterialList = activity.requiredMaterialList
+						? possessRequiredMaterialList(mainCharacter.backpack.content, activity.requiredMaterialList)
+						: true;
+					const isDisabled = !hasLevel || !hasRequiredMaterialList;
 					const isPerformingActivity = mainCharacter.activity?.name === activity.name && !isDisabled;
 
 					return (
