@@ -4,7 +4,7 @@ import { Mastery } from "@/enums";
 import { Container, Progress } from "@/services";
 import { backpackCapacity } from "@/values";
 import type { ReactNode } from "react";
-import type { Activity, Collection, MaterialInContainer, MaterialName } from "@/types";
+import type { Activity, Collection, MaterialInContainer, MaterialKey } from "@/types";
 
 type MainCharacterProviderProps = {
 	children: ReactNode;
@@ -12,7 +12,7 @@ type MainCharacterProviderProps = {
 
 const MainCharacterContainer = createContainer(() => {
 	const [activity, setActivity] = useState<Activity>();
-	const [backpack, setBackpack] = useState<Container>(new Container(new Map<MaterialName, number>(), backpackCapacity));
+	const [backpack, setBackpack] = useState<Container>(new Container(new Map<MaterialKey, number>(), backpackCapacity));
 	const [cookingExperience, setCookingExperience] = useState(0);
 	const [fishingExperience, setFishingExperience] = useState(0);
 	const [foragingExperience, setForagingExperience] = useState(0);
@@ -63,7 +63,7 @@ const MainCharacterContainer = createContainer(() => {
 				setBackpack(new Container(backpack.discard(material), backpackCapacity));
 			},
 			discardAll: () => {
-				setBackpack(new Container(new Map<MaterialName, number>(), backpackCapacity));
+				setBackpack(new Container(new Map<MaterialKey, number>(), backpackCapacity));
 			},
 			discardMultiple: (materialList: Collection) => {
 				setBackpack(new Container(backpack.discardMultiple(materialList), backpackCapacity));

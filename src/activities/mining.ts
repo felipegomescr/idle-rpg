@@ -1,14 +1,14 @@
 import { uid } from "uid";
-import type { Activity, MaterialName, RewardStatistics } from "@/types";
+import type { Activity, MaterialKey, RewardStatistics } from "@/types";
 
-const mineCopperOre: Activity = {
+const mineCopperVein: Activity = {
 	id: uid(),
 	actionText: "Mine",
 	experience: 10,
-	icon: "/assets/icons/materials/ores/copper-ore.png",
+	icon: "/assets/icons/activities/mining/mine-copper-vein.png",
 	level: 0,
-	name: "Copper Ore",
-	rewardTable: new Map<MaterialName, RewardStatistics>([
+	name: "Copper Vein",
+	rewardTable: new Map<MaterialKey, RewardStatistics>([
 		[
 			"copperOre",
 			{
@@ -29,14 +29,14 @@ const mineCopperOre: Activity = {
 	timeToCompletion: 10000,
 };
 
-const mineIronOre: Activity = {
+const mineIronVein: Activity = {
 	id: uid(),
 	actionText: "Mine",
 	experience: 15,
-	icon: "/assets/icons/materials/ores/iron-ore.png",
+	icon: "/assets/icons/activities/mining/mine-iron-vein.png",
 	level: 5,
-	name: "Iron Ore",
-	rewardTable: new Map<MaterialName, RewardStatistics>([
+	name: "Iron Vein",
+	rewardTable: new Map<MaterialKey, RewardStatistics>([
 		[
 			"ironOre",
 			{
@@ -57,14 +57,14 @@ const mineIronOre: Activity = {
 	timeToCompletion: 10000,
 };
 
-const mineMithrilOre: Activity = {
+const mineMithrilVein: Activity = {
 	id: uid(),
 	actionText: "Mine",
 	experience: 25,
-	icon: "/assets/icons/materials/ores/mithril-ore.png",
+	icon: "/assets/icons/activities/mining/mine-mithril-vein.png",
 	level: 10,
-	name: "Mithril Ore",
-	rewardTable: new Map<MaterialName, RewardStatistics>([
+	name: "Mithril Vein",
+	rewardTable: new Map<MaterialKey, RewardStatistics>([
 		[
 			"mithrilOre",
 			{
@@ -85,4 +85,4 @@ const mineMithrilOre: Activity = {
 	timeToCompletion: 10000,
 };
 
-export const mining = [mineCopperOre, mineIronOre, mineMithrilOre];
+export const mining = [mineCopperVein, mineIronVein, mineMithrilVein];

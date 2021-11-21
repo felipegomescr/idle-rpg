@@ -1,3 +1,4 @@
+import { XIcon } from "@heroicons/react/solid";
 import Image from "next/image";
 import { collectionToMaterialInContainerList } from "@/adapters";
 import type { Collection, MaterialInContainer } from "@/types";
@@ -51,7 +52,7 @@ export const Backpack = ({
 										handleMaterialDiscard(material);
 									}}
 								>
-									&#10005;
+									<XIcon className="w-5 h-5 mx-auto" />
 								</button>
 							</div>
 						</li>

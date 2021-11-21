@@ -57,8 +57,8 @@ export const isUndefined = (value: any) => {
 };
 
 export const possessRequiredMaterialList = (backpack: Collection, requiredMaterialList: Collection) => {
-	for (let [materialName, minimumNumber] of requiredMaterialList.entries()) {
-		const possessedNumber = backpack.get(materialName) || 0;
+	for (let [materialKey, minimumNumber] of requiredMaterialList.entries()) {
+		const possessedNumber = backpack.get(materialKey) || 0;
 
 		if (possessedNumber < minimumNumber) {
 			return false;

@@ -13,7 +13,7 @@ export type Activity = {
 	timeToCompletion: number;
 };
 
-export type Collection = Map<MaterialName, number>;
+export type Collection = Map<MaterialKey, number>;
 
 export type Material = {
 	id: string;
@@ -28,7 +28,7 @@ export type MaterialInContainer = Material & {
 	number: number;
 };
 
-export type MaterialName = keyof typeof materialList;
+export type MaterialKey = keyof typeof materialList;
 
 export type ProgressData = {
 	backpack: Collection;
@@ -46,4 +46,4 @@ export type RewardStatistics = {
 	weight: number;
 };
 
-export type RewardTable = Map<MaterialName, RewardStatistics>;
+export type RewardTable = Map<MaterialKey, RewardStatistics>;

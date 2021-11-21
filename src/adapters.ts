@@ -1,11 +1,11 @@
 import * as materialList from "@/materials";
-import type { Collection, MaterialInContainer, MaterialName, RewardTable } from "@/types";
+import type { Collection, MaterialInContainer, MaterialKey, RewardTable } from "@/types";
 
 export const collectionToMaterialInContainerList = (collection: Collection) => {
 	const accumulator: MaterialInContainer[] = [];
 
-	for (let [materialName, number] of collection.entries()) {
-		const material = materialList[materialName];
+	for (let [materialKey, number] of collection.entries()) {
+		const material = materialList[materialKey];
 
 		accumulator.push({
 			...material,
@@ -17,10 +17,10 @@ export const collectionToMaterialInContainerList = (collection: Collection) => {
 };
 
 export const rewardTableToCollection = (rewardTable: RewardTable) => {
-	const accumulator: Collection = new Map<MaterialName, number>();
+	const accumulator: Collection = new Map<MaterialKey, number>();
 
-	for (let [materialName, rewardStatistics] of rewardTable.entries()) {
-		accumulator.set(materialName, rewardStatistics.weight);
+	for (let [materialKey, rewardStatistics] of rewardTable.entries()) {
+		accumulator.set(materialKey, rewardStatistics.weight);
 	}
 
 	return accumulator;
