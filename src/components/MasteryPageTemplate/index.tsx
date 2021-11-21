@@ -93,7 +93,7 @@ export const MasteryPageTemplate = ({ mastery }: MasteryPageTemplateProps) => {
 							number,
 						});
 						toast(
-							number > possessedNumber ? `Discarded all ${material.name}.` : `Discarded ${number}x ${material.name}.`,
+							number >= possessedNumber ? `Discarded all ${material.name}.` : `Discarded ${number}x ${material.name}.`,
 							material.icon
 						);
 					}
