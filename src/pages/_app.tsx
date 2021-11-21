@@ -1,3 +1,4 @@
+import { Toaster } from "react-hot-toast";
 import { Navigation } from "@/components";
 import { MainCharacterProvider } from "@/containers";
 import type { AppProps } from "next/app";
@@ -7,10 +8,13 @@ import "@/index.css";
 
 const CustomApp = ({ Component, pageProps }: AppProps) => {
 	return (
-		<MainCharacterProvider>
-			<Navigation />
-			<Component {...pageProps} />
-		</MainCharacterProvider>
+		<>
+			<Toaster />
+			<MainCharacterProvider>
+				<Navigation />
+				<Component {...pageProps} />
+			</MainCharacterProvider>
+		</>
 	);
 };
 

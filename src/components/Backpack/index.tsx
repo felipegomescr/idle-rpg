@@ -3,6 +3,7 @@ import { collectionToMaterialInContainerList } from "@/adapters";
 import type { Collection, MaterialInContainer } from "@/types";
 
 type BackpackProps = {
+	capacity: number;
 	content: Collection;
 	isDisabled?: boolean;
 	onAllDiscard: () => void;
@@ -10,6 +11,7 @@ type BackpackProps = {
 };
 
 export const Backpack = ({
+	capacity,
 	content,
 	isDisabled,
 	onAllDiscard: handleAllDiscard,
@@ -20,10 +22,12 @@ export const Backpack = ({
 	return (
 		<>
 			<div className="flex items-center justify-between">
-				<span className="font-bold">Backpack</span>
+				<span className="font-bold">
+					Backpack ({materialList.length}/{capacity})
+				</span>
 				<button
-					className="px-4 py-2 font-bold text-white bg-red-600 disabled:opacity-50"
-					disabled={isDisabled}
+					className="px-4 py-2 font-bold text-white bg-red-600 disabled:opacity-50 disabled:cursor-not-allowed"
+					disabled={isDisabled || materialList.length === 0}
 					onClick={handleAllDiscard}
 				>
 					Discard all
@@ -41,7 +45,7 @@ export const Backpack = ({
 									({material.number}/{material.maximumNumber}) {material.name}
 								</span>
 								<button
-									className="w-8 h-8 font-bold text-white bg-red-600 rounded-full disabled:opacity-50"
+									className="w-8 h-8 font-bold text-white bg-red-600 rounded-full disabled:opacity-50 disabled:cursor-not-allowed"
 									disabled={isDisabled}
 									onClick={() => {
 										handleMaterialDiscard(material);

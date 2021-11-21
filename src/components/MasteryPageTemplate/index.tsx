@@ -7,6 +7,7 @@ import {
 	levelToExperience,
 	possessRequiredMaterialList,
 	rollReward,
+	toast,
 } from "@/helpers";
 import { progressMultiplier } from "@/values";
 
@@ -56,11 +57,15 @@ export const MasteryPageTemplate = ({ mastery }: MasteryPageTemplateProps) => {
 								mainCharacter.setExperience(activity.experience * progressMultiplier, mastery);
 
 								if (!!activity.rewardTable) {
-									mainCharacter.backpack.store(rollReward(activity.rewardTable));
+									const reward = rollReward(activity.rewardTable);
+
+									mainCharacter.backpack.store(reward);
+									toast(`Stored ${reward.number}x ${reward.name}.`, reward.icon);
 								}
 
 								if (!!activity.requiredMaterialList) {
 									mainCharacter.backpack.discardMultiple(activity.requiredMaterialList);
+									// #TODO: toast(...);
 								}
 							}}
 						/>
@@ -68,20 +73,30 @@ export const MasteryPageTemplate = ({ mastery }: MasteryPageTemplateProps) => {
 				})}
 			</div>
 			<Backpack
+				capacity={mainCharacter.backpack.capacity}
 				content={mainCharacter.backpack.content}
 				isDisabled={!!mainCharacter.activity}
 				onAllDiscard={() => {
 					if (confirm("Are you sure you want to discard all content?")) {
 						mainCharacter.backpack.discardAll();
+						toast("Discarded all content.");
 					}
 				}}
 				onMaterialDiscard={(material) => {
 					const number = Number(prompt("Number to discard:")) || 0;
 
-					mainCharacter.backpack.discard({
-						...material,
-						number,
-					});
+					if (number > 0) {
+						const possessedNumber = material.number;
+
+						mainCharacter.backpack.discard({
+							...material,
+							number,
+						});
+						toast(
+							number > possessedNumber ? `Discarded all ${material.name}.` : `Discarded ${number}x ${material.name}.`,
+							material.icon
+						);
+					}
 				}}
 			/>
 		</div>

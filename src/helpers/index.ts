@@ -6,6 +6,8 @@ import { WeightedList } from "@/services";
 import { progressMultiplier } from "@/values";
 import type { Collection, MaterialInContainer, RewardTable } from "@/types";
 
+export * from "./toast";
+
 export const camelize = (text: string) => {
 	return text
 		.replace(/\s./g, (text) => {
@@ -75,12 +77,12 @@ export const rollReward = (rewardTable: RewardTable) => {
 	const rewardName = weightedRewardList.roll();
 	const rewardStatistics = rewardTable.get(rewardName)!;
 	const number = range(rewardStatistics.minimumNumber, rewardStatistics.maximumNumber);
-	const material: MaterialInContainer = {
+	const reward: MaterialInContainer = {
 		...materialList[rewardName],
 		number: number * progressMultiplier,
 	};
 
-	return material;
+	return reward;
 };
 
 export const sample = <Type>(array: Type[]) => {

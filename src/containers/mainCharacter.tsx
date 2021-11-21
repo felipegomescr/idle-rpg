@@ -57,6 +57,7 @@ const MainCharacterContainer = createContainer(() => {
 	return {
 		activity,
 		backpack: {
+			capacity: backpackCapacity,
 			content: backpack.content,
 			discard: (material: MaterialInContainer) => {
 				setBackpack(new Container(backpack.discard(material), backpackCapacity));

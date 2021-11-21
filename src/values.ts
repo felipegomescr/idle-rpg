@@ -1,4 +1,4 @@
-export const backpackCapacity = 2;
+export const backpackCapacity = 30;
 
 export const localStorageProgressName = "idle-rpg-progress";
 
