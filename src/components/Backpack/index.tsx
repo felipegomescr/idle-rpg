@@ -1,4 +1,5 @@
 import { XIcon } from "@heroicons/react/solid";
+import Tooltip from "@reach/tooltip";
 import Image from "next/image";
 import { collectionToMaterialInContainerList } from "@/adapters";
 import type { Collection, MaterialInContainer } from "@/types";
@@ -37,31 +38,33 @@ export const Backpack = ({
 			<ul className="grid grid-cols-8 gap-2">
 				{materialList.map((material, index) => {
 					return (
-						<li key={index}>
-							<div className="flex flex-col items-center h-full p-2 space-y-2 border border-gray-900">
-								<div className="relative w-8 h-8">
-									<Image alt="" layout="fill" src={material.icon} />
-								</div>
-								<span className="text-center">
-									({material.number}/{material.maximumNumber}) {material.name}
-								</span>
-								<div
-									style={{
-										marginTop: "auto",
-									}}
-								>
-									<button
-										className="w-8 h-8 mt-2 font-bold text-white bg-red-600 rounded-full disabled:opacity-50 disabled:cursor-not-allowed"
-										disabled={isDisabled}
-										onClick={() => {
-											handleMaterialDiscard(material);
+						<Tooltip key={index} label={material.description}>
+							<li>
+								<div className="flex flex-col items-center h-full p-2 space-y-2 border border-gray-900">
+									<div className="relative w-8 h-8">
+										<Image alt="" layout="fill" src={material.icon} />
+									</div>
+									<span className="text-center">
+										({material.number}/{material.maximumNumber}) {material.name}
+									</span>
+									<div
+										style={{
+											marginTop: "auto",
 										}}
 									>
-										<XIcon className="w-5 h-5 mx-auto" />
-									</button>
+										<button
+											className="w-8 h-8 mt-2 font-bold text-white bg-red-600 rounded-full disabled:opacity-50 disabled:cursor-not-allowed"
+											disabled={isDisabled}
+											onClick={() => {
+												handleMaterialDiscard(material);
+											}}
+										>
+											<XIcon className="w-5 h-5 mx-auto" />
+										</button>
+									</div>
 								</div>
-							</div>
-						</li>
+							</li>
+						</Tooltip>
 					);
 				})}
 			</ul>

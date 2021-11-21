@@ -4,6 +4,7 @@ import * as materialList from "@/materials";
 export type Activity = {
 	id: string;
 	actionText: string;
+	description: string;
 	experience: number;
 	icon: string;
 	level: number;

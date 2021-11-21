@@ -4,6 +4,7 @@ import type { Activity, MaterialKey, RewardStatistics } from "@/types";
 const mineCopperVein: Activity = {
 	id: uid(),
 	actionText: "Mine",
+	description: "A copper vein can provide copper ore.",
 	experience: 10,
 	icon: "/assets/icons/activities/mining/mine-copper-vein.png",
 	level: 0,
@@ -32,6 +33,7 @@ const mineCopperVein: Activity = {
 const mineIronVein: Activity = {
 	id: uid(),
 	actionText: "Mine",
+	description: "A copper vein can provide iron ore.",
 	experience: 15,
 	icon: "/assets/icons/activities/mining/mine-iron-vein.png",
 	level: 5,
@@ -60,6 +62,7 @@ const mineIronVein: Activity = {
 const mineMithrilVein: Activity = {
 	id: uid(),
 	actionText: "Mine",
+	description: "A copper vein can provide mithril ore.",
 	experience: 25,
 	icon: "/assets/icons/activities/mining/mine-mithril-vein.png",
 	level: 10,

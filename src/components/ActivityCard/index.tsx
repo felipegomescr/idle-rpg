@@ -40,65 +40,74 @@ export const ActivityCard = ({
 
 	return (
 		<div className="flex flex-col items-center justify-center p-4 space-y-4 border border-gray-900">
-			<div className="flex items-center space-x-2">
-				<span className="font-bold">{`${activity.name} - ${formatTimeToSecondsText(timeToCompletion)}`}</span>
-				{showInformationButton && (
-					<Popover className="relative leading-none">
-						{() => {
-							return (
-								<>
-									<Popover.Button>
-										<InformationCircleIcon className="w-5 h-5" />
-									</Popover.Button>
-									<Popover.Panel className="absolute z-10 w-screen max-w-sm p-4 space-y-4 bg-white border border-gray-900">
-										{activity.requiredMaterialList && (
-											<div className="space-y-2">
-												<div className="font-bold">Required Material List</div>
-												{Array.from(activity.requiredMaterialList).map(([materialKey, number]) => {
-													const material = materialList[materialKey];
+			<div className="text-center">
+				<div className="flex items-center justify-center space-x-2">
+					<span className="font-bold">{`${activity.name} - ${formatTimeToSecondsText(timeToCompletion)}`}</span>
+					{showInformationButton && (
+						<Popover className="relative leading-none">
+							{() => {
+								return (
+									<>
+										<Popover.Button>
+											<InformationCircleIcon className="w-5 h-5" />
+										</Popover.Button>
+										<Popover.Panel className="absolute z-10 w-screen max-w-sm p-4 space-y-4 text-left bg-white border border-gray-900">
+											{activity.requiredMaterialList && (
+												<div className="space-y-2">
+													<div className="font-bold">Required Material List</div>
+													{Array.from(activity.requiredMaterialList).map(([materialKey, number]) => {
+														const material = materialList[materialKey];
 
-													return (
-														<div key={materialKey} className="flex items-center space-x-2">
-															<div className="relative w-6 h-6">
-																<Image alt="" layout="fill" src={material.icon || notFoundPlaceholderIcon} />
+														return (
+															<div key={materialKey} className="flex items-center space-x-2">
+																<div className="relative w-6 h-6">
+																	<Image alt="" layout="fill" src={material.icon || notFoundPlaceholderIcon} />
+																</div>
+																<div>
+																	<div>
+																		{material.name} {number}x
+																	</div>
+																	<div className="text-xs">{material.description}</div>
+																</div>
 															</div>
-															<span>
-																{material.name} {number}x
-															</span>
-														</div>
-													);
-												})}
-											</div>
-										)}
-										{activity.rewardTable && (
-											<div className="space-y-2">
-												<div className="font-bold">Reward Table</div>
-												{Array.from(activity.rewardTable).map(([materialKey, rewardStatistics]) => {
-													const material = materialList[materialKey];
-													const numberText =
-														rewardStatistics.minimumNumber === rewardStatistics.maximumNumber
-															? `${rewardStatistics.minimumNumber}x`
-															: `${rewardStatistics.minimumNumber}~${rewardStatistics.maximumNumber}x`;
+														);
+													})}
+												</div>
+											)}
+											{activity.rewardTable && (
+												<div className="space-y-2">
+													<div className="font-bold">Reward Table</div>
+													{Array.from(activity.rewardTable).map(([materialKey, rewardStatistics]) => {
+														const material = materialList[materialKey];
+														const numberText =
+															rewardStatistics.minimumNumber === rewardStatistics.maximumNumber
+																? `${rewardStatistics.minimumNumber}x`
+																: `${rewardStatistics.minimumNumber}~${rewardStatistics.maximumNumber}x`;
 
-													return (
-														<div key={materialKey} className="flex items-center space-x-2">
-															<div className="relative w-6 h-6">
-																<Image alt="" layout="fill" src={material.icon || notFoundPlaceholderIcon} />
+														return (
+															<div key={materialKey} className="flex items-center space-x-2">
+																<div className="relative w-6 h-6">
+																	<Image alt="" layout="fill" src={material.icon || notFoundPlaceholderIcon} />
+																</div>
+																<div>
+																	<div>
+																		{material.name} {numberText}
+																	</div>
+																	<div className="text-xs">{material.description}</div>
+																</div>
 															</div>
-															<span>
-																{material.name} {numberText}
-															</span>
-														</div>
-													);
-												})}
-											</div>
-										)}
-									</Popover.Panel>
-								</>
-							);
-						}}
-					</Popover>
-				)}
+														);
+													})}
+												</div>
+											)}
+										</Popover.Panel>
+									</>
+								);
+							}}
+						</Popover>
+					)}
+				</div>
+				<span className="text-sm">{activity.description}</span>
 			</div>
 			<div className="relative w-16 h-16">
 				<Image alt="" layout="fill" src={activity.icon || notFoundPlaceholderIcon} />
