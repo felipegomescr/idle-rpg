@@ -67,7 +67,7 @@ export const ActivityCard = ({
 																	<div>
 																		{material.name} {number}x
 																	</div>
-																	<div className="text-xs">{material.description}</div>
+																	<div className="text-xs italic">{material.description}</div>
 																</div>
 															</div>
 														);
@@ -93,7 +93,7 @@ export const ActivityCard = ({
 																	<div>
 																		{material.name} {numberText}
 																	</div>
-																	<div className="text-xs">{material.description}</div>
+																	<div className="text-xs italic">{material.description}</div>
 																</div>
 															</div>
 														);
@@ -107,10 +107,16 @@ export const ActivityCard = ({
 						</Popover>
 					)}
 				</div>
-				<span className="text-sm">{activity.description}</span>
+				<span className="text-sm italic">{activity.description}</span>
 			</div>
-			<div className="relative w-16 h-16">
-				<Image alt="" layout="fill" src={activity.icon || notFoundPlaceholderIcon} />
+			<div
+				style={{
+					marginTop: "auto",
+				}}
+			>
+				<div className="relative w-16 h-16 mt-4">
+					<Image alt="" layout="fill" src={activity.icon || notFoundPlaceholderIcon} />
+				</div>
 			</div>
 			<div className="text-center">
 				{isPerformingActivity && <ProgressBar duration={timeToCompletion} loop />}

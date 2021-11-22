@@ -3,5 +3,5 @@ body {
 }
 
 [data-reach-tooltip] {
-	@apply w-full max-w-sm p-4 bg-white border border-gray-900 shadow-none;
+	@apply w-full max-w-sm p-4 italic bg-white border border-gray-900 shadow-none;
 }
