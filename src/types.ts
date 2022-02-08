@@ -3,6 +3,7 @@ import * as materialList from "@/materials";
 
 export type Activity = {
 	id: string;
+	actionIcon: string;
 	actionText: string;
 	description: string;
 	experience: number;

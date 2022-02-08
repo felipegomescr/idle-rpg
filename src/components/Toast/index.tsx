@@ -8,13 +8,13 @@ type ToastProps = {
 
 export const Toast = ({ icon, message }: ToastProps) => {
 	return (
-		<div className="flex items-center w-full max-w-sm p-4 space-x-2 bg-white border border-gray-900 rounded-none">
+		<div className="flex items-center w-full max-w-sm p-2 space-x-2 bg-gray-800 border-2 border-gray-700 rounded">
 			{icon && (
 				<div className="relative w-6 h-6">
 					<Image alt="" layout="fill" src={icon || notFoundPlaceholderIcon} />
 				</div>
 			)}
-			<span>{message}</span>
+			<div className="font-medium">{message}</div>
 		</div>
 	);
 };

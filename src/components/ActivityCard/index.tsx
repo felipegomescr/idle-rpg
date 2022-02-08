@@ -1,9 +1,9 @@
 import { Popover } from "@headlessui/react";
 import { InformationCircleIcon } from "@heroicons/react/solid";
+import Tooltip from "@reach/tooltip";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
-import { ProgressBar } from "@/components";
-import { formatTimeToSecondsText } from "@/helpers";
+import { Button, ProgressBar } from "@/components";
 import * as materialList from "@/materials";
 import { notFoundPlaceholderIcon, progressMultiplier } from "@/values";
 import type { Activity } from "@/types";
@@ -35,100 +35,92 @@ export const ActivityCard = ({
 		};
 	}, [isPerformingActivity]);
 
-	const showInformationButton = activity.requiredMaterialList || activity.rewardTable;
+	const hasInformation = activity.requiredMaterialList || activity.rewardTable;
 	const timeToCompletion = activity.timeToCompletion / progressMultiplier;
 
 	return (
-		<div className="flex flex-col items-center justify-center p-4 space-y-4 border border-gray-900">
-			<div className="text-center">
-				<div className="flex items-center justify-center space-x-2">
-					<span className="font-bold">{`${activity.name} - ${formatTimeToSecondsText(timeToCompletion)}`}</span>
-					{showInformationButton && (
-						<Popover className="relative leading-none">
-							{() => {
-								return (
-									<>
-										<Popover.Button>
-											<InformationCircleIcon className="w-5 h-5" />
-										</Popover.Button>
-										<Popover.Panel className="absolute z-10 w-screen max-w-sm p-4 space-y-4 text-left bg-white border border-gray-900">
-											{activity.requiredMaterialList && (
-												<div className="space-y-2">
-													<div className="font-bold">Required Material List</div>
-													{Array.from(activity.requiredMaterialList).map(([materialKey, number]) => {
-														const material = materialList[materialKey];
-
-														return (
-															<div key={materialKey} className="flex items-center space-x-2">
-																<div className="relative w-6 h-6">
-																	<Image alt="" layout="fill" src={material.icon || notFoundPlaceholderIcon} />
-																</div>
-																<div>
-																	<div>
-																		{material.name} {number}x
-																	</div>
-																	<div className="text-xs italic">{material.description}</div>
-																</div>
-															</div>
-														);
-													})}
-												</div>
-											)}
-											{activity.rewardTable && (
-												<div className="space-y-2">
-													<div className="font-bold">Reward Table</div>
-													{Array.from(activity.rewardTable).map(([materialKey, rewardStatistics]) => {
-														const material = materialList[materialKey];
-														const numberText =
-															rewardStatistics.minimumNumber === rewardStatistics.maximumNumber
-																? `${rewardStatistics.minimumNumber}x`
-																: `${rewardStatistics.minimumNumber}~${rewardStatistics.maximumNumber}x`;
-
-														return (
-															<div key={materialKey} className="flex items-center space-x-2">
-																<div className="relative w-6 h-6">
-																	<Image alt="" layout="fill" src={material.icon || notFoundPlaceholderIcon} />
-																</div>
-																<div>
-																	<div>
-																		{material.name} {numberText}
-																	</div>
-																	<div className="text-xs italic">{material.description}</div>
-																</div>
-															</div>
-														);
-													})}
-												</div>
-											)}
-										</Popover.Panel>
-									</>
-								);
-							}}
-						</Popover>
-					)}
+		<div className="p-2 space-y-4 text-center bg-gray-800 border-2 border-gray-700 rounded">
+			<div className="flex items-center justify-between">
+				<div className="flex items-center self-start space-x-2 font-medium text-center">
+					<Tooltip label="Required level.">
+						<div className="w-10 py-1 text-xs uppercase bg-gray-700 rounded select-none">
+							<div>Lvl</div>
+							<div>{activity.level}</div>
+						</div>
+					</Tooltip>
+					<div className="relative w-6 h-6">
+						<Image alt="" layout="fill" src={activity.icon || notFoundPlaceholderIcon} />
+					</div>
+					<div>{activity.name}</div>
 				</div>
-				<span className="text-sm italic">{activity.description}</span>
+				{hasInformation && (
+					<Popover className="relative leading-none">
+						{() => {
+							return (
+								<>
+									<Popover.Button>
+										<InformationCircleIcon className="w-5 h-5" />
+									</Popover.Button>
+									<Popover.Panel className="absolute z-50 w-screen max-w-sm p-2 space-y-4 text-left bg-gray-800 border-2 border-gray-700 rounded">
+										{activity.requiredMaterialList && (
+											<div className="space-y-2">
+												<div className="font-medium">Required Material List</div>
+												{Array.from(activity.requiredMaterialList).map(([materialKey, number]) => {
+													const material = materialList[materialKey];
+
+													return (
+														<div key={materialKey} className="flex items-center space-x-2">
+															<div className="relative w-6 h-6">
+																<Image alt="" layout="fill" src={material.icon || notFoundPlaceholderIcon} />
+															</div>
+															<div>
+																<div className="font-medium">
+																	{material.name} {number}x
+																</div>
+																<div className="text-xs italic">{material.description}</div>
+															</div>
+														</div>
+													);
+												})}
+											</div>
+										)}
+										{activity.rewardTable && (
+											<div className="space-y-2">
+												<div className="font-medium">Reward Table</div>
+												{Array.from(activity.rewardTable).map(([materialKey, rewardStatistics]) => {
+													const material = materialList[materialKey];
+													const numberText =
+														rewardStatistics.minimumNumber === rewardStatistics.maximumNumber
+															? `${rewardStatistics.minimumNumber}x`
+															: `${rewardStatistics.minimumNumber}~${rewardStatistics.maximumNumber}x`;
+
+													return (
+														<div key={materialKey} className="flex items-center space-x-2">
+															<div className="relative w-6 h-6">
+																<Image alt="" layout="fill" src={material.icon || notFoundPlaceholderIcon} />
+															</div>
+															<div>
+																<div className="font-medium">
+																	{material.name} {numberText}
+																</div>
+																<div className="text-xs italic">{material.description}</div>
+															</div>
+														</div>
+													);
+												})}
+											</div>
+										)}
+									</Popover.Panel>
+								</>
+							);
+						}}
+					</Popover>
+				)}
 			</div>
-			<div
-				style={{
-					marginTop: "auto",
-				}}
-			>
-				<div className="relative w-16 h-16 mt-4">
-					<Image alt="" layout="fill" src={activity.icon || notFoundPlaceholderIcon} />
-				</div>
-			</div>
-			<div className="text-center">
-				{isPerformingActivity && <ProgressBar duration={timeToCompletion} loop />}
-				<p>
-					<span className="font-bold">Level:</span> {activity.level}
-				</p>
-				<p>
-					<span className="font-bold">Experience:</span> {activity.experience * progressMultiplier}
-				</p>
-			</div>
-			<button
-				className="px-4 py-2 font-bold text-white bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed"
+			<div className="text-xs italic">{activity.description}</div>
+			<ProgressBar duration={timeToCompletion} loop play={isPerformingActivity} />
+			<Button
+				colorScheme={Button.ColorScheme.GREEN}
 				disabled={isDisabled}
 				onClick={() => {
 					if (!isPerformingActivity) {
@@ -140,8 +132,11 @@ export const ActivityCard = ({
 					handleActionClick();
 				}}
 			>
-				{isPerformingActivity ? "Cancel" : actionText}
-			</button>
+				<div className="relative w-6 h-6">
+					<Image alt="" layout="fill" src={activity.actionIcon || notFoundPlaceholderIcon} />
+				</div>
+				<span>{isPerformingActivity ? "Cancel" : actionText}</span>
+			</Button>
 		</div>
 	);
 };

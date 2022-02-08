@@ -1,7 +1,7 @@
 body {
-	@apply text-gray-900;
+	@apply text-sm text-white bg-gray-900;
 }
 
 [data-reach-tooltip] {
-	@apply w-full max-w-sm p-4 italic bg-white border border-gray-900 shadow-none;
+	@apply max-w-sm p-2 italic text-white bg-gray-800 border-2 border-gray-700 rounded shadow-none;
 }

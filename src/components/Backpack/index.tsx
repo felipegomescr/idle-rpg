@@ -2,7 +2,9 @@ import { XIcon } from "@heroicons/react/solid";
 import Tooltip from "@reach/tooltip";
 import Image from "next/image";
 import { collectionToMaterialInContainerList } from "@/adapters";
+import { Button } from "@/components";
 import type { Collection, MaterialInContainer } from "@/types";
+import { IconButton } from "../IconButton";
 
 type BackpackProps = {
 	capacity: number;
@@ -27,13 +29,13 @@ export const Backpack = ({
 				<span className="font-bold">
 					Backpack ({materialList.length}/{capacity})
 				</span>
-				<button
-					className="px-4 py-2 font-bold text-white bg-red-600 disabled:opacity-50 disabled:cursor-not-allowed"
+				<Button
+					colorScheme={Button.ColorScheme.RED}
 					disabled={isDisabled || materialList.length === 0}
 					onClick={handleAllDiscard}
 				>
 					Discard all
-				</button>
+				</Button>
 			</div>
 			<ul className="grid grid-cols-8 gap-2">
 				{materialList.map((material, index) => {
@@ -52,15 +54,15 @@ export const Backpack = ({
 											marginTop: "auto",
 										}}
 									>
-										<button
+										<IconButton
 											className="w-8 h-8 mt-2 font-bold text-white bg-red-600 rounded-full disabled:opacity-50 disabled:cursor-not-allowed"
+											colorScheme={IconButton.ColorScheme.RED}
+											icon="XIcon"
 											disabled={isDisabled}
 											onClick={() => {
 												handleMaterialDiscard(material);
 											}}
-										>
-											<XIcon className="w-5 h-5 mx-auto" />
-										</button>
+										/>
 									</div>
 								</div>
 							</li>

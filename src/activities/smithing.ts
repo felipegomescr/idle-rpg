@@ -3,8 +3,9 @@ import type { Activity, MaterialKey, RewardStatistics } from "@/types";
 
 const smeltCopperIngot: Activity = {
 	id: uid(),
+	actionIcon: "/assets/icons/activities/smithing/smelt.png",
 	actionText: "Smelt",
-	description: "An ingot obtained from smelting copper ore.",
+	description: "Obtained from smelting copper ore.",
 	experience: 5,
 	icon: "/assets/icons/activities/smithing/smelt-copper-ingot.png",
 	level: 0,
@@ -25,8 +26,9 @@ const smeltCopperIngot: Activity = {
 
 const smeltIronIngot: Activity = {
 	id: uid(),
+	actionIcon: "/assets/icons/activities/smithing/smelt.png",
 	actionText: "Smelt",
-	description: "An ingot obtained from smelting iron ore.",
+	description: "Obtained from smelting iron ore.",
 	experience: 7.5,
 	icon: "/assets/icons/activities/smithing/smelt-iron-ingot.png",
 	level: 5,
@@ -47,8 +49,9 @@ const smeltIronIngot: Activity = {
 
 const smeltMithrilIngot: Activity = {
 	id: uid(),
+	actionIcon: "/assets/icons/activities/smithing/smelt.png",
 	actionText: "Smelt",
-	description: "An ingot obtained from smelting mithril ore.",
+	description: "Obtained from smelting mithril ore.",
 	experience: 12.5,
 	icon: "/assets/icons/activities/smithing/smelt-mithril-ingot.png",
 	level: 10,
@@ -69,6 +72,7 @@ const smeltMithrilIngot: Activity = {
 
 const smithCopperSword: Activity = {
 	id: uid(),
+	actionIcon: "/assets/icons/activities/smithing/smith.png",
 	actionText: "Smith",
 	description: "A sword made from smithed copper.",
 	experience: 20,
@@ -91,6 +95,7 @@ const smithCopperSword: Activity = {
 
 const smithIronSword: Activity = {
 	id: uid(),
+	actionIcon: "/assets/icons/activities/smithing/smith.png",
 	actionText: "Smith",
 	description: "A sword made from smithed iron.",
 	experience: 30,
@@ -113,6 +118,7 @@ const smithIronSword: Activity = {
 
 const smithMithrilSword: Activity = {
 	id: uid(),
+	actionIcon: "/assets/icons/activities/smithing/smith.png",
 	actionText: "Smith",
 	description: "A sword made from smithed mithril.",
 	experience: 50,

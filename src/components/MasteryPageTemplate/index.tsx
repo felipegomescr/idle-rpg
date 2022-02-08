@@ -34,7 +34,7 @@ export const MasteryPageTemplate = ({ mastery }: MasteryPageTemplateProps) => {
 			<div>
 				<span className="font-bold">To next level:</span> <span>{levelToExperience(level + 1) - experience}</span>
 			</div>
-			<div className="grid grid-cols-4 gap-2">
+			<div className="grid grid-cols-4 gap-4">
 				{activityList.map((activity) => {
 					const hasLevel = level >= activity.level;
 					const hasRequiredMaterialList = activity.requiredMaterialList
@@ -60,7 +60,7 @@ export const MasteryPageTemplate = ({ mastery }: MasteryPageTemplateProps) => {
 									const reward = rollReward(activity.rewardTable);
 
 									mainCharacter.backpack.store(reward);
-									toast(`Stored ${reward.number}x ${reward.name}.`, reward.icon);
+									toast(`Obtained ${reward.number}x ${reward.name}.`, reward.icon);
 								}
 
 								if (!!activity.requiredMaterialList) {
@@ -83,7 +83,7 @@ export const MasteryPageTemplate = ({ mastery }: MasteryPageTemplateProps) => {
 					}
 				}}
 				onMaterialDiscard={(material) => {
-					const number = Number(prompt("Number to discard:")) || 0;
+					const number = Number(prompt("How many?")) || 0;
 
 					if (number > 0) {
 						const possessedNumber = material.number;
