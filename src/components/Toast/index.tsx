@@ -1,5 +1,4 @@
-import Image from "next/image";
-import { notFoundPlaceholderIcon } from "@/values";
+import NextImage from "next/image";
 
 type ToastProps = {
 	icon?: string;
@@ -11,7 +10,7 @@ export const Toast = ({ icon, message }: ToastProps) => {
 		<div className="flex items-center w-full max-w-sm p-2 space-x-2 bg-gray-800 border-2 border-gray-700 rounded">
 			{icon && (
 				<div className="relative w-6 h-6">
-					<Image alt="" layout="fill" src={icon || notFoundPlaceholderIcon} />
+					<NextImage alt="" layout="fill" src={icon} />
 				</div>
 			)}
 			<div className="font-medium">{message}</div>

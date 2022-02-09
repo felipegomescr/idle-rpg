@@ -7,10 +7,13 @@ module.exports = {
 	theme: {
 		extend: {
 			colors: {
-				gray: colors.warmGray,
+				gray: colors.stone,
 			},
 			fontFamily: {
 				sans: ["Poppins", ...defaultTheme.fontFamily.sans],
+			},
+			lineHeight: {
+				0: 0,
 			},
 		},
 	},

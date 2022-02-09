@@ -1,20 +1,20 @@
+import { LOCAL_STORAGE_PROGRESS_KEY } from "@/constants";
 import { isClient } from "@/helpers";
-import { localStorageProgressName } from "@/values";
 import type { MaterialKey, ProgressData } from "@/types";
 
 export class Progress {
 	static delete() {
 		if (isClient()) {
-			window.localStorage.removeItem(localStorageProgressName);
+			window.localStorage.removeItem(LOCAL_STORAGE_PROGRESS_KEY);
 		}
 	}
 
 	static load(): ProgressData | undefined {
 		if (isClient()) {
-			const progressString = window.localStorage.getItem(localStorageProgressName);
+			const progressJsonString = window.localStorage.getItem(LOCAL_STORAGE_PROGRESS_KEY);
 
-			if (progressString) {
-				const progressData: ProgressData = JSON.parse(progressString);
+			if (progressJsonString) {
+				const progressData: ProgressData = JSON.parse(progressJsonString);
 
 				return {
 					...progressData,
@@ -27,7 +27,7 @@ export class Progress {
 	static save(progressData: ProgressData) {
 		if (isClient()) {
 			window.localStorage.setItem(
-				localStorageProgressName,
+				LOCAL_STORAGE_PROGRESS_KEY,
 				JSON.stringify({
 					...progressData,
 					backpack: Array.from(progressData.backpack),

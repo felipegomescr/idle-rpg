@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { createContainer } from "unstated-next";
-import { Mastery } from "@/enums";
+import { BACKPACK_CAPACITY } from "@/constants";
+import { Mastery } from "@/enumerators";
 import { Container, Progress } from "@/services";
-import { backpackCapacity } from "@/values";
 import type { ReactNode } from "react";
-import type { Activity, Collection, MaterialInContainer, MaterialKey } from "@/types";
+import type { Activity, Collection, ContainerMaterial, MaterialKey } from "@/types";
 
 type MainCharacterProviderProps = {
 	children: ReactNode;
@@ -12,7 +12,7 @@ type MainCharacterProviderProps = {
 
 const MainCharacterContainer = createContainer(() => {
 	const [activity, setActivity] = useState<Activity>();
-	const [backpack, setBackpack] = useState<Container>(new Container(new Map<MaterialKey, number>(), backpackCapacity));
+	const [backpack, setBackpack] = useState<Container>(new Container(new Map<MaterialKey, number>(), BACKPACK_CAPACITY));
 	const [cookingExperience, setCookingExperience] = useState(0);
 	const [fishingExperience, setFishingExperience] = useState(0);
 	const [foragingExperience, setForagingExperience] = useState(0);
@@ -24,7 +24,7 @@ const MainCharacterContainer = createContainer(() => {
 		const progress = Progress.load();
 
 		if (progress) {
-			setBackpack(new Container(progress.backpack, backpackCapacity));
+			setBackpack(new Container(progress.backpack, BACKPACK_CAPACITY));
 			setCookingExperience(progress.cookingExperience);
 			setFishingExperience(progress.fishingExperience);
 			setForagingExperience(progress.foragingExperience);
@@ -57,26 +57,26 @@ const MainCharacterContainer = createContainer(() => {
 	return {
 		activity,
 		backpack: {
-			capacity: backpackCapacity,
+			capacity: BACKPACK_CAPACITY,
 			content: backpack.content,
-			discard: (material: MaterialInContainer) => {
-				setBackpack(new Container(backpack.discard(material), backpackCapacity));
+			discard: (containerMaterial: ContainerMaterial) => {
+				setBackpack(new Container(backpack.discard(containerMaterial), BACKPACK_CAPACITY));
 			},
 			discardAll: () => {
-				setBackpack(new Container(new Map<MaterialKey, number>(), backpackCapacity));
+				setBackpack(new Container(new Map<MaterialKey, number>(), BACKPACK_CAPACITY));
 			},
-			discardMultiple: (materialList: Collection) => {
-				setBackpack(new Container(backpack.discardMultiple(materialList), backpackCapacity));
+			discardMultiple: (collection: Collection) => {
+				setBackpack(new Container(backpack.discardMultiple(collection), BACKPACK_CAPACITY));
 			},
-			store: (material: MaterialInContainer) => {
-				if (!backpack.canStore(material)) {
-					alert(`You cannot store ${material.name}.`);
+			store: (containerMaterial: ContainerMaterial) => {
+				if (!backpack.canStore(containerMaterial)) {
+					alert(`You cannot store ${containerMaterial.name}.`);
 					setActivity(undefined);
 
 					return;
 				}
 
-				setBackpack(new Container(backpack.store(material), backpackCapacity));
+				setBackpack(new Container(backpack.store(containerMaterial), BACKPACK_CAPACITY));
 			},
 		},
 		getExperience: (mastery: Mastery) => {

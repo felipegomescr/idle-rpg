@@ -5,10 +5,10 @@ const mineCopperVein: Activity = {
 	id: uid(),
 	actionIcon: "/assets/icons/activities/mining/mine.png",
 	actionText: "Mine",
-	description: "A copper vein can provide copper ore.",
+	description: "The main source of copper ore.",
 	experience: 10,
 	icon: "/assets/icons/activities/mining/mine-copper-vein.png",
-	level: 0,
+	levelRequirement: 0,
 	name: "Copper Vein",
 	rewardTable: new Map<MaterialKey, RewardStatistics>([
 		[
@@ -35,10 +35,10 @@ const mineIronVein: Activity = {
 	id: uid(),
 	actionIcon: "/assets/icons/activities/mining/mine.png",
 	actionText: "Mine",
-	description: "A iron vein can provide iron ore.",
+	description: "The main source of iron ore.",
 	experience: 15,
 	icon: "/assets/icons/activities/mining/mine-iron-vein.png",
-	level: 5,
+	levelRequirement: 5,
 	name: "Iron Vein",
 	rewardTable: new Map<MaterialKey, RewardStatistics>([
 		[
@@ -65,10 +65,10 @@ const mineMithrilVein: Activity = {
 	id: uid(),
 	actionIcon: "/assets/icons/activities/mining/mine.png",
 	actionText: "Mine",
-	description: "A mithril vein can provide mithril ore.",
+	description: "The main source of mithril ore.",
 	experience: 25,
 	icon: "/assets/icons/activities/mining/mine-mithril-vein.png",
-	level: 10,
+	levelRequirement: 10,
 	name: "Mithril Vein",
 	rewardTable: new Map<MaterialKey, RewardStatistics>([
 		[

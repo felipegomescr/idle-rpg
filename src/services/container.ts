@@ -1,36 +1,37 @@
 import { camelize, isUndefined } from "@/helpers";
 import * as materialList from "@/materials";
-import type { Collection, MaterialInContainer, MaterialKey } from "@/types";
+import type { Collection, ContainerMaterial, MaterialKey } from "@/types";
 
 export class Container {
 	constructor(public content: Collection, public capacity: number) {}
 
-	canStore(material: MaterialInContainer) {
-		const materialKey = camelize(material.name) as MaterialKey;
+	canStore(containerMaterial: ContainerMaterial) {
+		const materialKey = camelize(containerMaterial.name) as MaterialKey;
 		const possessedNumber = this.content.get(materialKey);
 
 		if (isUndefined(possessedNumber)) {
 			return this.content.size < this.capacity;
 		} else {
-			return possessedNumber! < material.maximumNumber;
+			return possessedNumber! < containerMaterial.maximumNumber;
 		}
 	}
 
-	discard(material: MaterialInContainer) {
-		const materialKey = camelize(material.name) as MaterialKey;
+	discard(containerMaterial: ContainerMaterial) {
+		const materialKey = camelize(containerMaterial.name) as MaterialKey;
 		const possessedNumber = this.content.get(materialKey)!;
+		const currentNumber = possessedNumber - containerMaterial.number;
 
-		if (possessedNumber - material.number <= 0) {
+		if (currentNumber <= 0) {
 			this.content.delete(materialKey);
 		} else {
-			this.content.set(materialKey, possessedNumber - material.number);
+			this.content.set(materialKey, currentNumber);
 		}
 
 		return this.content;
 	}
 
-	discardMultiple(discardList: Collection) {
-		for (let [materialKey, number] of discardList.entries()) {
+	discardMultiple(collection: Collection) {
+		for (let [materialKey, number] of collection.entries()) {
 			const material = materialList[materialKey];
 
 			this.discard({
@@ -42,12 +43,12 @@ export class Container {
 		return this.content;
 	}
 
-	store(material: MaterialInContainer) {
-		const materialKey = camelize(material.name) as MaterialKey;
+	store(containerMaterial: ContainerMaterial) {
+		const materialKey = camelize(containerMaterial.name) as MaterialKey;
 		const possessedNumber = this.content.get(materialKey) || 0;
-		const number = possessedNumber + material.number;
+		const currentNumber = possessedNumber + containerMaterial.number;
 
-		this.content.set(materialKey, Math.min(number, material.maximumNumber));
+		this.content.set(materialKey, Math.min(currentNumber, containerMaterial.maximumNumber));
 
 		return this.content;
 	}

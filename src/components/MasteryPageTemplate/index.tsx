@@ -1,6 +1,7 @@
 import { ActivityCard, Backpack } from "@/components";
+import { PROGRESS_MULTIPLIER } from "@/constants";
 import { useMainCharacter } from "@/containers";
-import { Mastery } from "@/enums";
+import { Mastery } from "@/enumerators";
 import {
 	experienceToLevel,
 	getActivityList,
@@ -9,7 +10,6 @@ import {
 	rollReward,
 	toast,
 } from "@/helpers";
-import { progressMultiplier } from "@/values";
 
 type MasteryPageTemplateProps = {
 	mastery: Mastery;
@@ -19,28 +19,29 @@ export const MasteryPageTemplate = ({ mastery }: MasteryPageTemplateProps) => {
 	const mainCharacter = useMainCharacter();
 
 	const activityList = getActivityList(mastery);
-	const experience = mainCharacter.getExperience(mastery);
-	const level = experienceToLevel(experience);
+	const currentExperience = mainCharacter.getExperience(mastery);
+	const currentLevel = experienceToLevel(currentExperience);
 
 	return (
 		<div className="p-4 space-y-4">
 			<h1 className="text-4xl font-bold">{mastery}</h1>
 			<div>
-				<span className="font-bold">Level:</span> {level}
+				<span className="font-bold">Current Level:</span> {currentLevel}
 			</div>
 			<div>
-				<span className="font-bold">Experience:</span> <span>{experience}</span>
+				<span className="font-bold">Current Experience:</span> <span>{currentExperience}</span>
 			</div>
 			<div>
-				<span className="font-bold">To next level:</span> <span>{levelToExperience(level + 1) - experience}</span>
+				<span className="font-bold">To next level:</span>{" "}
+				<span>{levelToExperience(currentLevel + 1) - currentExperience}</span>
 			</div>
 			<div className="grid grid-cols-4 gap-4">
 				{activityList.map((activity) => {
-					const hasLevel = level >= activity.level;
+					const hasRequiredLevel = currentLevel >= activity.levelRequirement;
 					const hasRequiredMaterialList = activity.requiredMaterialList
 						? possessRequiredMaterialList(mainCharacter.backpack.content, activity.requiredMaterialList)
 						: true;
-					const isDisabled = !hasLevel || !hasRequiredMaterialList;
+					const isDisabled = !hasRequiredLevel || !hasRequiredMaterialList;
 					const isPerformingActivity = mainCharacter.activity?.name === activity.name && !isDisabled;
 
 					return (
@@ -50,11 +51,12 @@ export const MasteryPageTemplate = ({ mastery }: MasteryPageTemplateProps) => {
 							activity={activity}
 							isDisabled={isDisabled}
 							isPerformingActivity={isPerformingActivity}
+							showLevelRequirement={!hasRequiredLevel}
 							onActionClick={() => {
 								mainCharacter.setActivity(isPerformingActivity ? undefined : activity);
 							}}
 							onActivityComplete={() => {
-								mainCharacter.setExperience(activity.experience * progressMultiplier, mastery);
+								mainCharacter.setExperience(activity.experience * PROGRESS_MULTIPLIER, mastery);
 
 								if (!!activity.rewardTable) {
 									const reward = rollReward(activity.rewardTable);
@@ -65,7 +67,6 @@ export const MasteryPageTemplate = ({ mastery }: MasteryPageTemplateProps) => {
 
 								if (!!activity.requiredMaterialList) {
 									mainCharacter.backpack.discardMultiple(activity.requiredMaterialList);
-									// #TODO: toast(...);
 								}
 							}}
 						/>
@@ -82,19 +83,21 @@ export const MasteryPageTemplate = ({ mastery }: MasteryPageTemplateProps) => {
 						toast("Discarded all content.");
 					}
 				}}
-				onMaterialDiscard={(material) => {
+				onDiscard={(containerMaterial) => {
 					const number = Number(prompt("How many?")) || 0;
 
 					if (number > 0) {
-						const possessedNumber = material.number;
+						const possessedNumber = containerMaterial.number;
 
 						mainCharacter.backpack.discard({
-							...material,
+							...containerMaterial,
 							number,
 						});
 						toast(
-							number >= possessedNumber ? `Discarded all ${material.name}.` : `Discarded ${number}x ${material.name}.`,
-							material.icon
+							number >= possessedNumber
+								? `Discarded all ${containerMaterial.name}.`
+								: `Discarded ${number}x ${containerMaterial.name}.`,
+							containerMaterial.icon
 						);
 					}
 				}}

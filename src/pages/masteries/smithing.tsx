@@ -1,5 +1,5 @@
 import { MasteryPageTemplate } from "@/components";
-import { Mastery } from "@/enums";
+import { Mastery } from "@/enumerators";
 import type { NextPage } from "next";
 
 const SmithingPage: NextPage = () => {

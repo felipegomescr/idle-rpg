@@ -1,17 +1,15 @@
-import { XIcon } from "@heroicons/react/solid";
 import Tooltip from "@reach/tooltip";
-import Image from "next/image";
-import { collectionToMaterialInContainerList } from "@/adapters";
-import { Button } from "@/components";
-import type { Collection, MaterialInContainer } from "@/types";
-import { IconButton } from "../IconButton";
+import NextImage from "next/image";
+import { collectionToContainerMaterialList } from "@/adapters";
+import { Button, IconButton } from "@/components";
+import type { Collection, ContainerMaterial } from "@/types";
 
 type BackpackProps = {
 	capacity: number;
 	content: Collection;
-	isDisabled?: boolean;
+	isDisabled: boolean;
 	onAllDiscard: () => void;
-	onMaterialDiscard: (material: MaterialInContainer) => void;
+	onDiscard: (containerMaterial: ContainerMaterial) => void;
 };
 
 export const Backpack = ({
@@ -19,35 +17,35 @@ export const Backpack = ({
 	content,
 	isDisabled,
 	onAllDiscard: handleAllDiscard,
-	onMaterialDiscard: handleMaterialDiscard,
+	onDiscard: handleDiscard,
 }: BackpackProps) => {
-	const materialList = collectionToMaterialInContainerList(content);
+	const containerMaterialList = collectionToContainerMaterialList(content);
 
 	return (
 		<>
 			<div className="flex items-center justify-between">
 				<span className="font-bold">
-					Backpack ({materialList.length}/{capacity})
+					Backpack ({containerMaterialList.length}/{capacity})
 				</span>
 				<Button
 					colorScheme={Button.ColorScheme.RED}
-					disabled={isDisabled || materialList.length === 0}
+					disabled={isDisabled || containerMaterialList.length === 0}
 					onClick={handleAllDiscard}
 				>
 					Discard all
 				</Button>
 			</div>
 			<ul className="grid grid-cols-8 gap-2">
-				{materialList.map((material, index) => {
+				{containerMaterialList.map((containerMaterial, index) => {
 					return (
-						<Tooltip key={index} label={material.description}>
+						<Tooltip key={index} label={containerMaterial.description}>
 							<li>
 								<div className="flex flex-col items-center h-full p-2 space-y-2 border border-gray-900">
 									<div className="relative w-8 h-8">
-										<Image alt="" layout="fill" src={material.icon} />
+										<NextImage alt="" layout="fill" src={containerMaterial.icon} />
 									</div>
 									<span className="text-center">
-										({material.number}/{material.maximumNumber}) {material.name}
+										({containerMaterial.number}/{containerMaterial.maximumNumber}) {containerMaterial.name}
 									</span>
 									<div
 										style={{
@@ -60,7 +58,7 @@ export const Backpack = ({
 											icon="XIcon"
 											disabled={isDisabled}
 											onClick={() => {
-												handleMaterialDiscard(material);
+												handleDiscard(containerMaterial);
 											}}
 										/>
 									</div>

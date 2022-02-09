@@ -1,4 +1,4 @@
-import { MaterialCategory } from "@/enums";
+import { MaterialCategory } from "@/enumerators";
 import * as materialList from "@/materials";
 
 export type Activity = {
@@ -8,7 +8,7 @@ export type Activity = {
 	description: string;
 	experience: number;
 	icon: string;
-	level: number;
+	levelRequirement: number;
 	name: string;
 	requiredMaterialList?: Collection;
 	rewardTable?: RewardTable;
@@ -17,6 +17,10 @@ export type Activity = {
 
 export type Collection = Map<MaterialKey, number>;
 
+export type ContainerMaterial = Material & {
+	number: number;
+};
+
 export type Material = {
 	id: string;
 	category: MaterialCategory;
@@ -24,10 +28,6 @@ export type Material = {
 	icon: string;
 	maximumNumber: number;
 	name: string;
-};
-
-export type MaterialInContainer = Material & {
-	number: number;
 };
 
 export type MaterialKey = keyof typeof materialList;

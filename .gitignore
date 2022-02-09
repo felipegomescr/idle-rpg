@@ -9,7 +9,7 @@ yarn-error.log*
 /node_modules
 
 # Local environment files
-.env*.local
+.env.*.local
 
 # Miscellaneous
 .DS_Store

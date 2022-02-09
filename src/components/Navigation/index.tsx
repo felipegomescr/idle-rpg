@@ -1,27 +1,27 @@
-import Link from "next/link";
-import { Mastery } from "@/enums";
+import NextLink from "next/link";
+import { Mastery } from "@/enumerators";
 
 export const Navigation = () => {
 	return (
 		<nav className="p-4 space-x-4">
-			<Link href="/masteries/cooking">
+			<NextLink href="/masteries/cooking">
 				<a>{Mastery.COOKING}</a>
-			</Link>
-			<Link href="/masteries/fishing">
+			</NextLink>
+			<NextLink href="/masteries/fishing">
 				<a>{Mastery.FISHING}</a>
-			</Link>
-			<Link href="/masteries/foraging">
+			</NextLink>
+			<NextLink href="/masteries/foraging">
 				<a>{Mastery.FORAGING}</a>
-			</Link>
-			<Link href="/masteries/mining">
+			</NextLink>
+			<NextLink href="/masteries/mining">
 				<a>{Mastery.MINING}</a>
-			</Link>
-			<Link href="/masteries/mixing">
+			</NextLink>
+			<NextLink href="/masteries/mixing">
 				<a>{Mastery.MIXING}</a>
-			</Link>
-			<Link href="/masteries/smithing">
+			</NextLink>
+			<NextLink href="/masteries/smithing">
 				<a>{Mastery.SMITHING}</a>
-			</Link>
+			</NextLink>
 		</nav>
 	);
 };

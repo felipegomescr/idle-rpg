@@ -1,5 +1,5 @@
 import { uid } from "uid";
-import { MaterialCategory } from "@/enums";
+import { MaterialCategory } from "@/enumerators";
 import type { Material } from "@/types";
 
 export const copperSword: Material = {

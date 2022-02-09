@@ -1,10 +1,10 @@
 import * as activityList from "@/activities";
 import { rewardTableToCollection } from "@/adapters";
-import { Mastery } from "@/enums";
+import { PROGRESS_MULTIPLIER } from "@/constants";
+import { Mastery } from "@/enumerators";
 import * as materialList from "@/materials";
 import { WeightedList } from "@/services";
-import { progressMultiplier } from "@/values";
-import type { Collection, MaterialInContainer, RewardTable } from "@/types";
+import type { Collection, ContainerMaterial, RewardTable } from "@/types";
 
 export * from "./toast";
 
@@ -74,12 +74,12 @@ export const range = (minimum: number, maximum: number) => {
 
 export const rollReward = (rewardTable: RewardTable) => {
 	const weightedRewardList = new WeightedList(rewardTableToCollection(rewardTable));
-	const rewardName = weightedRewardList.roll();
-	const rewardStatistics = rewardTable.get(rewardName)!;
-	const number = range(rewardStatistics.minimumNumber, rewardStatistics.maximumNumber);
-	const reward: MaterialInContainer = {
-		...materialList[rewardName],
-		number: number * progressMultiplier,
+	const materialKey = weightedRewardList.roll();
+	const rewardStatistics = rewardTable.get(materialKey)!;
+	const number = range(rewardStatistics.minimumNumber, rewardStatistics.maximumNumber) * PROGRESS_MULTIPLIER;
+	const reward: ContainerMaterial = {
+		...materialList[materialKey],
+		number,
 	};
 
 	return reward;
@@ -89,7 +89,7 @@ export const sample = <Type>(array: Type[]) => {
 	return array[range(0, array.length - 1)];
 };
 
-export const times = (amount: number, callbackFunction: (iteration?: number) => void) => {
+export const times = (amount: number, callbackFunction: (iterationCount?: number) => void) => {
 	for (let index = 0; index < amount; index++) {
 		callbackFunction(index);
 	}
