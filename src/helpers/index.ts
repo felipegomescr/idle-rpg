@@ -56,9 +56,9 @@ export const isUndefined = (value: any) => {
 	return typeof value === "undefined";
 };
 
-export const possessRequiredMaterialList = (backpack: Collection, requiredMaterialList: Collection) => {
+export const possessRequiredMaterialList = (container: Collection, requiredMaterialList: Collection) => {
 	for (let [materialKey, minimumNumber] of requiredMaterialList.entries()) {
-		const possessedNumber = backpack.get(materialKey) || 0;
+		const possessedNumber = container.get(materialKey) || 0;
 
 		if (possessedNumber < minimumNumber) {
 			return false;
