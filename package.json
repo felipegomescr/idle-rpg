@@ -10,7 +10,7 @@
 	},
 	"dependencies": {
 		"@fontsource/poppins": "4.5.1",
-		"@headlessui/react": "1.4.2",
+		"@headlessui/react": "1.4.3",
 		"@heroicons/react": "1.0.5",
 		"@reach/tooltip": "0.16.2",
 		"clsx": "1.1.1",
