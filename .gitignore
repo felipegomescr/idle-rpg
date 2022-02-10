@@ -11,6 +11,10 @@ yarn-error.log*
 # Local environment files
 .env.*.local
 
+# Lockfiles
+package-lock.json
+yarn.lock
+
 # Miscellaneous
 .DS_Store
 *.pem
