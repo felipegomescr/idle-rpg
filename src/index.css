@@ -1,5 +1,5 @@
 body {
-	@apply text-sm text-white bg-gray-900;
+	@apply text-sm text-white bg-stone-900;
 }
 
 /* Resets UA (User Agent) "svg:not(:root)" selector */
@@ -8,5 +8,5 @@ svg {
 }
 
 [data-reach-tooltip] {
-	@apply max-w-sm p-2 italic text-white bg-gray-800 border-2 border-gray-700 rounded shadow-none;
+	@apply max-w-sm p-2 italic text-white bg-stone-800 border-2 border-stone-700 rounded shadow-none;
 }

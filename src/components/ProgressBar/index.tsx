@@ -13,13 +13,13 @@ export const ProgressBar = ({ duration, loop, play }: ProgressBarProps) => {
 
 	return (
 		<>
-			<div className="flex items-center h-10 p-2 space-x-2 bg-gray-900 rounded">
+			<div className="flex items-center h-10 p-2 space-x-2 bg-stone-900 rounded">
 				<Tooltip label="Time to completion.">
 					<div>
 						<ClockIcon className="w-5 h-5" />
 					</div>
 				</Tooltip>
-				<div className="relative flex items-center justify-center w-full h-full bg-gray-700">
+				<div className="relative flex items-center justify-center w-full h-full bg-stone-700">
 					<div className="z-10 font-medium">{formatTimeToSecondsText(duration)}</div>
 					{play && (
 						<div

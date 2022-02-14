@@ -43,17 +43,17 @@ export const ActivityCard = ({
 	const timeToCompletion = activity.timeToCompletion / PROGRESS_MULTIPLIER;
 
 	return (
-		<div className="p-2 space-y-4 text-center bg-gray-800 border-2 border-gray-700 rounded">
+		<div className="p-2 space-y-4 text-center bg-stone-800 border-2 border-stone-700 rounded">
 			<div className="flex items-center justify-between">
 				<div className="flex items-center space-x-2 font-medium">
 					<Tooltip
 						label={
 							showLevelRequirement
 								? `At least level ${activity.levelRequirement} is required to perform this activity.`
-								: "You meet to level requirement for this activity."
+								: "You meet the level requirement for this activity."
 						}
 					>
-						<div className="flex items-center justify-center w-10 h-10 py-1 text-xs uppercase bg-gray-700 rounded select-none">
+						<div className="flex items-center justify-center w-10 h-10 py-1 text-xs uppercase bg-stone-700 rounded select-none">
 							{showLevelRequirement ? (
 								<div>
 									<div>Lvl</div>
@@ -77,7 +77,7 @@ export const ActivityCard = ({
 									<Popover.Button>
 										<InformationCircleIcon className="w-5 h-5" />
 									</Popover.Button>
-									<Popover.Panel className="absolute z-50 w-screen max-w-sm p-2 space-y-4 text-left bg-gray-800 border-2 border-gray-700 rounded">
+									<Popover.Panel className="absolute z-50 w-screen max-w-sm p-2 space-y-4 text-left bg-stone-800 border-2 border-stone-700 rounded">
 										{activity.requiredMaterialList && (
 											<RequiredMaterialListInformation requiredMaterialList={activity.requiredMaterialList} />
 										)}

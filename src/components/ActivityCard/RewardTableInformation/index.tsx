@@ -8,7 +8,7 @@ type RewardTableInformationProps = {
 
 export const RewardTableInformation = ({ rewardTable }: RewardTableInformationProps) => {
 	return (
-		<div className="space-y-2">
+		<div className="space-y-2 leading-none">
 			<div className="font-medium">Reward Table</div>
 			{Array.from(rewardTable).map(([materialKey, rewardStatistics]) => {
 				const material = materialList[materialKey];

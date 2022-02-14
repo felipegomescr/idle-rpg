@@ -40,7 +40,7 @@ export const Backpack = ({
 					return (
 						<Tooltip key={index} label={containerMaterial.description}>
 							<li>
-								<div className="flex flex-col items-center h-full p-2 space-y-2 border border-gray-900">
+								<div className="flex flex-col items-center h-full p-2 space-y-2 border-2 border-stone-700 rounded bg-stone-800 font-medium">
 									<div className="relative w-8 h-8">
 										<NextImage alt="" layout="fill" src={containerMaterial.icon} />
 									</div>

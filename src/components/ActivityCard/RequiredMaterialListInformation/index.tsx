@@ -8,7 +8,7 @@ type RequiredMaterialListInformationProps = {
 
 export const RequiredMaterialListInformation = ({ requiredMaterialList }: RequiredMaterialListInformationProps) => {
 	return (
-		<div className="space-y-2">
+		<div className="space-y-2 leading-none">
 			<div className="font-medium">Required Material List</div>
 			{Array.from(requiredMaterialList).map(([materialKey, number]) => {
 				const material = materialList[materialKey];
