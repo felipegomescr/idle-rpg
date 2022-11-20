@@ -9,7 +9,7 @@
 		"start": "next start"
 	},
 	"dependencies": {
-		"@fontsource/poppins": "4.5.1",
+		"@fontsource/poppins": "4.5.10",
 		"@headlessui/react": "1.5.0",
 		"@heroicons/react": "1.0.5",
 		"@reach/tooltip": "0.16.2",
